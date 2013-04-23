@@ -9,6 +9,8 @@ import javax.swing.JPanel;
 
 public class NotificationsPanel extends JPanel {
 
+	private static final long serialVersionUID = 1L;
+
 	public NotificationsPanel(){
 		super();
 		this.setBackground(new Color(236,234,224));

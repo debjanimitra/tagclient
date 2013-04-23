@@ -4,6 +4,8 @@ import javax.swing.*;
 import javax.swing.UIManager.*;
 import javax.swing.plaf.ColorUIResource;
 
+import edu.brown.cs32.vgavriel.connectorOnClient.Client;
+
 public class Main {
 
 	public static void main(String [] args){
@@ -19,7 +21,12 @@ public class Main {
 		//} catch (Exception e) {
 		 //   e.printStackTrace();
 		//}
-		MyFrame frame=new MyFrame();
+				
+		final String HOSTNAME = "localhost";
+		final int PORT = 5000;
+		
+		MyFrame frame = new MyFrame();
+		Client client = new Client(HOSTNAME, PORT);
 		
 		//UIManager.put("InternalFrame.activeTitleBackground", new ColorUIResource(Color.black ));
 		//UIManager.put("InternalFrame.activeTitleForeground", new ColorUIResource(Color.WHITE));

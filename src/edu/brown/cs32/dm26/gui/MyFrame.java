@@ -10,7 +10,8 @@ import javax.swing.JPanel;
 
 
 public class MyFrame extends JFrame {
-	
+	private static final long serialVersionUID = 1L;
+
 	public MyFrame(){
 		this.setVisible(true);
 		this.setPreferredSize(new Dimension(800, 600));
