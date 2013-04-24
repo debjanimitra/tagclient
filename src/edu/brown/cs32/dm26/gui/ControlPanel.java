@@ -82,7 +82,7 @@ public class ControlPanel extends JPanel {
 		_enterURL.setColumns(20);
 		_enterURL.setForeground(ColorConstants.DARK_GRAY);
 		_enterURL.setText("enter website & hit enter");
-		MyListener listener=new MyListener(_enterURL);
+		MyURLListener listener=new MyURLListener(changePanel, _enterURL);
 		_enterURL.addKeyListener(listener);
 		_enterURL.addMouseListener(listener);
 		JPanel random=new JPanel();
@@ -186,14 +186,16 @@ public class ControlPanel extends JPanel {
 		
 	}
 	
-	private class MyListener implements KeyListener, MouseListener{
+	private class MyURLListener implements KeyListener, MouseListener{
 
 		private JTextField _field;
 		private int _counter;
+		private JPanel _changePanel;
 
 		
-		public MyListener(JTextField field){
+		public MyURLListener(JPanel changePanel, JTextField field){
 			_field=field;
+			_changePanel=changePanel;
 			_counter=0;
 		}
 		
@@ -219,6 +221,17 @@ public class ControlPanel extends JPanel {
 			}
 			if (userInput.length()==0){	
 				_field.setText("  enter full website here");
+			}
+			System.out.println(e.getKeyChar());
+			if (e.getKeyChar()=='\n'){
+				_changePanel.removeAll();
+				String input=_field.getText().trim();
+				if (input.startsWith("http://")==false){
+					input="http://"+input;
+				}
+				_changePanel.add(new TagURLPanel());
+				_changePanel.repaint();
+				System.out.println("herehere");
 			}
 			
 			
@@ -339,6 +352,45 @@ public class ControlPanel extends JPanel {
 			_panel=panel;
 		}
 		
+		
+	}
+	
+	private class urlListener implements KeyListener{
+
+		private TextField _field;
+		private JPanel _changePanel;
+		
+		public urlListener(JPanel changePanel, TextField field){
+			_changePanel = changePanel;
+			_field = field;
+		}
+		
+		
+		@Override
+		public void keyTyped(KeyEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void keyPressed(KeyEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void keyReleased(KeyEvent e) {
+			// TODO Auto-generated method stub
+			System.out.println("here");
+			if (e.getKeyChar()==13){
+				_changePanel.removeAll();
+				String userInput=_field.getText().trim();
+				if (userInput.startsWith("http://")==false){
+					userInput="http://"+userInput;
+				}
+				_changePanel.add(new TagURLPanel());
+			}
+		}
 		
 	}
 	

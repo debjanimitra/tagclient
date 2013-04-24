@@ -217,7 +217,14 @@ private class PasswordListener implements KeyListener{
 					_changePanel.repaint();
 					_frame.repaint();
 				} else {
-					errors.add("    Username not found");
+					if(result != null){
+						if(result.getContent() == MessageContent.ERRORHANDSHAKE_MULTIPLELOGINS){
+							errors.add("    You're logged in elsewhere");
+						} else if (result.getContent() == MessageContent.ERRORHANDSHAKE_UNKNOWNUSER) {
+							errors.add("    Username not found");
+						}
+					}
+					
 					JPopupMenu pop = new JPopupMenu ();
 					pop.setSize(new Dimension(300, 100));
 					pop.setPreferredSize(new Dimension(300, 100));
