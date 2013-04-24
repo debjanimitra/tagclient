@@ -1,3 +1,4 @@
+package edu.brown.cs32.dm26.gui;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -15,6 +16,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 
+import edu.brown.cs32.vgavriel.connectorOnClient.Client;
+import edu.brown.cs32.vgavriel.connectorOnServer.Message;
+import edu.brown.cs32.vgavriel.connectorOnServer.MessageContent;
+
 
 public class RegistrationPanel extends JPanel {
 	
@@ -22,9 +27,11 @@ public class RegistrationPanel extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private Client _client;
 
-	public RegistrationPanel(MyFrame frame, JPanel changePanel){
+	public RegistrationPanel(MyFrame frame, JPanel changePanel, Client client){
 		super();
+		_client = client;
 		this.setSize(new Dimension(592, 475));
 		this.setPreferredSize(new Dimension (592, 475));
 		this.setBackground(ColorConstants.LIGHT_YELLOW);
@@ -272,14 +279,32 @@ public class RegistrationPanel extends JPanel {
 			}
 			
 			else {
-				_changePanel.removeAll();
-				_changePanel.add(new WelcomePanel(_usernameField.getText().trim()));
-				_changePanel.repaint();
-				_frame.getSignoutButton().setVisible(true);
-				_frame.getNotificationsButton().setEnabled(true);
-				_frame.getWebTagsButton().setEnabled(true);
-				_frame.getEnterURL().setEnabled(true);
-				_frame.repaint();
+				// HANDSHAKE:
+				String userName = _usernameField.getText();
+				Message result = _client.sendAndReceive(new Message(MessageContent.NEWUSERID, (Object) userName));
+				if(result != null && result.getContent() == MessageContent.DONE){
+					_frame.getSignoutButton().setVisible(true);
+					_frame.getNotificationsButton().setEnabled(true);
+					_frame.getWebTagsButton().setEnabled(true);
+					_frame.getEnterURL().setEnabled(true);
+					_changePanel.removeAll();
+					_changePanel.add(new WelcomePanel(_usernameField.getText().trim()));
+					_changePanel.repaint();
+					_frame.repaint();
+				} else {
+					errors.add("    Username not found");
+					JPopupMenu pop = new JPopupMenu ();
+					pop.setSize(new Dimension(300, 100));
+					pop.setPreferredSize(new Dimension(300, 100));
+					pop.setLayout(new GridLayout(errors.size()+1, 1));
+					JLabel title=new JLabel ("    You have the following error(s):");
+					pop.add(title);
+					for (int i=0; i<errors.size(); i++){
+						JLabel temp=new JLabel(errors.get(i));
+						pop.add(temp);
+					}
+					pop.show(_registration, 150, 50);
+				}
 				
 			}
 			

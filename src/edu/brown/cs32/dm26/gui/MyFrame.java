@@ -1,3 +1,4 @@
+package edu.brown.cs32.dm26.gui;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
@@ -6,17 +7,21 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import edu.brown.cs32.vgavriel.connectorOnClient.Client;
+
 
 public class MyFrame extends JFrame {
 	
+	//private Client client;
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	private ControlPanel _cp;
 	
-	public MyFrame(){
+	public MyFrame(Client client){
 		super("Welcome to TRAKR!");
+		//this.client = client;		
 		this.setVisible(true);
 		this.setPreferredSize(new Dimension(800, 600));
 		Container con=this.getContentPane();
@@ -26,7 +31,7 @@ public class MyFrame extends JFrame {
 		changePanel.setPreferredSize(new Dimension(592, 600));
 		changePanel.setBackground(ColorConstants.ORANGE);
 		changePanel.setLayout(new BorderLayout());
-		OpeningPanel openingPanel=new OpeningPanel(this, changePanel);
+		OpeningPanel openingPanel=new OpeningPanel(this, changePanel, client);
 		changePanel.add(openingPanel, BorderLayout.CENTER);
 		_cp=new ControlPanel(new Dimension(200, 600), this, changePanel, openingPanel);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);

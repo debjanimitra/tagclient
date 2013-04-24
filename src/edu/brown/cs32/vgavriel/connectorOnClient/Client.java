@@ -5,6 +5,9 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
+import edu.brown.cs32.vgavriel.connectorOnServer.Message;
+import edu.brown.cs32.vgavriel.connectorOnServer.MessageContent;
+
 public class Client
 {
 	private Socket socket;

@@ -1,3 +1,4 @@
+package edu.brown.cs32.dm26.gui;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -7,6 +8,10 @@ import java.util.ArrayList;
 
 import javax.swing.*;
 
+import edu.brown.cs32.vgavriel.connectorOnClient.Client;
+import edu.brown.cs32.vgavriel.connectorOnServer.Message;
+import edu.brown.cs32.vgavriel.connectorOnServer.MessageContent;
+
 
 public class LoginPanel extends Panel {
 
@@ -14,9 +19,11 @@ public class LoginPanel extends Panel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private Client _client;
 
-	public LoginPanel(RegistrationPanel rp, MyFrame frame, JPanel changePanel){
+	public LoginPanel(RegistrationPanel rp, MyFrame frame, JPanel changePanel, Client client){
 		super();
+		_client = client;
 		this.setSize(new Dimension(592, 125));
 		this.setPreferredSize(new Dimension (592, 125));
 		this.setBackground(ColorConstants.BRIGHT_YELLOW);
@@ -197,14 +204,32 @@ private class PasswordListener implements KeyListener{
 				pop.show(_registration, 150, 50);
 			}
 			else{
-				_frame.getSignoutButton().setVisible(true);
-				_frame.getNotificationsButton().setEnabled(true);
-				_frame.getWebTagsButton().setEnabled(true);
-				_frame.getEnterURL().setEnabled(true);
-				_changePanel.removeAll();
-				_changePanel.add(new WelcomePanel(_usernameField.getText().trim()));
-				_changePanel.repaint();
-				_frame.repaint();
+				// HANDSHAKE:
+				String userName = _usernameField.getText();
+				Message result = _client.sendAndReceive(new Message(MessageContent.USERID, (Object) userName));
+				if(result != null && result.getContent() == MessageContent.DONE){
+					_frame.getSignoutButton().setVisible(true);
+					_frame.getNotificationsButton().setEnabled(true);
+					_frame.getWebTagsButton().setEnabled(true);
+					_frame.getEnterURL().setEnabled(true);
+					_changePanel.removeAll();
+					_changePanel.add(new WelcomePanel(_usernameField.getText().trim()));
+					_changePanel.repaint();
+					_frame.repaint();
+				} else {
+					errors.add("    Username not found");
+					JPopupMenu pop = new JPopupMenu ();
+					pop.setSize(new Dimension(300, 100));
+					pop.setPreferredSize(new Dimension(300, 100));
+					pop.setLayout(new GridLayout(errors.size()+1, 1));
+					JLabel title=new JLabel ("    You have the following error(s):");
+					pop.add(title);
+					for (int i=0; i<errors.size(); i++){
+						JLabel temp=new JLabel(errors.get(i));
+						pop.add(temp);
+					}
+					pop.show(_registration, 150, 50);
+				}
 			}
 			
 			_usernameField.setText("");
