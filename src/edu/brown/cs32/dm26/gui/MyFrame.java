@@ -29,7 +29,6 @@ public class MyFrame extends JFrame {
 		JPanel changePanel=new JPanel();
 		changePanel.setSize(new Dimension(592, 600));
 		changePanel.setPreferredSize(new Dimension(592, 600));
-		changePanel.setBackground(ColorConstants.ORANGE);
 		changePanel.setLayout(new BorderLayout());
 		OpeningPanel openingPanel=new OpeningPanel(this, changePanel, client);
 		changePanel.add(openingPanel, BorderLayout.CENTER);

@@ -10,7 +10,8 @@ public class ColorConstants {
 	public static final Color BRIGHT_YELLOW = new Color(238, 221, 130);
 	public static final Color GREEN = new Color(151, 206, 104);
 	public static final Color BLUE = new Color(107, 203, 202);
-	public static final Color ORANGE = new Color(255, 180, 102);
+	public static final Color DARK_ORANGE = new Color(255, 180, 102);
+	public static final Color LIGHT_ORANGE = new Color(255, 194, 153);
 	public static final Color PINK = new Color(212, 63, 63);
 	public static final Color DARK_PINK = new Color(255, 182,193);
 	public static final Color LIGHT_PINK = new Color(255, 228, 225);

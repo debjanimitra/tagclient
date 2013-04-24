@@ -8,6 +8,8 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.TextField;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -15,81 +17,97 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import edu.brown.cs32.vgavriel.connectorOnClient.Client;
 
-public class EnterElementPanel extends JPanel{
 
-	private static final long serialVersionUID = 1L;
+public class EnterElementPanel extends JPanel {
+
+	private Client _client;
 	
-	public EnterElementPanel(){
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public EnterElementPanel(MyFrame frame, JPanel changePanel, Client client){
 		super();
+		_client = client;
 		this.setSize(new Dimension(592, 129));
 		this.setPreferredSize(new Dimension (592, 129));
-		this.setBackground(ColorConstants.DARK_PINK);
+		this.setBackground(ColorConstants.LIGHT_ORANGE);
 		this.setVisible(true);
-		Font font=new Font("Verdana", Font.BOLD, 10);
+		this.setLayout(new GridLayout(3, 1));
+		Font font=new Font("Verdana", Font.BOLD, 12);
 		
-		JLabel taggingPrompt=new JLabel("Please enter the first word(s) of the element you want to tag:");
-		taggingPrompt.setFont(font);
-		
-		JPanel labelPanel = new JPanel();
+		JLabel prompt=new JLabel("                          Enter the first word(s) of the element you want to tag:");
+		prompt.setFont(font);
+		JPanel labelPanel=new JPanel();
 		labelPanel.setSize(new Dimension(592, 43));
 		labelPanel.setPreferredSize(new Dimension(592, 43));
-		labelPanel.setBackground(ColorConstants.ORANGE);
-		labelPanel.setLayout(new GridBagLayout());
+		labelPanel.setBackground(ColorConstants.DARK_ORANGE);
+		labelPanel.setLayout(new BorderLayout());
+		labelPanel.add(prompt, BorderLayout.CENTER);
+		this.add(labelPanel);
+		
+		TextField elementField = new TextField();
+		elementField.setColumns(50);
+		elementField.setFont(font);
+		elementField.addKeyListener(new ElementFieldListener(frame, changePanel, client, elementField));
+		
+		JPanel ePanel=new JPanel();
+		ePanel.setSize(new Dimension(592, 100));
+		ePanel.setPreferredSize(new Dimension(592, 100));
+		ePanel.setBackground(ColorConstants.DARK_ORANGE);
+		ePanel.setLayout(new GridBagLayout());
 		GridBagConstraints c1=new GridBagConstraints();
-		c1.gridx=1;
-		c1.gridy=1;
-		labelPanel.add(taggingPrompt, c1);
+		c1.gridx=0;
+		c1.gridy=0;
+		ePanel.add(elementField, c1);
+		this.add(ePanel);
 		
-			
-		TextField inputField = new TextField();
-		inputField.setColumns(25);
-		inputField.setFont(font);
-		inputField.addKeyListener(new urlListener(inputField));
-		
-		JPanel inputPanel = new JPanel();
-		inputPanel.setSize(new Dimension(592, 43));
-		inputPanel.setPreferredSize(new Dimension(592, 43));
-		inputPanel.setBackground(ColorConstants.BLUE);
-		inputPanel.setLayout(new GridBagLayout());
-		inputPanel.setVisible(true);
-		GridBagConstraints c2=new GridBagConstraints();
-		c2.gridx=1;
-		c2.gridy=1;
-		inputPanel.add(inputField, c2);
-				
-		
-		JButton trakButton = new JButton ("trak this!");
+		JButton trakButton=new JButton("Trak this!");
 		trakButton.setBackground(ColorConstants.DARK_GRAY);
 		trakButton.setForeground(Color.WHITE);
-		trakButton.setSize(new Dimension(100, 33));
-		trakButton.setPreferredSize(new Dimension(100, 33));
-		
-		JPanel buttonPanel = new JPanel();
-		buttonPanel.setSize(new Dimension(592, 43));
-		buttonPanel.setPreferredSize(new Dimension(592, 43));
-		buttonPanel.setBackground(Color.BLACK);
-		buttonPanel.setLayout(new GridBagLayout());
-		GridBagConstraints c3=new GridBagConstraints();
-		c3.gridx=1;
-		c3.gridy=1;
-		buttonPanel.add(trakButton, c3);
-		
-		this.setLayout(new GridLayout(3, 1));
-		this.add(labelPanel);
-		this.add(buttonPanel);
-		this.add(inputPanel);
+		trakButton.setSize(new Dimension(100, 50));
+		trakButton.setPreferredSize(new Dimension(100, 50));
+		JPanel trakButtonPanel=new JPanel();
+		trakButtonPanel.setBackground(ColorConstants.DARK_ORANGE);
+		trakButtonPanel.setSize(new Dimension(592, 50));
+		trakButtonPanel.setPreferredSize(new Dimension(592, 50));
+		trakButtonPanel.setLayout(new GridBagLayout());
+		GridBagConstraints c8=new GridBagConstraints();
+		c8.anchor=GridBagConstraints.CENTER;
+		trakButtonPanel.add(trakButton, c8);		
+		trakButton.addActionListener(new TrakButtonListener());
+		this.add(trakButtonPanel);
+	}
+	
+	private class TrakButtonListener implements ActionListener{
 
-		System.out.println("eep");
+		public TrakButtonListener(){
+			
+		}
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
 		
 	}
 	
-	private class urlListener implements KeyListener{
+	private class ElementFieldListener implements KeyListener{
 
-		private TextField _urlField;
+		private MyFrame _frame;
+		private JPanel _changePanel;
+		private Client _client;
+		private TextField _field;
 		
-		public urlListener(TextField urlField){
-			_urlField=urlField;
+		public ElementFieldListener(MyFrame frame, JPanel changePanel, Client client, TextField elementField){
+			_frame=frame;
+			_changePanel=changePanel;
+			_client=client;
+			_field=elementField;
 		}
 		
 		@Override
@@ -109,6 +127,8 @@ public class EnterElementPanel extends JPanel{
 			// TODO Auto-generated method stub
 			
 		}
+		
+		
 		
 	}
 

@@ -77,12 +77,12 @@ public class ControlPanel extends JPanel {
 		enterURLPanel.setSize(new Dimension(200, 50));
 		enterURLPanel.setPreferredSize(new Dimension(200, 50));
 		_enterURL=new JTextField();
+		_enterURL.setForeground(ColorConstants.DARK_GRAY);
 		_enterURL.setEnabled(false);
 		_enterURL.setFont(websiteFont);
 		_enterURL.setColumns(20);
-		_enterURL.setForeground(ColorConstants.DARK_GRAY);
 		_enterURL.setText("enter website & hit enter");
-		MyURLListener listener=new MyURLListener(changePanel, _enterURL);
+		MyURLListener listener=new MyURLListener(frame, changePanel, client, _enterURL);
 		_enterURL.addKeyListener(listener);
 		_enterURL.addMouseListener(listener);
 		JPanel random=new JPanel();
@@ -191,12 +191,17 @@ public class ControlPanel extends JPanel {
 		private JTextField _field;
 		private int _counter;
 		private JPanel _changePanel;
-
+		private MyFrame _frame;
+		private Client _client;
 		
-		public MyURLListener(JPanel changePanel, JTextField field){
+		
+		public MyURLListener(MyFrame frame, JPanel changePanel, Client client, JTextField field){
+			_frame=frame;
 			_field=field;
 			_changePanel=changePanel;
+			_client=client;
 			_counter=0;
+			
 		}
 		
 		@Override
@@ -229,8 +234,12 @@ public class ControlPanel extends JPanel {
 				if (input.startsWith("http://")==false){
 					input="http://"+input;
 				}
-				_changePanel.add(new TagURLPanel());
+				TagURLPanel tag = new TagURLPanel(userInput, _frame, _changePanel, _client );
+				_changePanel.add(tag);
 				_changePanel.repaint();
+				_changePanel.revalidate();
+				_frame.repaint();
+				_frame.revalidate();
 				System.out.println("herehere");
 			}
 			
@@ -352,45 +361,6 @@ public class ControlPanel extends JPanel {
 			_panel=panel;
 		}
 		
-		
-	}
-	
-	private class urlListener implements KeyListener{
-
-		private TextField _field;
-		private JPanel _changePanel;
-		
-		public urlListener(JPanel changePanel, TextField field){
-			_changePanel = changePanel;
-			_field = field;
-		}
-		
-		
-		@Override
-		public void keyTyped(KeyEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void keyPressed(KeyEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void keyReleased(KeyEvent e) {
-			// TODO Auto-generated method stub
-			System.out.println("here");
-			if (e.getKeyChar()==13){
-				_changePanel.removeAll();
-				String userInput=_field.getText().trim();
-				if (userInput.startsWith("http://")==false){
-					userInput="http://"+userInput;
-				}
-				_changePanel.add(new TagURLPanel());
-			}
-		}
 		
 	}
 	
