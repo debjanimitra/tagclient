@@ -33,7 +33,7 @@ public class MyFrame extends JFrame {
 		changePanel.setLayout(new BorderLayout());
 		OpeningPanel openingPanel=new OpeningPanel(this, changePanel, client);
 		changePanel.add(openingPanel, BorderLayout.CENTER);
-		_cp=new ControlPanel(new Dimension(200, 600), this, changePanel, openingPanel);
+		_cp=new ControlPanel(new Dimension(200, 600), this, changePanel, openingPanel, client);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setResizable(false);
 		this.setLayout(new BorderLayout());

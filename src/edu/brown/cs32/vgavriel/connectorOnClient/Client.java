@@ -10,10 +10,13 @@ import edu.brown.cs32.vgavriel.connectorOnServer.MessageContent;
 
 public class Client
 {
-	private Socket socket;
+	private Socket standardSocket;
+	private Socket receiveThreadSocket;
 	private int port;
-	private ObjectInputStream input;
-	private ObjectOutputStream output;
+	private ObjectInputStream standardInput;
+	private ObjectOutputStream standardOutput;
+	private ObjectInputStream receiveThreadInput;
+	private ObjectOutputStream receiveThreadOutput;
 	private String hostname;
 	private boolean serverRunning;
 
@@ -35,10 +38,16 @@ public class Client
 		while(!serverRunning){
 			numTimesConnecting++;
 			try{
-				socket = new Socket(this.hostname, this.port);
-				output = new ObjectOutputStream(socket.getOutputStream());
-				output.flush();
-				input = new ObjectInputStream(socket.getInputStream());
+				standardSocket = new Socket(this.hostname, this.port);
+				receiveThreadSocket = new Socket(this.hostname, this.port + 1);
+				standardOutput = new ObjectOutputStream(standardSocket.getOutputStream());
+				standardOutput.flush();
+				standardInput = new ObjectInputStream(standardSocket.getInputStream());
+				
+				receiveThreadOutput = new ObjectOutputStream(receiveThreadSocket.getOutputStream());
+				receiveThreadOutput.flush();
+				receiveThreadInput = new ObjectInputStream(receiveThreadSocket.getInputStream());
+				
 				serverRunning = true;
 			}
 			catch(IOException e){
@@ -59,8 +68,8 @@ public class Client
 		boolean success = false;
 		while(!success){
 			try{
-				output.writeObject(message);
-				output.flush();
+				standardOutput.writeObject(message);
+				standardOutput.flush();
 				success = true;
 			}
 			catch(IOException e){
@@ -72,12 +81,14 @@ public class Client
 
 	public Message sendAndReceive(Message message)
 	{
+		System.out.println("before send");
 		send(message);
+		System.out.println("after send, before receive");
 		Message result = null;
 		while(result == null){
 			try{
-				result = (Message) input.readObject();
-
+				result = (Message) standardInput.readObject();
+				System.out.println("after receive");
 			}
 			catch(ClassNotFoundException e1){
 				System.err.println("ERROR: Can't find class Message.");
@@ -90,11 +101,14 @@ public class Client
 		return result;
 	}
 
-	public void kill() throws IOException
+	public void kill()
 	{
-		socket.close();
-		input.close();
-		output.close();
+		try{
+			standardSocket.close();
+			receiveThreadSocket.close();
+			standardInput.close();
+			standardOutput.close();
+		} catch (IOException e){/*can't do anything here*/}
 	}
 
 
@@ -108,7 +122,7 @@ public class Client
 			//to the client.
 			while(serverRunning){        		
 				try {
-					Message message = (Message) input.readObject();
+					Message message = (Message) receiveThreadInput.readObject();
 					if(message != null){
 						if(message.getContent() == MessageContent.NOTIFICATION){
 							//TODO: display the notification to the User

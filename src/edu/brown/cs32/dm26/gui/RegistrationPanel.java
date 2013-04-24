@@ -292,7 +292,7 @@ public class RegistrationPanel extends JPanel {
 					_changePanel.repaint();
 					_frame.repaint();
 				} else {
-					errors.add("    Username not found");
+					errors.add("    Username already exists");
 					JPopupMenu pop = new JPopupMenu ();
 					pop.setSize(new Dimension(300, 100));
 					pop.setPreferredSize(new Dimension(300, 100));

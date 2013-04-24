@@ -11,6 +11,8 @@ import java.awt.event.MouseListener;
 import javax.swing.*;
 import javax.swing.border.Border;
 
+import edu.brown.cs32.vgavriel.connectorOnClient.Client;
+
 
 
 public class ControlPanel extends JPanel {
@@ -21,9 +23,11 @@ public class ControlPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private JButton _signoutButton, _notificationsButton, _webTagsButton;
 	private JTextField _enterURL;
+	private Client _client;
 
-	public ControlPanel(Dimension dimension, MyFrame frame, JPanel changePanel, JPanel openingPanel){
+	public ControlPanel(Dimension dimension, MyFrame frame, JPanel changePanel, JPanel openingPanel, Client client){
 		super();
+		_client = client;
 		this.setSize(dimension);
 		this.setPreferredSize(dimension);
 		this.setBackground(ColorConstants.LIGHT_GRAY);
@@ -169,6 +173,7 @@ public class ControlPanel extends JPanel {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
+			_client.kill();
 			_ptc.removeAll();
 			_ptc.add(_op);
 			_signout.setVisible(false);
