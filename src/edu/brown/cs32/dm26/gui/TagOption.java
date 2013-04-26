@@ -18,10 +18,8 @@ import javax.swing.JPopupMenu;
 import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.LineBorder;
-
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-
 import edu.brown.cs32.dcorrea.htmlparsing.ElementInfo;
 import edu.brown.cs32.dcorrea.htmlparsing.HTMLParsing;
 import edu.brown.cs32.takhan.tag.Data;
@@ -37,7 +35,7 @@ public class TagOption extends JPanel {
 	private static final long serialVersionUID = 1L;
 
 	
-	public TagOption(Element element, Client client, String username, Document doc, String url, HTMLParsing parser){
+	public TagOption(Element element, Client client, String username, Document doc, String url, HTMLParsing parser, AllTagOptionsPanel allTag){
 		super();
 		this.setSize(new Dimension(590, 90));
 		this.setPreferredSize(new Dimension(590, 90));
@@ -62,7 +60,7 @@ public class TagOption extends JPanel {
 		selectPanel.setPreferredSize(new Dimension(590, 30));
 		selectPanel.setBackground(ColorConstants.LIGHT_ORANGE);
 		JButton selectButton=new JButton ("select this!");
-		selectButton.addActionListener(new MySelectListener(this, client, element, username, doc, url, parser, customFont));
+		selectButton.addActionListener(new MySelectListener(allTag, client, element, username, doc, url, parser, customFont));
 		selectButton.setBackground(ColorConstants.DARK_GRAY);
 		selectButton.setForeground(ColorConstants.DARK_ORANGE);
 		selectPanel.setLayout(new GridBagLayout());
@@ -82,11 +80,11 @@ public class TagOption extends JPanel {
 		private String _username;
 		private Document _doc;
 		private String _url;
-		private TagOption _panel;
+		private AllTagOptionsPanel _panel;
 		private HTMLParsing _parser;
 		private Font _font;
 		
-		public MySelectListener(TagOption panel, Client client, Element element, String username, Document doc, String url, HTMLParsing parser, Font font){
+		public MySelectListener(AllTagOptionsPanel panel, Client client, Element element, String username, Document doc, String url, HTMLParsing parser, Font font){
 			_client=client;
 			_element=element;
 			_username=username;
@@ -103,31 +101,51 @@ public class TagOption extends JPanel {
 			
 			ElementInfo info=_parser.canBePermanent(_element);
 			boolean perm=info.getPerm();
-			Data toSend = new Data(_element.text(),_url,_element.id(),_element.className(),_username,_doc,perm);		
-			JPopupMenu pop = new JPopupMenu ();
+			Data toSend = new Data(_element.text(),_url,_element.id(),_element.className(),_username,_doc.select("body").text(),perm);		
+
 			if (perm == true){
 				JPopupMenu pop2=new JPopupMenu();
+				pop2.setSize(new Dimension(200 , 200));
+				pop2.setPreferredSize(new Dimension(200, 200));
 				JLabel question=new JLabel ("We can TRAK this element indefinitely. Would you like that?");
 				question.setFont(_font);
+				JButton yes=new JButton("Yup");
 				JButton no=new JButton("No, thanks!");
 				no.setSize(new Dimension(50, 50));
 				no.setPreferredSize(new Dimension(50, 50));
 				no.setBackground(ColorConstants.DARK_GRAY);
 				no.setForeground(Color.WHITE);
-				no.setFont(_font);
+				yes.setFont(_font);
+				yes.setSize(new Dimension(50, 50));
+				yes.setPreferredSize(new Dimension(50, 50));
+				yes.setBackground(ColorConstants.DARK_GRAY);
+				yes.setForeground(Color.WHITE);
+				yes.setFont(_font);
 				JPanel permPanel=new JPanel();
 				permPanel.setSize(new Dimension(100, 70));
 				permPanel.setPreferredSize(new Dimension(100, 70));
 				permPanel.setLayout(new GridLayout());
 				permPanel.add(question);
 				permPanel.add(no);
-				no.addActionListener(new noListener(toSend));
-				pop2.show(_panel, 200, 0);
-			}
+				no.addActionListener(new NoListener(toSend, pop2));
+				yes.addActionListener(new YesListener(pop2));
+				pop2.show(_panel, 250, 250);
+			} 
 			
-			pop.setLayout(new BorderLayout());
+			
+			JPopupMenu pop = new JPopupMenu ();
+			pop.setLayout(new BorderLayout());			
 			String title="";			
 			Message result = _client.sendAndReceive(new Message(MessageContent.DATA, (Object) toSend));
+			
+			System.out.println("message received back");
+			try {
+				Thread.sleep(3000);
+			} catch (InterruptedException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
 			if(result == null){
 				title="The message received back from the server is null!";
 			} else if(result.getContent() == MessageContent.DONE){
@@ -139,18 +157,19 @@ public class TagOption extends JPanel {
 			}
 			
 			int length=title.length();
-			pop.setSize(new Dimension(5*length, 50));
-			pop.setPreferredSize(new Dimension(5*length, 50));
+			pop.setSize(new Dimension(7*length, 50));
+			pop.setPreferredSize(new Dimension(10*length, 50));
 			JLabel label=new JLabel(title);
 			pop.add(label);
-			pop.show(_panel, 200, 0);
+			pop.show(_panel, 250, 250);
 		}
 		
-		private class noListener implements ActionListener{
+		private class NoListener implements ActionListener{
 			
 			private Data _data;
+			private JPopupMenu _pop;
 			
-			public noListener(Data data){
+			public NoListener(Data data, JPopupMenu pop){
 				_data=data;
 			}
 			
@@ -160,6 +179,20 @@ public class TagOption extends JPanel {
 				_data.setPerm(false);
 			}
 			
+		}
+		
+		private class YesListener implements ActionListener{
+			
+			private JPopupMenu _pop;
+			
+			public YesListener(JPopupMenu pop){
+				_pop=pop;
+			}
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+			}
 		}
 		
 	}

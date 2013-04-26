@@ -29,7 +29,7 @@ public class AllTagOptionsPanel extends JPanel {
 		for (int i=0; i<elementOptions.size(); i++){
 			Element ele=elementOptions.get(i);
 			System.out.println(ele.text());
-			TagOption tag=new TagOption(ele, client, username, doc, url, parser);
+			TagOption tag=new TagOption(ele, client, username, doc, url, parser, this);
 			_options.add(tag);
 		}
 		System.out.println("Size of arraylist is "+elementOptions.size());

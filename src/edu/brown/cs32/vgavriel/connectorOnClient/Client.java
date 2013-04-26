@@ -73,6 +73,13 @@ public class Client
 				success = true;
 			}
 			catch(IOException e){
+				e.printStackTrace();
+				try {
+					Thread.sleep(100000);
+				} catch (InterruptedException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				connectToServer();
 				success = false;
 			}
