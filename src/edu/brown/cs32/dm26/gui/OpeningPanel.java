@@ -8,7 +8,7 @@ import edu.brown.cs32.vgavriel.connectorOnClient.Client;
 public class OpeningPanel extends JPanel {
 
 	/**
-	 * 
+	 * This is the first panel the user sees on the right, even before the user has logged in
 	 */
 	private static final long serialVersionUID = 1L;
 

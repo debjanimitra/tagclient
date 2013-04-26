@@ -16,8 +16,10 @@ import edu.brown.cs32.vgavriel.connectorOnServer.MessageContent;
 public class LoginPanel extends Panel {
 
 	/**
-	 * 
+	 * This panel is the darker yellow panel on the top of the screen where the user can enter
+	 * information to log in only if the user is already registered 
 	 */
+	
 	private static final long serialVersionUID = 1L;
 	private Client _client;
 
@@ -208,6 +210,7 @@ private class PasswordListener implements KeyListener{
 				String userName = _usernameField.getText();
 				Message result = _client.sendAndReceive(new Message(MessageContent.USERID, (Object) userName));
 				if(result != null && result.getContent() == MessageContent.DONE){
+					_frame.setUsername(userName);
 					_frame.getSignoutButton().setVisible(true);
 					_frame.getNotificationsButton().setEnabled(true);
 					_frame.getWebTagsButton().setEnabled(true);

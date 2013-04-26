@@ -1,8 +1,5 @@
 package edu.brown.cs32.dm26.gui;
-import java.awt.*;
-import javax.swing.*;
-import javax.swing.UIManager.*;
-import javax.swing.plaf.ColorUIResource;
+
 
 import edu.brown.cs32.vgavriel.connectorOnClient.Client;
 
@@ -15,7 +12,7 @@ public class Main {
 		
 		
 		Client client = new Client(HOSTNAME, PORT);
-		MyFrame frame = new MyFrame(client);
+		new MyFrame(client);
 	}
 	
 }

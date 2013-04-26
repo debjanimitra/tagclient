@@ -6,18 +6,28 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-
 import edu.brown.cs32.vgavriel.connectorOnClient.Client;
 
 
 public class MyFrame extends JFrame {
 	
-	//private Client client;
 	/**
+	 * This class models the frame on which the applications UI is. 
+	 * The frame cannot be resized.
+	 * The frame has 2 separate parts: 
+	 * 		The control panel on the left
+	 * 		The change panel on the right
 	 * 
+	 * Throughout the execution of the program, the control panel remains in 
+	 * its position, unchanged. The user can navigate options on the control panel.
+	 * 
+	 * The change panel, as its name suggests, changes. These changes depend on 
+	 * the selections that the user has made on the control panel. 
 	 */
+	
 	private static final long serialVersionUID = 1L;
 	private ControlPanel _cp;
+	private String _username;
 	
 	public MyFrame(Client client){
 		super("Welcome to TRAKR!");
@@ -26,6 +36,12 @@ public class MyFrame extends JFrame {
 		this.setPreferredSize(new Dimension(800, 600));
 		Container con=this.getContentPane();
 		con.setBackground(ColorConstants.LIGHT_GRAY);
+		
+		/**
+		 * I havent created a separte class for the changePanel. The changePanel is just a JPanel
+		 * whose components are updated based on where the user has navigated
+		 */
+		_username=null;
 		JPanel changePanel=new JPanel();
 		changePanel.setSize(new Dimension(592, 600));
 		changePanel.setPreferredSize(new Dimension(592, 600));
@@ -39,6 +55,14 @@ public class MyFrame extends JFrame {
 		this.add(changePanel, BorderLayout.EAST);
 		this.add(_cp, BorderLayout.WEST);
 		this.pack();
+	}
+	
+	public void setUsername(String username){
+		_username=username;
+	}
+	
+	public String getUsername(){
+		return _username;
 	}
 	
 	public JButton getSignoutButton(){

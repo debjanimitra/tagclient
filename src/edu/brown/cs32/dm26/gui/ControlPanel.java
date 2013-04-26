@@ -11,6 +11,7 @@ import java.awt.event.MouseListener;
 import javax.swing.*;
 import javax.swing.border.Border;
 
+import edu.brown.cs32.dcorrea.htmlparsing.HTMLParsing;
 import edu.brown.cs32.vgavriel.connectorOnClient.Client;
 
 
@@ -18,6 +19,10 @@ import edu.brown.cs32.vgavriel.connectorOnClient.Client;
 public class ControlPanel extends JPanel {
 	
 	/**
+	 * 
+	 * This panel models the panel on the left containing the Notification button, the Webtags button, 
+	 * the text area to enter the URL and the Sign Out button in the bottom (which appears only once the user
+	 * has logged in).  
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
@@ -173,6 +178,7 @@ public class ControlPanel extends JPanel {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
+			_frame.setUsername(null);
 			_client.kill();
 			_ptc.removeAll();
 			_ptc.add(_op);
@@ -201,7 +207,6 @@ public class ControlPanel extends JPanel {
 			_changePanel=changePanel;
 			_client=client;
 			_counter=0;
-			
 		}
 		
 		@Override
@@ -234,7 +239,8 @@ public class ControlPanel extends JPanel {
 				if (input.startsWith("http://")==false){
 					input="http://"+input;
 				}
-				TagURLPanel tag = new TagURLPanel(userInput, _frame, _changePanel, _client );
+				HTMLParsing parser=new HTMLParsing(input);
+				TagURLPanel tag = new TagURLPanel(_frame, _changePanel, _client, parser, input);
 				_changePanel.add(tag);
 				_changePanel.repaint();
 				_changePanel.revalidate();

@@ -1,4 +1,4 @@
-package edu.brown.cs32.dm26.gui;
+/*package edu.brown.cs32.dm26.gui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,11 +12,16 @@ import edu.brown.cs32.vgavriel.connectorOnClient.Client;
 import edu.brown.cs32.vgavriel.connectorOnServer.Message;
 import edu.brown.cs32.vgavriel.connectorOnServer.MessageContent;
 
+
+*//**
+ * @author dm26
+ *
+ *//*
 public class SelectThisButton extends JButton {
 	
-	/**
+	*//**
 	 * 
-	 */
+	 *//*
 	private static final long serialVersionUID = 1L;
 
 	public SelectThisButton(OptionsPanel options, Client client){
@@ -53,3 +58,4 @@ public class SelectThisButton extends JButton {
 	}
 
 }
+*/

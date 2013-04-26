@@ -24,8 +24,9 @@ import edu.brown.cs32.vgavriel.connectorOnServer.MessageContent;
 public class RegistrationPanel extends JPanel {
 	
 	/**
-	 * 
+	 * This is the lighter yellow panel on the bottom of the screen where a new user can register 
 	 */
+	
 	private static final long serialVersionUID = 1L;
 	private Client _client;
 
@@ -160,12 +161,11 @@ public class RegistrationPanel extends JPanel {
 		
 		private TextField _field;
 		private String _userInput;
-		private boolean _startAfresh;
+
 		
 		public PasswordListener(TextField field){
 			_field=field;
 			_userInput="";
-			_startAfresh=true;
 		}
 
 		@Override
@@ -283,6 +283,7 @@ public class RegistrationPanel extends JPanel {
 				String userName = _usernameField.getText();
 				Message result = _client.sendAndReceive(new Message(MessageContent.NEWUSERID, (Object) userName));
 				if(result != null && result.getContent() == MessageContent.DONE){
+					_frame.setUsername(userName);
 					_frame.getSignoutButton().setVisible(true);
 					_frame.getNotificationsButton().setEnabled(true);
 					_frame.getWebTagsButton().setEnabled(true);
