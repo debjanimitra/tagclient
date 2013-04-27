@@ -21,7 +21,8 @@ public class TagURLPanel extends JPanel {
 		this.setLayout(new BorderLayout());
 		this.setBackground(ColorConstants.LIGHT_ORANGE);
 		this.validate();
-		BelowElementPanel below=new BelowElementPanel();
+		BelowElementPanel below=new BelowElementPanel(frame);
+		below.setBackground(ColorConstants.LIGHT_ORANGE);
 		_elementPanel = new EnterElementPanel(frame, changePanel, client, parser, below, url);
 		this.add(_elementPanel, BorderLayout.NORTH);
 		this.add(below);

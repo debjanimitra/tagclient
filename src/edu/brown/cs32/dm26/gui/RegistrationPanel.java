@@ -171,20 +171,20 @@ public class RegistrationPanel extends JPanel {
 		@Override
 		public void keyTyped(KeyEvent e) {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		@Override
 		public void keyPressed(KeyEvent e) {
 			// TODO Auto-generated method stub
-			
+		
 		}
 
 		@Override
 		public void keyReleased(KeyEvent e) {
 			// TODO Auto-generated method stub
 			//String _userInput= _field.getText();
-			System.out.println("Text field says "+_field.getText());
+	System.out.println("Text field says "+_field.getText());
 			
 			if (_field.getText().trim().length()<=1){
 				_userInput="";

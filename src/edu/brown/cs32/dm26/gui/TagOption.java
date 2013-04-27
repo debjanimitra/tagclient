@@ -7,6 +7,7 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -37,23 +38,123 @@ public class TagOption extends JPanel {
 	
 	public TagOption(Element element, Client client, String username, Document doc, String url, HTMLParsing parser, AllTagOptionsPanel allTag){
 		super();
-		this.setSize(new Dimension(590, 90));
-		this.setPreferredSize(new Dimension(590, 90));
+		this.setSize(new Dimension(590, 160));
+		this.setPreferredSize(new Dimension(590, 160));
 		this.setBackground(ColorConstants.LIGHT_ORANGE);
 		Border border=BorderFactory.createEtchedBorder(EtchedBorder.LOWERED);
 		this.setBorder(border);
 		Font customFont=new Font("Verdana", Font.PLAIN, 12);
 		String text=element.text();
-		int start=40, end=40;
-		if (text.length()<40){
-			start=(int)0.4*text.length();
+		int start=50, end=50;
+		if (text.length()<50){
+			start=(int)0.5*text.length();
 			end=start;
 		}
-		JLabel startLabel=new JLabel("This element begins with: "+text.substring(0, start));
-		JLabel endLabel= new JLabel("This element ends with: "+text.substring(text.length()-end, text.length()));
-		this.setLayout(new GridLayout(3, 1));
+		System.out.println("Start is:"+start);
+		System.out.println("End is:"+end);
+
+		if (text.charAt(start)!=' '){
+			while (text.charAt(start)!=' '){
+				start--;
+			}
+		}
+		
+		if (text.charAt(end)!=' '){
+			while(text.charAt(end)!=' '){
+				end--;
+			}
+		}
+		
+		JLabel startLabel=new JLabel("This element begins with : "+text.substring(0, start));
+		JLabel endLabel= new JLabel("This element ends with : "+text.substring(text.length()-end, text.length()));
+		this.setLayout(new GridLayout(4, 1));
+		
+	/**	JPanel fillerPanel1 = new JPanel();
+		fillerPanel1.setBackground(ColorConstants.LIGHT_ORANGE);
+		fillerPanel1.setSize(new Dimension(590, 5));
+		fillerPanel1.setPreferredSize(new Dimension(590, 5));
+		this.add(fillerPanel1); **/
+		
 		this.add(startLabel);
 		this.add(endLabel);
+		
+	/**	JPanel titlePanel=new JPanel();
+		titlePanel.setSize(new Dimension(590, 100));
+		titlePanel.setPreferredSize(new Dimension(590, 100));
+		titlePanel.setBackground(ColorConstants.LIGHT_ORANGE);
+		
+		
+		JPanel anotherPanel=new JPanel();
+		anotherPanel.setSize(new Dimension(590, 20));
+		anotherPanel.setPreferredSize(new Dimension(590, 20));
+		anotherPanel.setBackground(ColorConstants.LIGHT_ORANGE);
+		anotherPanel.setLayout(new BorderLayout());
+		JLabel title=new JLabel("Give a name to this tag (optional):");
+		title.setFont(customFont);
+		anotherPanel.add(title, BorderLayout.CENTER); **/
+		
+
+		JLabel label=new JLabel("Name this element b4 selecting (OPTIONAL):");
+		label.setFont(customFont);
+		JPanel labelPanel=new JPanel();
+		labelPanel.setSize(new Dimension(150, 30));
+		labelPanel.setPreferredSize(new Dimension(150, 30));
+		labelPanel.setBackground(ColorConstants.LIGHT_ORANGE);
+		labelPanel.add(label);
+		
+		
+		TextField titleField = new TextField();
+		titleField.setColumns(30);
+		titleField.setFont(customFont);
+		titleField.setSize(new Dimension(200, 30));
+		titleField.setPreferredSize(new Dimension(200, 30));
+		
+		JPanel tPanel=new JPanel();
+		tPanel.setSize(new Dimension(200, 30));
+		tPanel.setPreferredSize(new Dimension(200, 30));
+		tPanel.setBackground(ColorConstants.LIGHT_ORANGE);
+		tPanel.setLayout(new GridBagLayout());
+		GridBagConstraints c1=new GridBagConstraints();
+		c1.gridx=0;
+		c1.gridy=0;
+		tPanel.add(titleField, c1);
+		this.add(tPanel);
+		
+		JPanel random=new JPanel();
+		random.setSize(new Dimension(140, 30));
+		random.setPreferredSize(new Dimension(140, 30));
+		random.setBackground(ColorConstants.LIGHT_ORANGE);
+		
+		JPanel optionPanel=new JPanel();
+		optionPanel.setSize(new Dimension(590, 30));
+		optionPanel.setPreferredSize(new Dimension(590, 30));
+		optionPanel.setBackground(ColorConstants.LIGHT_ORANGE);
+		optionPanel.setLayout(new GridLayout(1,2));
+		optionPanel.add(labelPanel);
+		optionPanel.add(tPanel);
+	//	optionPanel.add(random);
+		this.add(optionPanel);
+		
+	/**	titlePanel.setLayout(new GridLayout());
+		GridBagConstraints c1=new GridBagConstraints();
+		c1.anchor=GridBagConstraints.LINE_START;
+		titlePanel.add(anotherPanel, c1);
+		GridBagConstraints c2=new GridBagConstraints();
+		c2.anchor=GridBagConstraints.CENTER;
+		titlePanel.add(yetAnotherPanel, c2); */
+		
+/**		titlePanel.setLayout(new BorderLayout());
+		titlePanel.add(anotherPanel, BorderLayout.NORTH);
+		titlePanel.add(yetAnotherPanel, BorderLayout.SOUTH); 
+		
+		this.add(titlePanel); **/
+		
+	/**	JPanel fillerPanel2 = new JPanel();
+		fillerPanel2.setBackground(ColorConstants.LIGHT_ORANGE);
+		fillerPanel2.setSize(new Dimension(590, 30));
+		fillerPanel2.setPreferredSize(new Dimension(590, 30));
+		this.add(fillerPanel2); **/
+		
 		
 		JPanel selectPanel=new JPanel();
 		selectPanel.setSize(new Dimension(590, 30));
@@ -64,10 +165,17 @@ public class TagOption extends JPanel {
 		selectButton.setBackground(ColorConstants.DARK_GRAY);
 		selectButton.setForeground(ColorConstants.DARK_ORANGE);
 		selectPanel.setLayout(new GridBagLayout());
-		GridBagConstraints c1=new GridBagConstraints();
-		c1.anchor=GridBagConstraints.CENTER;
-		selectPanel.add(selectButton, c1);
+		GridBagConstraints c3=new GridBagConstraints();
+		c3.anchor=GridBagConstraints.CENTER;
+		selectPanel.add(selectButton, c3);
 		this.add(selectPanel);
+		
+	/**	JPanel fillerPanel3 = new JPanel();
+		fillerPanel3.setBackground(ColorConstants.LIGHT_ORANGE);
+		fillerPanel3.setSize(new Dimension(590, 5));
+		fillerPanel3.setPreferredSize(new Dimension(590, 5));
+		this.add(fillerPanel3);
+	**/
 		
 		this.setFont(customFont);
 		this.setVisible(true);

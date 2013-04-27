@@ -218,13 +218,6 @@ public class ControlPanel extends JPanel {
 		@Override
 		public void keyPressed(KeyEvent e) {
 			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void keyReleased(KeyEvent e) {
-			// TODO Auto-generated method stub
-			
 			String userInput=_field.getText();
 			if (e.getKeyCode()==10){
 				System.out.println("Now open url");
@@ -248,9 +241,11 @@ public class ControlPanel extends JPanel {
 				_frame.revalidate();
 				System.out.println("herehere");
 			}
-			
-			
-			
+		}
+
+		@Override
+		public void keyReleased(KeyEvent e) {
+			// TODO Auto-generated method stub
 			
 		}
 
