@@ -36,7 +36,7 @@ public class AllTagOptionsPanel extends JPanel {
 		}
 		System.out.println("Size of arraylist is "+elementOptions.size());
 		int width=590;
-		int height=_options.size()*160;
+		int height=_options.size()*190;
 		this.setSize(new Dimension(width, height));
 		this.setPreferredSize(new Dimension(width, height));
 		this.setLayout(new GridLayout(_options.size(), 1));

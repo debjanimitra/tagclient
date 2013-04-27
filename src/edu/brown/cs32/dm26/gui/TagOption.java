@@ -12,10 +12,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
+import javax.swing.JRadioButton;
 import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.LineBorder;
@@ -45,29 +47,29 @@ public class TagOption extends JPanel {
 		this.setBorder(border);
 		Font customFont=new Font("Verdana", Font.PLAIN, 12);
 		String text=element.text();
-		int start=50, end=50;
-		if (text.length()<50){
-			start=(int)0.5*text.length();
+		int start=40, end=40;
+		if (text.length()<40){
+			start=(int)0.4*text.length();
 			end=start;
 		}
 		System.out.println("Start is:"+start);
 		System.out.println("End is:"+end);
 
 		if (text.charAt(start)!=' '){
-			while (text.charAt(start)!=' '){
+			while (text.charAt(start)!=' ' && start>0){
 				start--;
 			}
 		}
 		
 		if (text.charAt(end)!=' '){
-			while(text.charAt(end)!=' '){
-				end--;
+			while(text.charAt(end)!=' ' && end<text.length()-1){
+				end++;
 			}
 		}
 		
 		JLabel startLabel=new JLabel("This element begins with : "+text.substring(0, start));
 		JLabel endLabel= new JLabel("This element ends with : "+text.substring(text.length()-end, text.length()));
-		this.setLayout(new GridLayout(4, 1));
+		this.setLayout(new GridLayout(5, 1));
 		
 	/**	JPanel fillerPanel1 = new JPanel();
 		fillerPanel1.setBackground(ColorConstants.LIGHT_ORANGE);
@@ -97,8 +99,8 @@ public class TagOption extends JPanel {
 		JLabel label=new JLabel("Name this element b4 selecting (OPTIONAL):");
 		label.setFont(customFont);
 		JPanel labelPanel=new JPanel();
-		labelPanel.setSize(new Dimension(150, 30));
-		labelPanel.setPreferredSize(new Dimension(150, 30));
+		labelPanel.setSize(new Dimension(130, 30));
+		labelPanel.setPreferredSize(new Dimension(130, 30));
 		labelPanel.setBackground(ColorConstants.LIGHT_ORANGE);
 		labelPanel.add(label);
 		
@@ -155,13 +157,55 @@ public class TagOption extends JPanel {
 		fillerPanel2.setPreferredSize(new Dimension(590, 30));
 		this.add(fillerPanel2); **/
 		
+		JPanel permPanel=new JPanel();
+		permPanel.setSize(new Dimension(590, 30));
+		permPanel.setPreferredSize(new Dimension(590, 30));
+		permPanel.setBackground(ColorConstants.LIGHT_ORANGE);
+		
+
+		JLabel label1=new JLabel("Do you want to TRAK this permanently?");
+		label1.setFont(customFont);
+		JPanel labelPanel1=new JPanel();
+		labelPanel1.setSize(new Dimension(310, 30));
+		labelPanel1.setPreferredSize(new Dimension(310, 30));
+		labelPanel1.setBackground(ColorConstants.LIGHT_ORANGE);
+		labelPanel1.add(label1); 
+
+		
+		 JRadioButton firstButton = new JRadioButton("Yes");
+		 firstButton.setSelected(false);
+		 firstButton.setBackground(ColorConstants.LIGHT_ORANGE);
+		 if (parser.canBePermanent(element).getPerm()==false){
+			 firstButton.setEnabled(false);
+		 }
+		 JRadioButton secondButton = new JRadioButton("No");
+		 secondButton.setSelected(true);
+		 secondButton.setBackground(ColorConstants.LIGHT_ORANGE);
+		 
+		    // Group the radio buttons.
+		 ButtonGroup group = new ButtonGroup();
+		 group.add(firstButton);
+		 group.add(secondButton);
+		
+		JPanel buttonPanel=new JPanel();
+		buttonPanel.setSize(new Dimension(280, 30));
+		buttonPanel.setPreferredSize(new Dimension(280, 30));
+		buttonPanel.setBackground(ColorConstants.LIGHT_ORANGE);
+		buttonPanel.setLayout(new GridLayout(1, 2));
+		buttonPanel.add(firstButton);
+		buttonPanel.add(secondButton);
+		
+		permPanel.setLayout(new BorderLayout());
+		permPanel.add(labelPanel1, BorderLayout.WEST);
+		permPanel.add(buttonPanel, BorderLayout.CENTER);
+		this.add(permPanel);
 		
 		JPanel selectPanel=new JPanel();
 		selectPanel.setSize(new Dimension(590, 30));
 		selectPanel.setPreferredSize(new Dimension(590, 30));
 		selectPanel.setBackground(ColorConstants.LIGHT_ORANGE);
 		JButton selectButton=new JButton ("select this!");
-		selectButton.addActionListener(new MySelectListener(allTag, client, element, username, doc, url, parser, customFont));
+		selectButton.addActionListener(new MySelectListener(allTag, client, element, username, doc, url, parser, customFont, titleField, secondButton, this));
 		selectButton.setBackground(ColorConstants.DARK_GRAY);
 		selectButton.setForeground(ColorConstants.DARK_ORANGE);
 		selectPanel.setLayout(new GridBagLayout());
@@ -191,8 +235,11 @@ public class TagOption extends JPanel {
 		private AllTagOptionsPanel _panel;
 		private HTMLParsing _parser;
 		private Font _font;
+		private TextField _titleField;
+		private JRadioButton _noButton;
+		private TagOption _option;
 		
-		public MySelectListener(AllTagOptionsPanel panel, Client client, Element element, String username, Document doc, String url, HTMLParsing parser, Font font){
+		public MySelectListener(AllTagOptionsPanel panel, Client client, Element element, String username, Document doc, String url, HTMLParsing parser, Font font, TextField titleField, JRadioButton noButton, TagOption option){
 			_client=client;
 			_element=element;
 			_username=username;
@@ -201,45 +248,17 @@ public class TagOption extends JPanel {
 			_panel=panel;
 			_parser=parser;
 			_font=font;
+			_titleField=titleField;
+			_noButton=noButton;
+			_option=option;
 		}
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
 			
-			ElementInfo info=_parser.canBePermanent(_element);
-			boolean perm=info.getPerm();
+			boolean perm=(!(_noButton.isSelected()));
 			Data toSend = new Data(_element.text(),_url,_element.id(),_element.className(),_username,_doc.select("body").text(),perm);		
-
-			if (perm == true){
-				JPopupMenu pop2=new JPopupMenu();
-				pop2.setSize(new Dimension(200 , 200));
-				pop2.setPreferredSize(new Dimension(200, 200));
-				JLabel question=new JLabel ("We can TRAK this element indefinitely. Would you like that?");
-				question.setFont(_font);
-				JButton yes=new JButton("Yup");
-				JButton no=new JButton("No, thanks!");
-				no.setSize(new Dimension(50, 50));
-				no.setPreferredSize(new Dimension(50, 50));
-				no.setBackground(ColorConstants.DARK_GRAY);
-				no.setForeground(Color.WHITE);
-				yes.setFont(_font);
-				yes.setSize(new Dimension(50, 50));
-				yes.setPreferredSize(new Dimension(50, 50));
-				yes.setBackground(ColorConstants.DARK_GRAY);
-				yes.setForeground(Color.WHITE);
-				yes.setFont(_font);
-				JPanel permPanel=new JPanel();
-				permPanel.setSize(new Dimension(100, 70));
-				permPanel.setPreferredSize(new Dimension(100, 70));
-				permPanel.setLayout(new GridLayout());
-				permPanel.add(question);
-				permPanel.add(no);
-				no.addActionListener(new NoListener(toSend, pop2));
-				yes.addActionListener(new YesListener(pop2));
-				pop2.show(_panel, 250, 250);
-			} 
-			
 			
 			JPopupMenu pop = new JPopupMenu ();
 			pop.setLayout(new BorderLayout());			
@@ -266,42 +285,13 @@ public class TagOption extends JPanel {
 			
 			int length=title.length();
 			pop.setSize(new Dimension(7*length, 50));
-			pop.setPreferredSize(new Dimension(10*length, 50));
+			pop.setPreferredSize(new Dimension(7*length, 50));
+			pop.setBackground(ColorConstants.EVEN_LIGHTER_GRAY);
 			JLabel label=new JLabel(title);
+			label.setFont(_font);
 			pop.add(label);
-			pop.show(_panel, 250, 250);
-		}
-		
-		private class NoListener implements ActionListener{
-			
-			private Data _data;
-			private JPopupMenu _pop;
-			
-			public NoListener(Data data, JPopupMenu pop){
-				_data=data;
-			}
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				_data.setPerm(false);
-			}
-			
-		}
-		
-		private class YesListener implements ActionListener{
-			
-			private JPopupMenu _pop;
-			
-			public YesListener(JPopupMenu pop){
-				_pop=pop;
-			}
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-			}
-		}
+			pop.show(_panel, 100, 400);
+		}		
 		
 	}
 	
