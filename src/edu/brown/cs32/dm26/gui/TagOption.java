@@ -175,7 +175,8 @@ public class TagOption extends JPanel {
 		 JRadioButton firstButton = new JRadioButton("Yes");
 		 firstButton.setSelected(false);
 		 firstButton.setBackground(ColorConstants.LIGHT_ORANGE);
-		 if (parser.canBePermanent(element).getPerm()==false){
+		 boolean perm=parser.canBePermanent(element).getPerm();
+		 if (perm==false){
 			 firstButton.setEnabled(false);
 		 }
 		 JRadioButton secondButton = new JRadioButton("No");
@@ -205,7 +206,7 @@ public class TagOption extends JPanel {
 		selectPanel.setPreferredSize(new Dimension(590, 30));
 		selectPanel.setBackground(ColorConstants.LIGHT_ORANGE);
 		JButton selectButton=new JButton ("select this!");
-		selectButton.addActionListener(new MySelectListener(allTag, client, element, username, doc, url, parser, customFont, titleField, secondButton, this));
+		selectButton.addActionListener(new MySelectListener(allTag, client, element, username, doc, url, parser, customFont, titleField, secondButton, this, perm));
 		selectButton.setBackground(ColorConstants.DARK_GRAY);
 		selectButton.setForeground(ColorConstants.DARK_ORANGE);
 		selectPanel.setLayout(new GridBagLayout());
@@ -238,8 +239,9 @@ public class TagOption extends JPanel {
 		private TextField _titleField;
 		private JRadioButton _noButton;
 		private TagOption _option;
+		private boolean _canBePermanent;
 		
-		public MySelectListener(AllTagOptionsPanel panel, Client client, Element element, String username, Document doc, String url, HTMLParsing parser, Font font, TextField titleField, JRadioButton noButton, TagOption option){
+		public MySelectListener(AllTagOptionsPanel panel, Client client, Element element, String username, Document doc, String url, HTMLParsing parser, Font font, TextField titleField, JRadioButton noButton, TagOption option, boolean canBePermanent){
 			_client=client;
 			_element=element;
 			_username=username;
@@ -251,6 +253,7 @@ public class TagOption extends JPanel {
 			_titleField=titleField;
 			_noButton=noButton;
 			_option=option;
+			_canBePermanent=canBePermanent;
 		}
 		
 		@Override
@@ -259,6 +262,7 @@ public class TagOption extends JPanel {
 			
 			boolean perm=(!(_noButton.isSelected()));
 			Data toSend = new Data(_element.text(),_url,"#"+_element.id(),"."+_element.className(),_username,_doc.select("body").text(), _titleField.getText(), perm);		
+
 			
 			JPopupMenu pop = new JPopupMenu ();
 			pop.setLayout(new BorderLayout());			

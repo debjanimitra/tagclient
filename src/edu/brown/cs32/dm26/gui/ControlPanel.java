@@ -315,7 +315,7 @@ public class ControlPanel extends JPanel {
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
 
-			JPanel panel=new NotificationsPanel();
+			NotificationsPanel panel=new NotificationsPanel();
 			_ptc.removeAll();
 			_ptc.add(panel);
 	//		_ptc.invalidate();
@@ -343,9 +343,10 @@ public class ControlPanel extends JPanel {
 		private JPanel _ptc;
 		private JPanel _panel;
 		private NotificationsListener _nl;
-		private JFrame _frame;
+		private MyFrame _frame;
+		private HTMLParsing _parser;
 		
-		public WebTagsListener(JFrame frame, JPanel panelToChange, JPanel panel, NotificationsListener nl){
+		public WebTagsListener(MyFrame frame, JPanel panelToChange, JPanel panel, NotificationsListener nl){
 			_frame=frame;
 			_ptc=panelToChange;
 			_panel=panel;
@@ -357,7 +358,7 @@ public class ControlPanel extends JPanel {
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
 
-			JPanel panel=new WebTagsPanel(_client);
+			WebTagsPanel panel=new WebTagsPanel(_client, _frame);
 			_ptc.removeAll();
 			_ptc.add(panel);
 		//	_ptc.invalidate();
