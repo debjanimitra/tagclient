@@ -110,6 +110,7 @@ public class Client
 			try{
 				standardOutput.writeObject(message);
 				standardOutput.flush();
+				standardOutput.reset();
 				success = true;
 			}
 			catch(IOException e){
