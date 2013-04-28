@@ -24,7 +24,7 @@ public class WebTagOption extends JPanel {
 	
 	public WebTagOption(Data data){
 		super();
-		this.setBackground(ColorConstants.GREEN);
+		this.setBackground(ColorConstants.PALE_GREEN);
 		this.setSize(new Dimension(590, 200));
 		this.setPreferredSize(new Dimension(590, 200));
 		Border border=BorderFactory.createEtchedBorder(EtchedBorder.LOWERED);

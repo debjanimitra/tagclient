@@ -35,8 +35,9 @@ public class AllWebTagsPanel extends JPanel {
 			if (message.getContent()== MessageContent.DONE_GETWEBTAGS){
 				System.out.println("Got here");
 				_options = new ArrayList<WebTagOption>();
+				@SuppressWarnings("unchecked")
 				ArrayListMultimap<String, Data> result = (ArrayListMultimap<String, Data>) message.getObject();
-				
+				System.out.println("result size "+ result.size());
 				Collection<Data> data=result.values();
 				System.out.println("Size of data"+data.size());
 				for (Data d: data){

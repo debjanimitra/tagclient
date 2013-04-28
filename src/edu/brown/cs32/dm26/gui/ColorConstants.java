@@ -4,6 +4,7 @@ import java.awt.Color;
 
 public class ColorConstants {
 	
+	public static final Color PALE_GREEN=new Color(143, 188, 143);
 	public static final Color DARK_GREEN = new Color(46, 139, 87);
 	public static final Color EVEN_LIGHTER_GRAY= new Color(211,211,211);
 	public static final Color LIGHT_GRAY = new Color(189, 186, 180);

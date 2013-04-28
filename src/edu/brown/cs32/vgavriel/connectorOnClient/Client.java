@@ -10,7 +10,10 @@ import java.net.Socket;
 import javax.swing.JLabel;
 import javax.swing.JPopupMenu;
 
+import com.google.common.collect.ArrayListMultimap;
+
 import edu.brown.cs32.dm26.gui.WelcomePanel;
+import edu.brown.cs32.takhan.tag.Data;
 import edu.brown.cs32.vgavriel.connectorOnServer.Message;
 import edu.brown.cs32.vgavriel.connectorOnServer.MessageContent;
 
@@ -132,6 +135,10 @@ public class Client
 		while(result == null){
 			try{
 				result = (Message) standardInput.readObject();
+				if(result != null && result.getContent() == MessageContent.DONE_GETWEBTAGS){
+					ArrayListMultimap<String, Data> d = (ArrayListMultimap<String, Data>) result.getObject();
+					System.out.println("freshly received size: " + d.size());
+				}
 				System.out.println("after receive");
 			}
 			catch(ClassNotFoundException e1){

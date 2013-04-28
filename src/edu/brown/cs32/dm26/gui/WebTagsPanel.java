@@ -38,9 +38,9 @@ public class WebTagsPanel extends JPanel {
 		this.setLayout(new BorderLayout());
 		this.add(_scroller, BorderLayout.CENTER);
 		_scroller.revalidate();
+		AllWebTagsPanel panel=new AllWebTagsPanel(client, this, frame);
 		this.revalidate();
 		this.repaint();
-		AllWebTagsPanel panel=new AllWebTagsPanel(client, this, frame);
 	}
 	
 	public void changePanel(AllWebTagsPanel newPanel, MyFrame frame){
