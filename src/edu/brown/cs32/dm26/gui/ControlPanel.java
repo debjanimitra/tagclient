@@ -12,6 +12,8 @@ import java.net.UnknownHostException;
 import javax.swing.*;
 import javax.swing.border.Border;
 
+import org.jsoup.HttpStatusException;
+
 import edu.brown.cs32.dcorrea.htmlparsing.HTMLParsing;
 import edu.brown.cs32.vgavriel.connectorOnClient.Client;
 
@@ -245,6 +247,8 @@ public class ControlPanel extends JPanel {
 					System.out.println("herehere");
 				} catch (UnknownHostException e1) {
 					// this website does not exist (maybe try with adding "www." in front of it and try again?
+				} catch (HttpStatusException e1) {
+					// there might actually be a typo in the URL, the entered website doesn't exist
 				}
 				
 			}

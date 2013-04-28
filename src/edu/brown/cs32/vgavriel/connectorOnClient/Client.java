@@ -1,10 +1,16 @@
 package edu.brown.cs32.vgavriel.connectorOnClient;
 
+import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
+import javax.swing.JLabel;
+import javax.swing.JPopupMenu;
+
+import edu.brown.cs32.dm26.gui.WelcomePanel;
 import edu.brown.cs32.vgavriel.connectorOnServer.Message;
 import edu.brown.cs32.vgavriel.connectorOnServer.MessageContent;
 
@@ -48,6 +54,8 @@ public class Client
 				receiveThreadOutput.flush();
 				receiveThreadInput = new ObjectInputStream(receiveThreadSocket.getInputStream());
 				
+				
+				
 				serverRunning = true;
 			}
 			catch(IOException e){
@@ -62,6 +70,35 @@ public class Client
 		}
 		System.out.println("Connected to the server.");
 	}
+	
+/*	public void handShake(){
+		// HANDSHAKE:
+		String userName = _userName;
+		Message result = sendAndReceive(new Message(MessageContent.USERID, (Object) userName));
+		if(result != null && result.getContent() == MessageContent.DONE){
+			
+		} else {
+			if(result != null){
+				if(result.getContent() == MessageContent.ERRORHANDSHAKE_MULTIPLELOGINS){
+					errors.add("    You're logged in elsewhere");
+				} else if (result.getContent() == MessageContent.ERRORHANDSHAKE_UNKNOWNUSER) {
+					errors.add("    Username not found");
+				}
+			}
+			
+			JPopupMenu pop = new JPopupMenu ();
+			pop.setSize(new Dimension(300, 100));
+			pop.setPreferredSize(new Dimension(300, 100));
+			pop.setLayout(new GridLayout(errors.size()+1, 1));
+			JLabel title=new JLabel ("    You have the following error(s):");
+			pop.add(title);
+			for (int i=0; i<errors.size(); i++){
+				JLabel temp=new JLabel(errors.get(i));
+				pop.add(temp);
+			}
+			pop.show(_registration, 150, 50);
+		}
+	}*/
 
 	public void send(Message message)
 	{
@@ -136,6 +173,7 @@ public class Client
 							// Perhaps this will be a list of all notifications??????
 							// Thus, will it be good for the server to always send notifications
 							// in a list??
+							System.out.println("GOT A NOTIFICATION!");
 						}
 					}
 				} catch (IOException e) {
