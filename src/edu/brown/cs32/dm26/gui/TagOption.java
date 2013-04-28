@@ -265,18 +265,12 @@ public class TagOption extends JPanel {
 			String title="";			
 			Message result = _client.sendAndReceive(new Message(MessageContent.DATA, (Object) toSend));
 			
-			System.out.println("message received back");
-			try {
-				Thread.sleep(3000);
-			} catch (InterruptedException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+			System.out.println("message received back");			
 			
 			if(result == null){
 				title="The message received back from the server is null!";
 			} else if(result.getContent() == MessageContent.DONE){
-				title="Succes! We received the request and will TRAK your element";
+				title="Success! We received the request and will TRAK your element";
 			} else if(result.getContent() == MessageContent.ERROR_RECEIVE_TAGALREADYEXISTS){
 				title="we're already TRAKing this for you!";
 			} else if(result.getContent() == MessageContent.ERROR_RECEIVE_INVALIDDATA) {

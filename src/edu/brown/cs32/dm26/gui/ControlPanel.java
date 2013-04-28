@@ -6,6 +6,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.net.UnknownHostException;
 
 
 import javax.swing.*;
@@ -232,14 +233,20 @@ public class ControlPanel extends JPanel {
 				if (input.startsWith("http://")==false){
 					input="http://"+input;
 				}
-				HTMLParsing parser=new HTMLParsing(input);
-				TagURLPanel tag = new TagURLPanel(_frame, _changePanel, _client, parser, input);
-				_changePanel.add(tag);
-				_changePanel.repaint();
-				_changePanel.revalidate();
-				_frame.repaint();
-				_frame.revalidate();
-				System.out.println("herehere");
+				HTMLParsing parser;
+				try {
+					parser = new HTMLParsing(input);
+					TagURLPanel tag = new TagURLPanel(_frame, _changePanel, _client, parser, input);
+					_changePanel.add(tag);
+					_changePanel.repaint();
+					_changePanel.revalidate();
+					_frame.repaint();
+					_frame.revalidate();
+					System.out.println("herehere");
+				} catch (UnknownHostException e1) {
+					// this website does not exist (maybe try with adding "www." in front of it and try again?
+				}
+				
 			}
 		}
 
