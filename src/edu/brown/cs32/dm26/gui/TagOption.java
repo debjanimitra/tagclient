@@ -261,7 +261,8 @@ public class TagOption extends JPanel {
 			// TODO Auto-generated method stub
 			
 			boolean perm=(!(_noButton.isSelected()));
-			Data toSend = new Data(_element.text(),_url,_element.id(),_element.className(),_username,_doc.select("body").text(), _titleField.getText(), perm, _canBePermanent);		
+			Data toSend = new Data(_element.text(),_url,"#"+_element.id(),"."+_element.className(),_username,_doc.select("body").text(), _titleField.getText(), perm);		
+
 			
 			JPopupMenu pop = new JPopupMenu ();
 			pop.setLayout(new BorderLayout());			
