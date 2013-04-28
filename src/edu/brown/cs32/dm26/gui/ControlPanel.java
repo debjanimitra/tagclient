@@ -353,7 +353,7 @@ public class ControlPanel extends JPanel {
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
 
-			JPanel panel=new WebTagsPanel();
+			JPanel panel=new WebTagsPanel(_client);
 			_ptc.removeAll();
 			_ptc.add(panel);
 		//	_ptc.invalidate();

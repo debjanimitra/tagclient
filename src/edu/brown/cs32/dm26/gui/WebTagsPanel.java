@@ -4,15 +4,19 @@ import java.awt.Dimension;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import edu.brown.cs32.vgavriel.connectorOnClient.Client;
+
 
 public class WebTagsPanel extends JPanel {
 
 	/**
 	 * 
 	 */
+	
 	private static final long serialVersionUID = 1L;
+	private Client client;
 
-	public WebTagsPanel(){
+	public WebTagsPanel(Client client){
 		super();
 		this.setBackground(ColorConstants.GREEN);
 		this.setSize(new Dimension(600, 600));
