@@ -29,19 +29,24 @@ public class AllWebTagsPanel extends JPanel {
 	public AllWebTagsPanel(Client client, WebTagsPanel parentPanel, MyFrame frame){
 		super();
 		Message message = client.sendAndReceive(new Message(MessageContent.GET_WEBTAGS, null));
+		System.out.println("Before null check");
 		if (message !=null){
+			System.out.println("msg not null");
 			if (message.getContent()== MessageContent.DONE_GETWEBTAGS){
-				
+				System.out.println("Got here");
 				_options = new ArrayList<WebTagOption>();
 				ArrayListMultimap<String, Data> result = (ArrayListMultimap<String, Data>) message.getObject();
+				
 				Collection<Data> data=result.values();
+				System.out.println("Size of data"+data.size());
 				for (Data d: data){
+					System.out.println("YAYEEEE");
 					WebTagOption option=new WebTagOption(d);
 					_options.add(option);
 				}
 				
-			 int width=600;
-			 int height=_options.size()*190;
+			 int width=590;
+			 int height=_options.size()*200;
 			 this.setSize(new Dimension(width, height));
 			 this.setPreferredSize(new Dimension(width, height));
 			 this.setLayout(new GridLayout(_options.size(), 1));
@@ -55,6 +60,11 @@ public class AllWebTagsPanel extends JPanel {
 				// something must be terribly wrong. received wrong message from server
 			}
 		}
+		parentPanel.repaint();
+		parentPanel.revalidate();	
+		frame.repaint();
+		frame.revalidate();
+		System.out.println("After null check");
 	}
 
 }

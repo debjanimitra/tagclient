@@ -8,7 +8,7 @@ public class Main {
 	public static void main(String [] args){
 				
 		final String HOSTNAME = "localhost";
-		final int PORT = 5000;
+		final int PORT = 6000;
 		
 		
 		Client client = new Client(HOSTNAME, PORT);

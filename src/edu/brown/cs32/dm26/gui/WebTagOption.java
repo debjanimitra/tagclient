@@ -48,11 +48,13 @@ public class WebTagOption extends JPanel {
 			this.add(labelPerm);
 		}
 		
+	
+		
+		JLabel lineLOL=new JLabel("________________________________________________________________________________________________________");
+		lineLOL.setFont(customFont1);
+		this.add(lineLOL);
 		
 		Font customFont2=new Font("Verdana", Font.PLAIN, 12);
-		JLabel prompt=new JLabel("Make changes you want below (all OPTIONAL)");
-		prompt.setFont(customFont2);
-		
 		
 		/**
 		 * 
@@ -146,7 +148,7 @@ public class WebTagOption extends JPanel {
 		JPanel savePanel=new JPanel();
 		savePanel.setSize(new Dimension(590, 30));
 		savePanel.setPreferredSize(new Dimension(590, 30));
-		savePanel.setBackground(ColorConstants.BLUE);
+		savePanel.setBackground(ColorConstants.GREEN);
 		JButton saveButton=new JButton ("Save");
 		//selectButton.addActionListener(new MySelectListener(allTag, client, element, username, doc, url, parser, customFont, titleField, secondButton, this, perm));
 		saveButton.setBackground(ColorConstants.DARK_GRAY);
@@ -157,6 +159,7 @@ public class WebTagOption extends JPanel {
 		savePanel.add(saveButton, c3);
 		this.add(savePanel);
 	
+		System.out.println("Done adding this");
 		
 	}
 

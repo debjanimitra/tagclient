@@ -17,27 +17,30 @@ public class WebTagsPanel extends JPanel {
 	 */
 	
 	private static final long serialVersionUID = 1L;
-	private Client client;
-	private AllWebTagsPanel _toAdd;
+	private JPanel _toAdd;
 	private JScrollPane _scroller;
 
 	public WebTagsPanel(Client client, MyFrame frame){
-		this.setSize(new Dimension(600, 600));
-		this.setPreferredSize(new Dimension (600, 600));
+		this.setSize(new Dimension(590, 600));
+		this.setPreferredSize(new Dimension (590, 600));
 		this.setBackground(ColorConstants.GREEN);
 		this.setVisible(true);
-		_toAdd=new AllWebTagsPanel(client, this, frame);
-		_toAdd.setSize(new Dimension(600, 570));
-		_toAdd.setPreferredSize(new Dimension(600, 570));
-		_toAdd.setBackground(ColorConstants.GREEN);
+		System.out.println("before instantiating all webtags panel");
 		_scroller=new JScrollPane(_toAdd);
 		_scroller.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		_scroller.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		_scroller.setBackground(ColorConstants.GREEN);
 		_scroller.setSize(new Dimension(590, 570));
 		_scroller.setPreferredSize(new Dimension(590, 570));
+		_toAdd=new JPanel();
+		_toAdd.setBackground(ColorConstants.GREEN);
+		_scroller.setViewportView(_toAdd);
 		this.setLayout(new BorderLayout());
 		this.add(_scroller, BorderLayout.CENTER);
+		_scroller.revalidate();
+		this.revalidate();
+		this.repaint();
+		AllWebTagsPanel panel=new AllWebTagsPanel(client, this, frame);
 	}
 	
 	public void changePanel(AllWebTagsPanel newPanel, MyFrame frame){
@@ -53,5 +56,7 @@ public class WebTagsPanel extends JPanel {
 		frame.repaint();
 		frame.revalidate();
 		_scroller.revalidate();
-	}
+	} 
+	
+	
 }
