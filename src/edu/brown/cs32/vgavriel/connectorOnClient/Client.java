@@ -192,7 +192,9 @@ public class Client
 							if (notifications.size()<=0){
 								notificationButton.setText("Notifications");
 							}
-							notificationButton.setText("Notification("+notifications.size()+")");
+							else{
+								notificationButton.setText("Notifications ("+notifications.size()+")");
+							}
 							System.out.println("GOT NOTIFICATIONS!");
 						}
 					}

@@ -30,8 +30,8 @@ public class WebTagsPanel extends JPanel {
 		_scroller.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		_scroller.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		_scroller.setBackground(ColorConstants.GREEN);
-		_scroller.setSize(new Dimension(590, 570));
-		_scroller.setPreferredSize(new Dimension(590, 570));
+		_scroller.setSize(new Dimension(590, 573));
+		_scroller.setPreferredSize(new Dimension(590, 573));
 		_toAdd=new JPanel();
 		_toAdd.setBackground(ColorConstants.GREEN);
 		_scroller.setViewportView(_toAdd);

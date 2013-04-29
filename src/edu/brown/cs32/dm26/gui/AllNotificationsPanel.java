@@ -19,7 +19,7 @@ import edu.brown.cs32.vgavriel.connectorOnServer.MessageContent;
 
 public class AllNotificationsPanel extends JPanel {
 	
-	private ArrayList<NotificationOption> _option;
+	private ArrayList<NotificationOption> _options;
 	
 	/**
 	 * 
@@ -36,18 +36,25 @@ public class AllNotificationsPanel extends JPanel {
 			System.out.println("msg not null");
 			if (message.getContent()== MessageContent.DONE_GETNOTIFICATIONS){
 				System.out.println("Got here");
-				_option = new ArrayList<NotificationOption>();
+				_options = new ArrayList<NotificationOption>();
 				@SuppressWarnings("unchecked")
 				ArrayList<Notification> result = (ArrayList<Notification>) message.getObject();
+				if (result.size()>0){
+					frame.getNotificationsButton().setText("Notifications ("+result.size()+")");
+				}
+				else{
+					frame.getNotificationsButton().setText("Notifications");
+				}
+				
 				System.out.println("result size "+ result.size());
 				for (Notification n: result){
 					System.out.println("YAYEEEE");
-					Notification option=new NotificationOption(d, this, frame, client, result, parentPanel);
+					NotificationOption option=new NotificationOption(this, frame, client, result, parentPanel, n);
 					_options.add(option);
 				}
 				
 			 int width=590;
-			 int height=_options.size()*250;
+			 int height=_options.size()*100;
 			 this.setSize(new Dimension(width, height));
 			 this.setPreferredSize(new Dimension(width, height));
 			 this.setLayout(new GridLayout(_options.size(), 1));

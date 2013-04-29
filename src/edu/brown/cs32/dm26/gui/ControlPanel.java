@@ -42,7 +42,7 @@ public class ControlPanel extends JPanel {
 		this.setLayout(new BorderLayout());
 		Border lineBorder=BorderFactory.createLineBorder(ColorConstants.PINK);
 		this.setBorder(lineBorder);
-		Font buttonFont=new Font("Verdana", Font.BOLD, 19);
+		Font buttonFont=new Font("Verdana", Font.BOLD, 17);
 		Font websiteFont=new Font("Verdana", Font.BOLD, 14);
 
 		
@@ -143,6 +143,7 @@ public class ControlPanel extends JPanel {
 		_signoutButton=new JButton ("Sign out");
 		_signoutButton.setBackground(ColorConstants.DARK_GRAY);
 		_signoutButton.setForeground(ColorConstants.BRIGHT_YELLOW);
+		_signoutButton.setFont(websiteFont);
 		this.add(_signoutButton, BorderLayout.SOUTH);
 		_signoutButton.setVisible(false);
 		_signoutButton.addActionListener(new SignoutListener(frame, openingPanel, changePanel, _signoutButton));
@@ -188,6 +189,7 @@ public class ControlPanel extends JPanel {
 			_ptc.add(_op);
 			_signout.setVisible(false);
 			_frame.getNotificationsButton().setEnabled(false);
+			_frame.getNotificationsButton().setText("Notifications");
 			_frame.getWebTagsButton().setEnabled(false);
 			_frame.getEnterURL().setEnabled(false);
 			_ptc.repaint();
@@ -303,9 +305,9 @@ public class ControlPanel extends JPanel {
 		private JPanel _ptc;
 		private JPanel _panel;
 		private WebTagsListener _wtl;
-		private JFrame _frame;
+		private MyFrame _frame;
 		
-		public NotificationsListener(JFrame frame, JPanel panelToChange, JPanel panel){
+		public NotificationsListener(MyFrame frame, JPanel panelToChange, JPanel panel){
 			_frame=frame;
 			_ptc=panelToChange;
 			_panel=panel;
@@ -316,7 +318,7 @@ public class ControlPanel extends JPanel {
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
 
-			NotificationsPanel panel=new NotificationsPanel();
+			NotificationsPanel panel=new NotificationsPanel(_client, _frame);
 			_ptc.removeAll();
 			_ptc.add(panel);
 	//		_ptc.invalidate();
