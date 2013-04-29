@@ -11,12 +11,15 @@ import javax.swing.JScrollPane;
 import com.google.common.collect.ArrayListMultimap;
 
 import edu.brown.cs32.takhan.tag.Data;
+import edu.brown.cs32.takhan.tag.Notification;
 import edu.brown.cs32.vgavriel.connectorOnClient.Client;
 import edu.brown.cs32.vgavriel.connectorOnServer.Message;
 import edu.brown.cs32.vgavriel.connectorOnServer.MessageContent;
 
 
 public class AllNotificationsPanel extends JPanel {
+	
+	private ArrayList<NotificationOption> _option;
 	
 	/**
 	 * 
@@ -27,7 +30,42 @@ public class AllNotificationsPanel extends JPanel {
 	public AllNotificationsPanel(Client client, NotificationsPanel parentPanel, MyFrame frame){
 		super();
 		this.setBackground(ColorConstants.BLUE);
-		
+		Message message = client.sendAndReceive(new Message(MessageContent.GET_NOTIFICATIONS, null));
+		System.out.println("Before null check");
+		if (message !=null){
+			System.out.println("msg not null");
+			if (message.getContent()== MessageContent.DONE_GETNOTIFICATIONS){
+				System.out.println("Got here");
+				_option = new ArrayList<NotificationOption>();
+				@SuppressWarnings("unchecked")
+				ArrayList<Notification> result = (ArrayList<Notification>) message.getObject();
+				System.out.println("result size "+ result.size());
+				for (Notification n: result){
+					System.out.println("YAYEEEE");
+					Notification option=new NotificationOption(d, this, frame, client, result, parentPanel);
+					_options.add(option);
+				}
+				
+			 int width=590;
+			 int height=_options.size()*250;
+			 this.setSize(new Dimension(width, height));
+			 this.setPreferredSize(new Dimension(width, height));
+			 this.setLayout(new GridLayout(_options.size(), 1));
+			 for (int i=0; i<_options.size(); i++){
+				 this.add(_options.get(i));
+			 }
+			 
+			 parentPanel.changePanel(this, frame);
+				
+			} else {
+				// something must be terribly wrong. received wrong message from server
+			}
+		}
+		parentPanel.repaint();
+		parentPanel.revalidate();	
+		frame.repaint();
+		frame.revalidate();
+		System.out.println("After null check");
 		
 	}
 	
