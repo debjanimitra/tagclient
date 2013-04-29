@@ -42,7 +42,7 @@ public class ControlPanel extends JPanel {
 		this.setLayout(new BorderLayout());
 		Border lineBorder=BorderFactory.createLineBorder(ColorConstants.PINK);
 		this.setBorder(lineBorder);
-		Font buttonFont=new Font("Verdana", Font.BOLD, 20);
+		Font buttonFont=new Font("Verdana", Font.BOLD, 19);
 		Font websiteFont=new Font("Verdana", Font.BOLD, 14);
 
 		
@@ -56,6 +56,7 @@ public class ControlPanel extends JPanel {
 		notificationsPanel.setSize(new Dimension(200, 100));
 		notificationsPanel.setPreferredSize(new Dimension(200, 100));
 		_notificationsButton=new JButton("Notifications");
+		client.setNotification(_notificationsButton);
 		_notificationsButton.setEnabled(false);
 		_notificationsButton.setBackground(ColorConstants.DARK_GRAY);
 		_notificationsButton.setForeground(ColorConstants.BLUE);

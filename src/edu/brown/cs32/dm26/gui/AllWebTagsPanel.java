@@ -42,12 +42,12 @@ public class AllWebTagsPanel extends JPanel {
 				System.out.println("Size of data"+data.size());
 				for (Data d: data){
 					System.out.println("YAYEEEE");
-					WebTagOption option=new WebTagOption(d);
+					WebTagOption option=new WebTagOption(d, this, frame, client, result, parentPanel);
 					_options.add(option);
 				}
 				
 			 int width=590;
-			 int height=_options.size()*200;
+			 int height=_options.size()*250;
 			 this.setSize(new Dimension(width, height));
 			 this.setPreferredSize(new Dimension(width, height));
 			 this.setLayout(new GridLayout(_options.size(), 1));

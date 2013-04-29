@@ -80,5 +80,6 @@ public class MyFrame extends JFrame {
 	public JTextField getEnterURL(){
 		return _cp.getEnterURL();
 	}
+	
 
 }

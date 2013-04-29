@@ -6,7 +6,9 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.ArrayList;
 
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPopupMenu;
 
@@ -14,6 +16,7 @@ import com.google.common.collect.ArrayListMultimap;
 
 import edu.brown.cs32.dm26.gui.WelcomePanel;
 import edu.brown.cs32.takhan.tag.Data;
+import edu.brown.cs32.takhan.tag.Notification;
 import edu.brown.cs32.vgavriel.connectorOnServer.Message;
 import edu.brown.cs32.vgavriel.connectorOnServer.MessageContent;
 
@@ -28,6 +31,7 @@ public class Client
 	private ObjectOutputStream receiveThreadOutput;
 	private String hostname;
 	private boolean serverRunning;
+	private JButton notificationButton;
 
 	private ReceiveThread thread;
 
@@ -35,10 +39,16 @@ public class Client
 	{
 		this.hostname = hostname;
 		this.port = port;
+		this.notificationButton=null;
 		connectToServer();
 		thread = new ReceiveThread();
 		thread.start();
 	}
+	
+	public void setNotification(JButton notification){
+		this.notificationButton=notification;
+	}
+	
 
 	public void connectToServer()
 	{
@@ -176,12 +186,14 @@ public class Client
 				try {
 					Message message = (Message) receiveThreadInput.readObject();
 					if(message != null){
-						if(message.getContent() == MessageContent.NOTIFICATION){
-							//TODO: display the notification to the User
-							// Perhaps this will be a list of all notifications??????
-							// Thus, will it be good for the server to always send notifications
-							// in a list??
-							System.out.println("GOT A NOTIFICATION!");
+						if(message.getContent() == MessageContent.NOTIFICATIONLIST){
+							//TODO: display the notifications to the User
+							ArrayList<Notification> notifications = (ArrayList<Notification>) message.getObject();
+							if (notifications.size()<=0){
+								notificationButton.setText("Notifications");
+							}
+							notificationButton.setText("Notification("+notifications.size()+")");
+							System.out.println("GOT NOTIFICATIONS!");
 						}
 					}
 				} catch (IOException e) {
