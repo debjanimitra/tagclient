@@ -8,6 +8,8 @@ import java.util.ArrayList;
 
 import javax.swing.*;
 
+import org.apache.commons.net.util.Base64;
+
 import edu.brown.cs32.vgavriel.connectorOnClient.Client;
 import edu.brown.cs32.vgavriel.connectorOnServer.Message;
 import edu.brown.cs32.vgavriel.connectorOnServer.MessageContent;
@@ -208,7 +210,8 @@ private class PasswordListener implements KeyListener{
 			else{
 				// HANDSHAKE:
 				String userName = _usernameField.getText();
-				Message result = _client.sendAndReceive(new Message(MessageContent.USERID, (Object) userName));
+				String encodedPassword = Base64.encodeBase64String(_passwordField.getText().getBytes());
+				Message result = _client.sendAndReceive(new Message(MessageContent.USERID, (Object) userName+"\t"+encodedPassword));
 				if(result != null && result.getContent() == MessageContent.DONE){
 					_client.setUserID(userName);
 					_frame.setUsername(userName);
@@ -226,6 +229,9 @@ private class PasswordListener implements KeyListener{
 							errors.add("    You're logged in elsewhere");
 						} else if (result.getContent() == MessageContent.ERRORHANDSHAKE_UNKNOWNUSER) {
 							errors.add("    Username not found");
+						}
+						else if(result.getContent()==MessageContent.ERRORHANDSHAKE_WRONGPASSWORD){
+							errors.add("    Incorrect Password");
 						}
 					}
 					

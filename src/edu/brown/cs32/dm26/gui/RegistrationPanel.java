@@ -11,10 +11,16 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
+
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
+
+import org.apache.commons.net.util.Base64;
+
+
+
 
 import edu.brown.cs32.vgavriel.connectorOnClient.Client;
 import edu.brown.cs32.vgavriel.connectorOnServer.Message;
@@ -281,7 +287,8 @@ public class RegistrationPanel extends JPanel {
 			else {
 				// HANDSHAKE:
 				String userName = _usernameField.getText();
-				Message result = _client.sendAndReceive(new Message(MessageContent.NEWUSERID, (Object) userName));
+				String encodedPassword = Base64.encodeBase64String(_passwordField.getText().getBytes());
+				Message result = _client.sendAndReceive(new Message(MessageContent.NEWUSERID, (Object) userName+"\t"+encodedPassword));
 				if(result != null && result.getContent() == MessageContent.DONE){
 					_client.setUserID(userName);
 					_frame.setUsername(userName);
