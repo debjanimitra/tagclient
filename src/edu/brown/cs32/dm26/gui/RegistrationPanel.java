@@ -283,6 +283,7 @@ public class RegistrationPanel extends JPanel {
 				String userName = _usernameField.getText();
 				Message result = _client.sendAndReceive(new Message(MessageContent.NEWUSERID, (Object) userName));
 				if(result != null && result.getContent() == MessageContent.DONE){
+					_client.setUserID(userName);
 					_frame.setUsername(userName);
 					_frame.getURLPanel().setEnable(true);
 					_frame.getSignoutButton().setVisible(true);

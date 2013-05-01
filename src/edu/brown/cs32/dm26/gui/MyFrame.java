@@ -33,6 +33,7 @@ public class MyFrame extends JFrame {
 	
 	public MyFrame(Client client){
 		super("Woof woof!");
+		client.setFrame(this);
 		//this.client = client;		
 		this.setVisible(true);
 		this.setPreferredSize(new Dimension(800, 669));

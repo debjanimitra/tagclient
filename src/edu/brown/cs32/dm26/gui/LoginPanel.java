@@ -210,6 +210,7 @@ private class PasswordListener implements KeyListener{
 				String userName = _usernameField.getText();
 				Message result = _client.sendAndReceive(new Message(MessageContent.USERID, (Object) userName));
 				if(result != null && result.getContent() == MessageContent.DONE){
+					_client.setUserID(userName);
 					_frame.setUsername(userName);
 					_frame.getURLPanel().setEnable(true);
 					_frame.getSignoutButton().setVisible(true);
