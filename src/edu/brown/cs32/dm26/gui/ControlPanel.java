@@ -166,6 +166,8 @@ public class ControlPanel extends JPanel {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
+			_frame.setShouldStartEnabling(false);
+			_frame.getURLPanel().getTextField().setText("");
 			_frame.setUsername(null);
 			_client.kill();
 			_ptc.removeAll();

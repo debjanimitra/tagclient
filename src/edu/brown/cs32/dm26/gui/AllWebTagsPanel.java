@@ -23,6 +23,7 @@ public class AllWebTagsPanel extends JPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 	private ArrayList<WebTagOption> _options;
+	private boolean _newPanel;
 	/**
 	 * @param args
 	 */

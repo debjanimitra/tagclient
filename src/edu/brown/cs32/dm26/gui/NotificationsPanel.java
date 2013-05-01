@@ -24,7 +24,9 @@ public class NotificationsPanel extends JPanel {
 		this.setBackground(ColorConstants.BLUE);
 		this.setVisible(true);
 		_toAdd=new JPanel();
-		frame.getURLPanel().getBackButton().setEnabled(true);
+		if (frame.getShouldStartEnabling()){
+			frame.getURLPanel().getBackButton().setEnabled(true);
+		}
 		//_toAdd.setSize(new Dimension(590, 600));
 		//_toAdd.setPreferredSize(new Dimension(590, 600));
 		_toAdd.setBackground(ColorConstants.BLUE);
@@ -32,8 +34,8 @@ public class NotificationsPanel extends JPanel {
 		_scroller.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		_scroller.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		_scroller.setBackground(ColorConstants.BLUE);
-		_scroller.setSize(new Dimension(590, 573));
-		_scroller.setPreferredSize(new Dimension(590, 573));
+		_scroller.setSize(new Dimension(590, 600));
+		_scroller.setPreferredSize(new Dimension(590, 600));
 		this.setLayout(new BorderLayout());
 		this.add(_scroller, BorderLayout.CENTER);
 		System.out.println("Here");

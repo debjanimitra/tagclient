@@ -10,6 +10,8 @@ import java.awt.GridLayout;
 import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
@@ -38,7 +40,7 @@ public class TagOption extends JPanel {
 	private static final long serialVersionUID = 1L;
 
 	
-	public TagOption(Element element, Client client, String username, Document doc, String url, HTMLParsing parser, TagURLPanel allTag){
+	public TagOption(Element element, Client client, String username, Document doc, String url, HTMLParsing parser, TagURLPanel allTag, int index){
 		super();
 		this.setSize(new Dimension(590, 160));
 		this.setPreferredSize(new Dimension(590, 160));
@@ -46,6 +48,7 @@ public class TagOption extends JPanel {
 		Border border=BorderFactory.createEtchedBorder(EtchedBorder.LOWERED);
 		this.setBorder(border);
 		Font customFont=new Font("Verdana", Font.PLAIN, 12);
+		Font customFont2=new Font("Verdana", Font.BOLD, 12);
 		String text=element.text();
 		int start=40, end=40;
 		if (text.length()<40){
@@ -68,8 +71,8 @@ public class TagOption extends JPanel {
 			end--;
 		}
 		
-		JLabel startLabel=new JLabel("This element begins with : "+text.substring(0, start));
-		JLabel endLabel= new JLabel("This element ends with : "+text.substring(text.length()-end, text.length()));
+		JLabel startLabel=new JLabel(" This element begins with : "+text.substring(0, start));
+		JLabel endLabel= new JLabel(" This element ends with : "+text.substring(text.length()-end, text.length()));
 		this.setLayout(new GridLayout(5, 1));
 
 		
@@ -123,17 +126,24 @@ public class TagOption extends JPanel {
 		permPanel.setPreferredSize(new Dimension(590, 30));
 		permPanel.setBackground(ColorConstants.LIGHT_ORANGE);
 		
-
-		JLabel label1=new JLabel("Do you want Trakr to follow this permanently?");
+		
+		boolean perm=parser.canBePermanent(element).getPerm();
+		JLabel label1=null;
+		
+		if (perm){
+			label1=new JLabel("");
+		}
+		else{
+			label1=new JLabel("NOTE: Trakr can only follow this element for one notification");
+		}
 		label1.setFont(customFont);
 		JPanel labelPanel1=new JPanel();
-		labelPanel1.setSize(new Dimension(310, 30));
-		labelPanel1.setPreferredSize(new Dimension(310, 30));
+		labelPanel1.setSize(new Dimension(388, 30));
+		labelPanel1.setPreferredSize(new Dimension(388, 30));
 		labelPanel1.setBackground(ColorConstants.LIGHT_ORANGE);
 		labelPanel1.add(label1); 
-
 		
-		 JRadioButton firstButton = new JRadioButton("Yes");
+	/**	 JRadioButton firstButton = new JRadioButton("Yes");
 		 firstButton.setSelected(false);
 		 firstButton.setBackground(ColorConstants.LIGHT_ORANGE);
 		 boolean perm=parser.canBePermanent(element).getPerm();
@@ -155,11 +165,11 @@ public class TagOption extends JPanel {
 		buttonPanel.setBackground(ColorConstants.LIGHT_ORANGE);
 		buttonPanel.setLayout(new GridLayout(1, 2));
 		buttonPanel.add(firstButton);
-		buttonPanel.add(secondButton);
+		buttonPanel.add(secondButton);**/
 		
 		permPanel.setLayout(new BorderLayout());
 		permPanel.add(labelPanel1, BorderLayout.WEST);
-		permPanel.add(buttonPanel, BorderLayout.CENTER);
+	//	permPanel.add(buttonPanel, BorderLayout.CENTER);
 		this.add(permPanel);
 		
 		JPanel selectPanel=new JPanel();
@@ -167,7 +177,7 @@ public class TagOption extends JPanel {
 		selectPanel.setPreferredSize(new Dimension(590, 30));
 		selectPanel.setBackground(ColorConstants.LIGHT_ORANGE);
 		JButton selectButton=new JButton ("select this!");
-		selectButton.addActionListener(new MySelectListener(allTag, client, element, username, doc, url, parser, customFont, titleField, secondButton, this, perm));
+		selectButton.addMouseListener(new MySelectListener(allTag, client, element, username, doc, url, parser, customFont2, titleField, this, perm, index));
 		selectButton.setBackground(ColorConstants.DARK_GRAY);
 		selectButton.setForeground(ColorConstants.DARK_ORANGE);
 		selectPanel.setLayout(new GridBagLayout());
@@ -180,7 +190,7 @@ public class TagOption extends JPanel {
 		this.setVisible(true);
 	}
 	
-	private class MySelectListener implements ActionListener{
+	private class MySelectListener implements MouseListener{
 
 		private Client _client;
 		private Element _element;
@@ -191,11 +201,11 @@ public class TagOption extends JPanel {
 		private HTMLParsing _parser;
 		private Font _font;
 		private TextField _titleField;
-		private JRadioButton _noButton;
 		private TagOption _option;
 		private boolean _canBePermanent;
+		private int _index;
 		
-		public MySelectListener(TagURLPanel panel, Client client, Element element, String username, Document doc, String url, HTMLParsing parser, Font font, TextField titleField, JRadioButton noButton, TagOption option, boolean canBePermanent){
+		public MySelectListener(TagURLPanel panel, Client client, Element element, String username, Document doc, String url, HTMLParsing parser, Font font, TextField titleField,  TagOption option, boolean canBePermanent, int index){
 			_client=client;
 			_element=element;
 			_username=username;
@@ -205,17 +215,22 @@ public class TagOption extends JPanel {
 			_parser=parser;
 			_font=font;
 			_titleField=titleField;
-			_noButton=noButton;
 			_option=option;
 			_canBePermanent=canBePermanent;
+			_index=index;
 		}
 		
+	//	@Override
+	//	public void actionPerformed(ActionEvent e) {
+	//		// TODO Auto-generated method stub
+//
+//		}
+
 		@Override
-		public void actionPerformed(ActionEvent e) {
+		public void mouseClicked(MouseEvent e) {
 			// TODO Auto-generated method stub
-			
-			boolean perm=(!(_noButton.isSelected()));
-			Data toSend = new Data(_element.text(),_url,"#"+_element.id(),"."+_element.className(),_username,_doc.select("body").text(), _titleField.getText(), perm, _canBePermanent);		
+
+			Data toSend = new Data(_element.text(),_url,"#"+_element.id(),"."+_element.className(),_username,_doc.select("body").text(), _titleField.getText(), _canBePermanent, _canBePermanent);		
 			
 			JPopupMenu pop = new JPopupMenu ();
 			pop.setLayout(new BorderLayout());			
@@ -227,21 +242,46 @@ public class TagOption extends JPanel {
 			if(result == null){
 				title="The message received back from the server is null!";
 			} else if(result.getContent() == MessageContent.DONE){
-				title="Success! We received the request and will TRAK your element";
+				title="Success! Trakr will follow this element for you";
 			} else if(result.getContent() == MessageContent.ERROR_RECEIVE_TAGALREADYEXISTS){
-				title="we're already TRAKing this for you!";
+				title="Trakr is already following this element!";
 			} else if(result.getContent() == MessageContent.ERROR_RECEIVE_INVALIDDATA) {
 				title= "your request contains no data :(";
 			}
 			
 			int length=title.length();
-			pop.setSize(new Dimension(7*length, 50));
-			pop.setPreferredSize(new Dimension(7*length, 50));
+			pop.setSize(new Dimension((int)(6.9*length), 50));
+			pop.setPreferredSize(new Dimension((int)(6.9*length), 50));
 			pop.setBackground(ColorConstants.EVEN_LIGHTER_GRAY);
 			JLabel label=new JLabel(title);
 			label.setFont(_font);
 			pop.add(label);
-			pop.show(_panel, 100, 520);
+			pop.show(_option, e.getX()+70, e.getY());
+		
+		}
+
+		@Override
+		public void mousePressed(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mouseReleased(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mouseEntered(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mouseExited(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
 		}		
 		
 	}

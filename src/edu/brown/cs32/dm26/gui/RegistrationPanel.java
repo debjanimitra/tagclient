@@ -289,7 +289,7 @@ public class RegistrationPanel extends JPanel {
 					_frame.getNotificationsButton().setEnabled(true);
 					_frame.getWebTagsButton().setEnabled(true);
 					_changePanel.removeAll();
-					_changePanel.add(new WelcomePanel(_usernameField.getText().trim()));
+					_changePanel.add(new WelcomePanel(_usernameField.getText().trim(), _frame));
 					_changePanel.repaint();
 					_frame.repaint();
 				} else {

@@ -75,22 +75,11 @@ public class URLPanel extends JPanel {
 		_backButton.addActionListener(new BackListener(changePanel, frame, _field, this));
 		
 		
-//		_forwardButton = new JButton("-->");
-//		_forwardButton.setFont(customFont);
-//		_forwardButton.setFont(customFont);
-//		_forwardButton.setSize(new Dimension(65, 30));
-//		_forwardButton.setPreferredSize(new Dimension(65, 30));
-//		_forwardButton.addActionListener(new ForwardListener(changePanel, _undoStack, frame, _field, _redoStack));	
-		
 		JPanel backPanel=new JPanel();
 		backPanel.setSize(new Dimension(65, 40));
 		backPanel.setPreferredSize(new Dimension(65, 40));
 		backPanel.add(_backButton);
 		
-//		JPanel forwardPanel=new JPanel();
-//		forwardPanel.setSize(new Dimension(65, 40));
-//		forwardPanel.setPreferredSize(new Dimension(65, 40));
-//		forwardPanel.add(_forwardButton);
 		
 		JPanel buttonPanel=new JPanel();
 		buttonPanel.setSize(new Dimension(145, 40));
@@ -98,7 +87,6 @@ public class URLPanel extends JPanel {
 		buttonPanel.setLayout(new BorderLayout());
 		buttonPanel.add(goPanel, BorderLayout.WEST);
 		buttonPanel.add(backPanel, BorderLayout.CENTER);
-//		buttonPanel.add(forwardPanel, BorderLayout.EAST);
 		
 		GoListener goListener=new GoListener(changePanel, client, frame, _field, this);
 		_field.addKeyListener(goListener);
@@ -163,15 +151,17 @@ public class URLPanel extends JPanel {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
+			
 				_changePanel.removeAll();
 				String input=_field.getText().trim();
 				if (input.startsWith("http://")==false){
 					input="http://"+input;
 				}
+				_field.setText(input);
 				HTMLParsing parser;
 				try {
 					parser = new HTMLParsing(input);
-					TagURLPanel tag = new TagURLPanel(_frame, _changePanel, _client, parser, input);
+					TagURLPanel tag = new TagURLPanel(_frame, _changePanel, _client, parser, input);	
 					_urlPanel.setPrevious(tag);
 					_changePanel.add(tag);
 					_changePanel.repaint();
@@ -183,6 +173,8 @@ public class URLPanel extends JPanel {
 					// this website does not exist (maybe try with adding "www." in front of it and try again?
 				} catch (HttpStatusException e1) {
 					// there might actually be a typo in the URL, the entered website doesn't exist
+				} catch (IllegalArgumentException e3){
+					
 				}
 				
 		}
@@ -202,6 +194,7 @@ public class URLPanel extends JPanel {
 				if (input.startsWith("http://")==false){
 					input="http://"+input;
 				}
+				_field.setText(input);
 				HTMLParsing parser;
 				try {
 					parser = new HTMLParsing(input);
@@ -217,6 +210,8 @@ public class URLPanel extends JPanel {
 					// this website does not exist (maybe try with adding "www." in front of it and try again?
 				} catch (HttpStatusException e1) {
 					// there might actually be a typo in the URL, the entered website doesn't exist
+				} catch (IllegalArgumentException e1){
+					//??
 				}
 				
 			}
@@ -253,13 +248,16 @@ public class URLPanel extends JPanel {
 		@Override
 		public void keyPressed(KeyEvent e) {
 			// TODO Auto-generated method stub
+			System.out.println(e.getKeyChar());
 			if (e.getKeyChar()==37){
+				System.out.println("FRIGGIN HERE");
 				if (_urlPanel.getPrevious()!=null){
 					_changePanel.removeAll();
 					_field.setText(_urlPanel.getPrevious().getURL());
 					_changePanel.add(_urlPanel.getPrevious());
 					_changePanel.repaint();
 					_changePanel.revalidate();
+					_frame.getURLPanel().getBackButton().setEnabled(false);
 					_frame.repaint();
 					_frame.revalidate();
 					System.out.println("herehere");
@@ -283,6 +281,7 @@ public class URLPanel extends JPanel {
 					_changePanel.add(_urlPanel.getPrevious());
 					_changePanel.repaint();
 					_changePanel.revalidate();
+					_frame.getURLPanel().getBackButton().setEnabled(false);
 					_frame.repaint();
 					_frame.revalidate();
 					System.out.println("herehere");

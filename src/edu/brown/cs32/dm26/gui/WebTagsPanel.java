@@ -25,14 +25,16 @@ public class WebTagsPanel extends JPanel {
 		this.setPreferredSize(new Dimension (590, 600));
 		this.setBackground(ColorConstants.PALE_GREEN);
 		this.setVisible(true);
-		frame.getURLPanel().getBackButton().setEnabled(true);
+		if (frame.getShouldStartEnabling()){
+			frame.getURLPanel().getBackButton().setEnabled(true);
+		}
 		System.out.println("before instantiating all webtags panel");
 		_scroller=new JScrollPane(_toAdd);
 		_scroller.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		_scroller.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		_scroller.setBackground(ColorConstants.PALE_GREEN);
-		_scroller.setSize(new Dimension(590, 573));
-		_scroller.setPreferredSize(new Dimension(590, 573));
+		_scroller.setSize(new Dimension(590, 600));
+		_scroller.setPreferredSize(new Dimension(590, 600));
 		_toAdd=new JPanel();
 		_toAdd.setBackground(ColorConstants.PALE_GREEN);
 		_scroller.setViewportView(_toAdd);

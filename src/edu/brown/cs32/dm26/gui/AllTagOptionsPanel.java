@@ -30,7 +30,7 @@ public class AllTagOptionsPanel extends JPanel {
 			Element ele=elementOptions.get(i);
 			System.out.println(i+" th element= "+ele.text());
 			if (ele.text().trim().length()>0){
-				TagOption tag=new TagOption(ele, client, username, doc, url, parser, parent);
+				TagOption tag=new TagOption(ele, client, username, doc, url, parser, parent, i);
 				_options.add(tag);
 			}
 		}

@@ -14,7 +14,7 @@ public class WelcomePanel extends JPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public WelcomePanel(String user){
+	public WelcomePanel(String user, MyFrame frame){
 		super();
 		this.setSize(new Dimension(600, 595));
 		this.setPreferredSize(new Dimension(600, 595));
@@ -25,6 +25,7 @@ public class WelcomePanel extends JPanel {
 		label1.setPreferredSize(new Dimension(600, 600));
 		System.out.println(label1.getSize());
 		label1.setFont(font);
+		frame.getURLPanel().getBackButton().setEnabled(false);
 		this.setLayout(new BorderLayout());
 		this.add(label1, BorderLayout.CENTER);
 	}

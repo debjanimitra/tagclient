@@ -162,6 +162,15 @@ public class EnterElementPanel extends JPanel {
 				_changePanel.revalidate();
 				_frame.repaint();
 				_frame.revalidate();	
+				if (suggestionElements.size()<=0) {
+					JPopupMenu pop =new JPopupMenu();
+					pop.setSize(new Dimension(340, 25));
+					pop.setPreferredSize(new Dimension(340, 25));
+					JLabel title=new JLabel ("Trakr found no elements matching your search");
+					pop.add(title);
+					pop.show(_below, 120, 200);
+
+				}
 			}
 		}
 
