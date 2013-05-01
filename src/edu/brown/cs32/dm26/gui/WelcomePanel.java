@@ -16,11 +16,11 @@ public class WelcomePanel extends JPanel {
 
 	public WelcomePanel(String user){
 		super();
-		this.setSize(new Dimension(600, 600));
-		this.setPreferredSize(new Dimension(600, 600));
+		this.setSize(new Dimension(600, 595));
+		this.setPreferredSize(new Dimension(600, 595));
 		this.setBackground(ColorConstants.BRIGHT_YELLOW);
-		Font font=new Font("Verdana", Font.BOLD, 35);
-		JLabel label1=new JLabel("  Welcome to trakr, "+user+" "+"!");
+		Font font=new Font("Verdana", Font.BOLD, 30);
+		JLabel label1=new JLabel("   Trakr welcomes you, "+user+"!");
 		label1.setSize(new Dimension(600, 600));
 		label1.setPreferredSize(new Dimension(600, 600));
 		System.out.println(label1.getSize());

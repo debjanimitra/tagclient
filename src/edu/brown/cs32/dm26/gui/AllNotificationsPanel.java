@@ -53,7 +53,7 @@ public class AllNotificationsPanel extends JPanel {
 					_options.add(option);
 				}
 				
-			 int width=590;
+			 int width=580;
 			 int height=_options.size()*100;
 			 this.setSize(new Dimension(width, height));
 			 this.setPreferredSize(new Dimension(width, height));

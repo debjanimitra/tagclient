@@ -32,9 +32,9 @@ public class WebTagOption extends JPanel {
 	public WebTagOption(Data data, AllWebTagsPanel panel, MyFrame frame, Client client, ArrayListMultimap<String, Data> result, WebTagsPanel parentPanel){
 		super();
 		this.setBackground(ColorConstants.PALE_GREEN);
-		this.setSize(new Dimension(590, 250));
-		this.setPreferredSize(new Dimension(590, 250));
-		Border border=BorderFactory.createEtchedBorder(EtchedBorder.LOWERED);
+		this.setSize(new Dimension(585, 250));
+		this.setPreferredSize(new Dimension(585, 250));
+		Border border=BorderFactory.createEtchedBorder(EtchedBorder.RAISED);
 		this.setBorder(border);
 		Font customFont1=new Font("Verdana", Font.BOLD, 12);
 		this.setLayout(new GridLayout(9, 1));
@@ -76,9 +76,9 @@ public class WebTagOption extends JPanel {
 		JLabel changeTitle=new JLabel("Give this tag another name: ");
 		changeTitle.setFont(customFont2);
 		JPanel labelPanel=new JPanel();
-		labelPanel.setSize(new Dimension(130, 30));
-		labelPanel.setPreferredSize(new Dimension(130, 30));
-		labelPanel.setBackground(ColorConstants.PALE_GREEN);
+		labelPanel.setSize(new Dimension(130, 35));
+		labelPanel.setPreferredSize(new Dimension(130, 35));
+		labelPanel.setBackground(ColorConstants.GREEN);
 		labelPanel.add(changeTitle);
 		
 		
@@ -89,9 +89,9 @@ public class WebTagOption extends JPanel {
 		titleField.setPreferredSize(new Dimension(200, 30));
 		
 		JPanel tPanel=new JPanel();
-		tPanel.setSize(new Dimension(200, 30));
-		tPanel.setPreferredSize(new Dimension(200, 30));
-		tPanel.setBackground(ColorConstants.PALE_GREEN);
+		tPanel.setSize(new Dimension(200, 35));
+		tPanel.setPreferredSize(new Dimension(200, 35));
+		tPanel.setBackground(ColorConstants.GREEN);
 		tPanel.setLayout(new GridBagLayout());
 		GridBagConstraints c1=new GridBagConstraints();
 		c1.gridx=0;
@@ -99,9 +99,9 @@ public class WebTagOption extends JPanel {
 		tPanel.add(titleField, c1);
 			
 		JPanel titlePanel=new JPanel();
-		titlePanel.setSize(new Dimension(590, 30));
-		titlePanel.setPreferredSize(new Dimension(590, 30));
-		titlePanel.setBackground(ColorConstants.PALE_GREEN);
+		titlePanel.setSize(new Dimension(590, 35));
+		titlePanel.setPreferredSize(new Dimension(590, 35));
+		titlePanel.setBackground(ColorConstants.GREEN);
 		titlePanel.setLayout(new GridLayout(1,2));
 		titlePanel.add(labelPanel);
 		titlePanel.add(tPanel);
@@ -116,7 +116,7 @@ public class WebTagOption extends JPanel {
 		JPanel permPanel=new JPanel();
 		permPanel.setSize(new Dimension(590, 30));
 		permPanel.setPreferredSize(new Dimension(590, 30));
-		permPanel.setBackground(ColorConstants.PALE_GREEN);
+		permPanel.setBackground(ColorConstants.GREEN);
 		
 
 		JLabel label1=new JLabel("Re-choose if you want to TRAK this indefinitely: ");
@@ -124,17 +124,17 @@ public class WebTagOption extends JPanel {
 		JPanel labelPanel1=new JPanel();
 		labelPanel1.setSize(new Dimension(310, 30));
 		labelPanel1.setPreferredSize(new Dimension(310, 30));
-		labelPanel1.setBackground(ColorConstants.PALE_GREEN);
+		labelPanel1.setBackground(ColorConstants.GREEN);
 		labelPanel1.add(label1); 
 
 		
 		 JRadioButton firstButton = new JRadioButton("Yes");
-		 firstButton.setBackground(ColorConstants.PALE_GREEN);
+		 firstButton.setBackground(ColorConstants.GREEN);
 		 if (data.getCanBePermanent()==false){
 			 firstButton.setEnabled(false);
 		 }
 		 JRadioButton secondButton = new JRadioButton("No");
-		 secondButton.setBackground(ColorConstants.PALE_GREEN);
+		 secondButton.setBackground(ColorConstants.GREEN);
 		 
 		    // Group the radio buttons.
 		 ButtonGroup group = new ButtonGroup();
@@ -153,7 +153,7 @@ public class WebTagOption extends JPanel {
 		JPanel buttonPanel=new JPanel();
 		buttonPanel.setSize(new Dimension(280, 30));
 		buttonPanel.setPreferredSize(new Dimension(280, 30));
-		buttonPanel.setBackground(ColorConstants.PALE_GREEN);
+		buttonPanel.setBackground(ColorConstants.GREEN);
 		buttonPanel.setLayout(new GridLayout(1, 2));
 		buttonPanel.add(firstButton);
 		buttonPanel.add(secondButton);
@@ -172,7 +172,7 @@ public class WebTagOption extends JPanel {
 		JPanel discardPanel=new JPanel();
 		discardPanel.setSize(new Dimension(590, 30));
 		discardPanel.setPreferredSize(new Dimension(590, 30));
-		discardPanel.setBackground(ColorConstants.PALE_GREEN);
+		discardPanel.setBackground(ColorConstants.GREEN);
 		
 
 		JLabel label2=new JLabel("Would you like to discard this tag: ");
@@ -180,16 +180,16 @@ public class WebTagOption extends JPanel {
 		JPanel labelPanel2=new JPanel();
 		labelPanel2.setSize(new Dimension(310, 30));
 		labelPanel2.setPreferredSize(new Dimension(310, 30));
-		labelPanel2.setBackground(ColorConstants.PALE_GREEN);
+		labelPanel2.setBackground(ColorConstants.GREEN);
 		labelPanel2.add(label2); 
 
 		
 		 JRadioButton firstButton2 = new JRadioButton("Yes");
 		 firstButton2.setSelected(false);
-		 firstButton2.setBackground(ColorConstants.PALE_GREEN);
+		 firstButton2.setBackground(ColorConstants.GREEN);
 		 JRadioButton secondButton2 = new JRadioButton("No");
 		 secondButton2.setSelected(true);
-		 secondButton2.setBackground(ColorConstants.PALE_GREEN);
+		 secondButton2.setBackground(ColorConstants.GREEN);
 		 
 		    // Group the radio buttons.
 		 ButtonGroup group2 = new ButtonGroup();
@@ -199,7 +199,7 @@ public class WebTagOption extends JPanel {
 		JPanel buttonPanel2=new JPanel();
 		buttonPanel2.setSize(new Dimension(280, 30));
 		buttonPanel2.setPreferredSize(new Dimension(280, 30));
-		buttonPanel2.setBackground(ColorConstants.PALE_GREEN);
+		buttonPanel2.setBackground(ColorConstants.GREEN);
 		buttonPanel2.setLayout(new GridLayout(1, 2));
 		buttonPanel2.add(firstButton2);
 		buttonPanel2.add(secondButton2);

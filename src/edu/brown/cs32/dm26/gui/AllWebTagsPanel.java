@@ -46,7 +46,7 @@ public class AllWebTagsPanel extends JPanel {
 					_options.add(option);
 				}
 				
-			 int width=590;
+			 int width=585;
 			 int height=_options.size()*250;
 			 this.setSize(new Dimension(width, height));
 			 this.setPreferredSize(new Dimension(width, height));

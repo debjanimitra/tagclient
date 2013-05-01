@@ -24,6 +24,7 @@ public class NotificationsPanel extends JPanel {
 		this.setBackground(ColorConstants.BLUE);
 		this.setVisible(true);
 		_toAdd=new JPanel();
+		frame.getURLPanel().getBackButton().setEnabled(true);
 		//_toAdd.setSize(new Dimension(590, 600));
 		//_toAdd.setPreferredSize(new Dimension(590, 600));
 		_toAdd.setBackground(ColorConstants.BLUE);

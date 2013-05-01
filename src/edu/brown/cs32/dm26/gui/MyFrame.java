@@ -28,12 +28,14 @@ public class MyFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private ControlPanel _cp;
 	private String _username;
+	private URLPanel _urlPanel;
+;
 	
 	public MyFrame(Client client){
-		super("Welcome to TRAKR!");
+		super("Woof woof!");
 		//this.client = client;		
 		this.setVisible(true);
-		this.setPreferredSize(new Dimension(800, 600));
+		this.setPreferredSize(new Dimension(800, 669));
 		Container con=this.getContentPane();
 		con.setBackground(ColorConstants.LIGHT_GRAY);
 		
@@ -41,6 +43,11 @@ public class MyFrame extends JFrame {
 		 * I havent created a separte class for the changePanel. The changePanel is just a JPanel
 		 * whose components are updated based on where the user has navigated
 		 */
+		this.setLayout(new BorderLayout());
+		JPanel bottomPanel=new JPanel();
+		bottomPanel.setSize(new Dimension(800, 600));
+		bottomPanel.setPreferredSize(new Dimension(800, 600));
+		bottomPanel.setLayout(new BorderLayout());
 		_username=null;
 		JPanel changePanel=new JPanel();
 		changePanel.setSize(new Dimension(592, 600));
@@ -52,10 +59,19 @@ public class MyFrame extends JFrame {
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setResizable(false);
 		this.setLayout(new BorderLayout());
-		this.add(changePanel, BorderLayout.EAST);
-		this.add(_cp, BorderLayout.WEST);
+		bottomPanel.add(changePanel, BorderLayout.EAST);
+		bottomPanel.add(_cp, BorderLayout.WEST);
+		this.add(bottomPanel, BorderLayout.SOUTH);
+		_urlPanel=new URLPanel(this, changePanel, client);
+		_urlPanel.setEnable(false);
+		this.add(_urlPanel, BorderLayout.NORTH);
 		this.pack();
 	}
+	
+	public URLPanel getURLPanel(){
+		return _urlPanel;
+	}
+
 	
 	public void setUsername(String username){
 		_username=username;

@@ -26,8 +26,8 @@ public class LoginPanel extends Panel {
 	public LoginPanel(RegistrationPanel rp, MyFrame frame, JPanel changePanel, Client client){
 		super();
 		_client = client;
-		this.setSize(new Dimension(592, 125));
-		this.setPreferredSize(new Dimension (592, 125));
+		this.setSize(new Dimension(592, 120));
+		this.setPreferredSize(new Dimension (592, 120));
 		this.setBackground(ColorConstants.BRIGHT_YELLOW);
 		this.setVisible(true);
 		this.setLayout(new GridLayout(3, 1));
@@ -211,10 +211,10 @@ private class PasswordListener implements KeyListener{
 				Message result = _client.sendAndReceive(new Message(MessageContent.USERID, (Object) userName));
 				if(result != null && result.getContent() == MessageContent.DONE){
 					_frame.setUsername(userName);
+					_frame.getURLPanel().setEnable(true);
 					_frame.getSignoutButton().setVisible(true);
 					_frame.getNotificationsButton().setEnabled(true);
 					_frame.getWebTagsButton().setEnabled(true);
-					_frame.getEnterURL().setEnabled(true);
 					_changePanel.removeAll();
 					_changePanel.add(new WelcomePanel(_usernameField.getText().trim()));
 					_changePanel.repaint();

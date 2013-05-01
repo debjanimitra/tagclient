@@ -10,11 +10,14 @@ import java.awt.GridLayout;
 import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 
 import org.jsoup.nodes.Element;
 
@@ -32,7 +35,7 @@ public class EnterElementPanel extends JPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public EnterElementPanel(MyFrame frame, JPanel changePanel, Client client, HTMLParsing parser,  BelowElementPanel below, String url){
+	public EnterElementPanel(MyFrame frame, JPanel changePanel, Client client, HTMLParsing parser,  BelowElementPanel below, String url, TagURLPanel tagURL){
 		super();
 		_client = client;
 		this.setSize(new Dimension(592, 129));
@@ -80,9 +83,13 @@ public class EnterElementPanel extends JPanel {
 		GridBagConstraints c8=new GridBagConstraints();
 		c8.anchor=GridBagConstraints.CENTER;
 		trakButtonPanel.add(trakButton, c8);		
-		trakButton.addActionListener(new TrakButtonListener(this, elementField, parser, below, frame, changePanel, client, url));
 		this.add(trakButtonPanel);
+		
+		FindElementListener fel=new FindElementListener(this, elementField, parser, below, frame, changePanel, client, url, tagURL);
+		elementField.addKeyListener(fel);
+		trakButton.addActionListener(fel);
 	}
+	
 	
 	public String getUserInput(){
 		return _input;
@@ -92,7 +99,7 @@ public class EnterElementPanel extends JPanel {
 		_input=input;
 	}
 	
-	private class TrakButtonListener implements ActionListener{
+	private class FindElementListener implements ActionListener, KeyListener {
 
 		private TextField _field;
 		private HTMLParsing _parser;
@@ -101,8 +108,9 @@ public class EnterElementPanel extends JPanel {
 		private JPanel _changePanel;
 		private Client _client;
 		private String _url;
+		private TagURLPanel _tagURL;
 		
-		public TrakButtonListener(EnterElementPanel panel, TextField field, HTMLParsing parser,  BelowElementPanel below, MyFrame frame, JPanel changePanel, Client client, String url){
+		public FindElementListener(EnterElementPanel panel, TextField field, HTMLParsing parser,  BelowElementPanel below, MyFrame frame, JPanel changePanel, Client client, String url, TagURLPanel tagURL){
 			_field=field;
 			_parser=parser;
 			_below=below;
@@ -110,19 +118,57 @@ public class EnterElementPanel extends JPanel {
 			_changePanel=changePanel;
 			_client=client;
 			_url=url;
+			_tagURL=tagURL;
 		}
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
 			String userInput=_field.getText().trim();
+		
 			ArrayList<Element> suggestionElements=_parser.findElement(userInput);
-			AllTagOptionsPanel all=new AllTagOptionsPanel(suggestionElements, _client, _frame.getUsername(), _parser.getDocument(), _url, _parser);
+			AllTagOptionsPanel all=new AllTagOptionsPanel(suggestionElements, _client, _frame.getUsername(), _parser.getDocument(), _url, _parser, _tagURL);
 			_below.changePanel(all, _frame);
 			_changePanel.repaint();
 			_changePanel.revalidate();
 			_frame.repaint();
 			_frame.revalidate();
+			if (suggestionElements.size()<=0) {
+				JPopupMenu pop =new JPopupMenu();
+				pop.setSize(new Dimension(340, 25));
+				pop.setPreferredSize(new Dimension(340, 25));
+				JLabel title=new JLabel ("Trakr found no elements matching your search");
+				pop.add(title);
+				pop.show(_below, 120, 200);
+
+			}
+		}
+
+		@Override
+		public void keyTyped(KeyEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void keyPressed(KeyEvent e) {
+			// TODO Auto-generated method stub
+			if (e.getKeyChar()=='\n'){
+				String userInput=_field.getText().trim();
+				ArrayList<Element> suggestionElements=_parser.findElement(userInput);
+				AllTagOptionsPanel all=new AllTagOptionsPanel(suggestionElements, _client, _frame.getUsername(), _parser.getDocument(), _url, _parser, _tagURL);
+				_below.changePanel(all, _frame);
+				_changePanel.repaint();
+				_changePanel.revalidate();
+				_frame.repaint();
+				_frame.revalidate();	
+			}
+		}
+
+		@Override
+		public void keyReleased(KeyEvent e) {
+			// TODO Auto-generated method stub
+			
 		}
 		
 	}

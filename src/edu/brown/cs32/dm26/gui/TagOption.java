@@ -38,7 +38,7 @@ public class TagOption extends JPanel {
 	private static final long serialVersionUID = 1L;
 
 	
-	public TagOption(Element element, Client client, String username, Document doc, String url, HTMLParsing parser, AllTagOptionsPanel allTag){
+	public TagOption(Element element, Client client, String username, Document doc, String url, HTMLParsing parser, TagURLPanel allTag){
 		super();
 		this.setSize(new Dimension(590, 160));
 		this.setPreferredSize(new Dimension(590, 160));
@@ -49,7 +49,7 @@ public class TagOption extends JPanel {
 		String text=element.text();
 		int start=40, end=40;
 		if (text.length()<40){
-			start=(int)0.4*text.length();
+			start=(int)0.7*text.length();
 			end=start;
 		}
 		System.out.println("Start is:"+start);
@@ -65,35 +65,16 @@ public class TagOption extends JPanel {
 			while(text.charAt(end)!=' ' && end<text.length()-1){
 				end++;
 			}
+			end--;
 		}
 		
 		JLabel startLabel=new JLabel("This element begins with : "+text.substring(0, start));
 		JLabel endLabel= new JLabel("This element ends with : "+text.substring(text.length()-end, text.length()));
 		this.setLayout(new GridLayout(5, 1));
-		
-	/**	JPanel fillerPanel1 = new JPanel();
-		fillerPanel1.setBackground(ColorConstants.LIGHT_ORANGE);
-		fillerPanel1.setSize(new Dimension(590, 5));
-		fillerPanel1.setPreferredSize(new Dimension(590, 5));
-		this.add(fillerPanel1); **/
+
 		
 		this.add(startLabel);
 		this.add(endLabel);
-		
-	/**	JPanel titlePanel=new JPanel();
-		titlePanel.setSize(new Dimension(590, 100));
-		titlePanel.setPreferredSize(new Dimension(590, 100));
-		titlePanel.setBackground(ColorConstants.LIGHT_ORANGE);
-		
-		
-		JPanel anotherPanel=new JPanel();
-		anotherPanel.setSize(new Dimension(590, 20));
-		anotherPanel.setPreferredSize(new Dimension(590, 20));
-		anotherPanel.setBackground(ColorConstants.LIGHT_ORANGE);
-		anotherPanel.setLayout(new BorderLayout());
-		JLabel title=new JLabel("Give a name to this tag (optional):");
-		title.setFont(customFont);
-		anotherPanel.add(title, BorderLayout.CENTER); **/
 		
 
 		JLabel label=new JLabel("Name this element b4 selecting (OPTIONAL):");
@@ -137,33 +118,13 @@ public class TagOption extends JPanel {
 	//	optionPanel.add(random);
 		this.add(optionPanel);
 		
-	/**	titlePanel.setLayout(new GridLayout());
-		GridBagConstraints c1=new GridBagConstraints();
-		c1.anchor=GridBagConstraints.LINE_START;
-		titlePanel.add(anotherPanel, c1);
-		GridBagConstraints c2=new GridBagConstraints();
-		c2.anchor=GridBagConstraints.CENTER;
-		titlePanel.add(yetAnotherPanel, c2); */
-		
-/**		titlePanel.setLayout(new BorderLayout());
-		titlePanel.add(anotherPanel, BorderLayout.NORTH);
-		titlePanel.add(yetAnotherPanel, BorderLayout.SOUTH); 
-		
-		this.add(titlePanel); **/
-		
-	/**	JPanel fillerPanel2 = new JPanel();
-		fillerPanel2.setBackground(ColorConstants.LIGHT_ORANGE);
-		fillerPanel2.setSize(new Dimension(590, 30));
-		fillerPanel2.setPreferredSize(new Dimension(590, 30));
-		this.add(fillerPanel2); **/
-		
 		JPanel permPanel=new JPanel();
 		permPanel.setSize(new Dimension(590, 30));
 		permPanel.setPreferredSize(new Dimension(590, 30));
 		permPanel.setBackground(ColorConstants.LIGHT_ORANGE);
 		
 
-		JLabel label1=new JLabel("Do you want to TRAK this permanently?");
+		JLabel label1=new JLabel("Do you want Trakr to follow this permanently?");
 		label1.setFont(customFont);
 		JPanel labelPanel1=new JPanel();
 		labelPanel1.setSize(new Dimension(310, 30));
@@ -215,13 +176,6 @@ public class TagOption extends JPanel {
 		selectPanel.add(selectButton, c3);
 		this.add(selectPanel);
 		
-	/**	JPanel fillerPanel3 = new JPanel();
-		fillerPanel3.setBackground(ColorConstants.LIGHT_ORANGE);
-		fillerPanel3.setSize(new Dimension(590, 5));
-		fillerPanel3.setPreferredSize(new Dimension(590, 5));
-		this.add(fillerPanel3);
-	**/
-		
 		this.setFont(customFont);
 		this.setVisible(true);
 	}
@@ -233,7 +187,7 @@ public class TagOption extends JPanel {
 		private String _username;
 		private Document _doc;
 		private String _url;
-		private AllTagOptionsPanel _panel;
+		private TagURLPanel _panel;
 		private HTMLParsing _parser;
 		private Font _font;
 		private TextField _titleField;
@@ -241,7 +195,7 @@ public class TagOption extends JPanel {
 		private TagOption _option;
 		private boolean _canBePermanent;
 		
-		public MySelectListener(AllTagOptionsPanel panel, Client client, Element element, String username, Document doc, String url, HTMLParsing parser, Font font, TextField titleField, JRadioButton noButton, TagOption option, boolean canBePermanent){
+		public MySelectListener(TagURLPanel panel, Client client, Element element, String username, Document doc, String url, HTMLParsing parser, Font font, TextField titleField, JRadioButton noButton, TagOption option, boolean canBePermanent){
 			_client=client;
 			_element=element;
 			_username=username;
@@ -287,7 +241,7 @@ public class TagOption extends JPanel {
 			JLabel label=new JLabel(title);
 			label.setFont(_font);
 			pop.add(label);
-			pop.show(_panel, 100, 400);
+			pop.show(_panel, 100, 520);
 		}		
 		
 	}

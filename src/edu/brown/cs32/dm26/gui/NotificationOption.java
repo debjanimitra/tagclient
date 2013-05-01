@@ -40,12 +40,12 @@ public class NotificationOption extends JPanel{
 	public NotificationOption(AllNotificationsPanel panel, MyFrame frame, Client client, ArrayList<Notification> result, NotificationsPanel parentPanel, Notification thisNotification){
 		super();
 		System.out.println("In notification option");
-		this.setSize(new Dimension(590, 100));
-		this.setPreferredSize(new Dimension(590, 100));
+		this.setSize(new Dimension(580, 100));
+		this.setPreferredSize(new Dimension(580, 100));
 		this.setBackground(ColorConstants.BLUE);
 		this.setLayout(new GridLayout(2, 1));
 		
-		Border border=BorderFactory.createEtchedBorder(EtchedBorder.LOWERED);
+		Border border=BorderFactory.createEtchedBorder(EtchedBorder.RAISED);
 		this.setBorder(border);
 		
 		Font customFont1=new Font("Verdana", Font.BOLD, 12);

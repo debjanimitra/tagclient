@@ -82,59 +82,40 @@ public class ControlPanel extends JPanel {
 		webTagsPanel.setLayout(new BorderLayout());
 		webTagsPanel.add(_webTagsButton, BorderLayout.SOUTH);
 		
-		JPanel enterURLPanel=new JPanel();
-		enterURLPanel.setSize(new Dimension(200, 50));
-		enterURLPanel.setPreferredSize(new Dimension(200, 50));
-		_enterURL=new JTextField();
-		_enterURL.setForeground(ColorConstants.DARK_GRAY);
-		_enterURL.setEnabled(false);
-		_enterURL.setFont(websiteFont);
-		_enterURL.setColumns(20);
-		_enterURL.setText("enter website & hit enter");
-		MyURLListener listener=new MyURLListener(frame, changePanel, client, _enterURL);
-		_enterURL.addKeyListener(listener);
-		_enterURL.addMouseListener(listener);
-		JPanel random=new JPanel();
-		random.setSize(new Dimension(200, 30));
-		random.setPreferredSize(new Dimension(200, 30));
-		random.setLayout(new BorderLayout());
-		_enterURL.setSize(new Dimension(200, 30));
-		_enterURL.setPreferredSize(new Dimension(200, 30));
-		enterURLPanel.setLayout(new BorderLayout());
-		enterURLPanel.setBackground(ColorConstants.LIGHT_GRAY);
-		
-/**		JButton goButton=new JButton("trakr this!");
-		goButton.setSize(new Dimension(100, 30));
-		goButton.setPreferredSize(new Dimension(100, 30));
-		goButton.setBackground(ColorConstants.DARK_GRAY);
-		goButton.setForeground(ColorConstants.ORANGE);
-		JPanel goPanel=new JPanel();
-		goPanel.setSize(new Dimension(200, 30));
-		goPanel.setPreferredSize(new Dimension(200, 30));
-		goPanel.setBackground(ColorConstants.LIGHT_GRAY);
-		goPanel.setLayout(new GridBagLayout());
-		GridBagConstraints c1=new GridBagConstraints();
-		c1.gridx=1;
-		c1.gridy=1;
-		goPanel.add(goButton, c1); **/
-		
-		random.add(_enterURL, BorderLayout.CENTER);
-		enterURLPanel.add(random, BorderLayout.SOUTH);
+	//	JPanel enterURLPanel=new JPanel();
+	//	enterURLPanel.setSize(new Dimension(200, 50));
+	//	enterURLPanel.setPreferredSize(new Dimension(200, 50));
+	//	_enterURL=new JTextField();
+	//	_enterURL.setForeground(ColorConstants.DARK_GRAY);
+	//	_enterURL.setEnabled(false);
+	//	_enterURL.setFont(websiteFont);
+	//	_enterURL.setColumns(20);
+	//	_enterURL.setText("enter website & hit enter");
+	//	MyURLListener listener=new MyURLListener(frame, changePanel, client, _enterURL);
+	//	_enterURL.addKeyListener(listener);
+	//	_enterURL.addMouseListener(listener);
+	//	JPanel random=new JPanel();
+	//	random.setSize(new Dimension(200, 30));
+	//	random.setPreferredSize(new Dimension(200, 30));
+	//	random.setLayout(new BorderLayout());
+	//	_enterURL.setPreferredSize(new Dimension(200, 30));
+	//	enterURLPanel.setLayout(new BorderLayout());
+	//	enterURLPanel.setBackground(ColorConstants.LIGHT_GRAY);
+	//	random.add(_enterURL, BorderLayout.CENTER);
+	//	enterURLPanel.add(random, BorderLayout.SOUTH);
 		
 		buttonPanel.add(notificationsPanel);
 		buttonPanel.add(webTagsPanel);
-		buttonPanel.add(enterURLPanel);
+	//	buttonPanel.add(enterURLPanel);
 		this.add(buttonPanel, BorderLayout.NORTH);
 		
-	//	Border line=BorderFactory.createLineBorder(Color.BLACK);
 		JPanel logoPanel=new JPanel();
 		logoPanel.setSize(new Dimension(200, 500));
 		logoPanel.setPreferredSize(new Dimension(200, 500));
 		logoPanel.setBackground(ColorConstants.LIGHT_GRAY);
 		JLabel label=new JLabel("           Logo goes here");
 		logoPanel.setLayout(new BorderLayout());
-		logoPanel.add(label, BorderLayout.CENTER);
-	//	logoPanel.setBorder(line);
+		logoPanel.add(label, BorderLayout.CENTER);;
 		this.add(logoPanel, BorderLayout.CENTER);
 		
 		JPanel signoutPanel = new JPanel();
@@ -146,7 +127,7 @@ public class ControlPanel extends JPanel {
 		_signoutButton.setFont(websiteFont);
 		this.add(_signoutButton, BorderLayout.SOUTH);
 		_signoutButton.setVisible(false);
-		_signoutButton.addActionListener(new SignoutListener(frame, openingPanel, changePanel, _signoutButton));
+		_signoutButton.addActionListener(new SignoutListener(frame, openingPanel, changePanel, _signoutButton, _enterURL));
 		this.setVisible(true);
 	}
 	
@@ -172,12 +153,14 @@ public class ControlPanel extends JPanel {
 		private JPanel _op;
 		private MyFrame _frame;
 		private JButton _signout;
+		private JTextField _enterURL;
 		
-		public SignoutListener(MyFrame frame, JPanel op, JPanel panelToChange, JButton signout){
+		public SignoutListener(MyFrame frame, JPanel op, JPanel panelToChange, JButton signout, JTextField enterURL){
 			_frame=frame;
 			_ptc=panelToChange;
 			_op=op;
 			_signout=signout;
+			_enterURL=enterURL;
 		}
 		
 		@Override
@@ -188,10 +171,10 @@ public class ControlPanel extends JPanel {
 			_ptc.removeAll();
 			_ptc.add(_op);
 			_signout.setVisible(false);
+			_frame.getURLPanel().setEnable(false);
 			_frame.getNotificationsButton().setEnabled(false);
 			_frame.getNotificationsButton().setText("Notifications");
 			_frame.getWebTagsButton().setEnabled(false);
-			_frame.getEnterURL().setEnabled(false);
 			_ptc.repaint();
 			_frame.repaint();
 		}
@@ -205,6 +188,7 @@ public class ControlPanel extends JPanel {
 		private JPanel _changePanel;
 		private MyFrame _frame;
 		private Client _client;
+		private boolean _messageBeingDisplayed;
 		
 		
 		public MyURLListener(MyFrame frame, JPanel changePanel, Client client, JTextField field){
@@ -213,6 +197,7 @@ public class ControlPanel extends JPanel {
 			_changePanel=changePanel;
 			_client=client;
 			_counter=0;
+			_messageBeingDisplayed=true;
 		}
 		
 		@Override
@@ -225,11 +210,22 @@ public class ControlPanel extends JPanel {
 		public void keyPressed(KeyEvent e) {
 			// TODO Auto-generated method stub
 			String userInput=_field.getText();
-			if (e.getKeyCode()==10){
-				System.out.println("Now open url");
-			}
 			if (userInput.length()==0){	
-				_field.setText("  enter full website here");
+				_counter++;
+				if (_counter>=2){
+				_field.setText("  enter full website here ");
+				_messageBeingDisplayed=true;
+				_counter=0;
+				}
+				else{
+					_messageBeingDisplayed=false;
+					_field.setText("");
+				}
+			}
+			
+			else{
+				_messageBeingDisplayed=false;
+				_counter=0;
 			}
 			System.out.println(e.getKeyChar());
 			if (e.getKeyChar()=='\n'){
@@ -266,7 +262,7 @@ public class ControlPanel extends JPanel {
 		@Override
 		public void mouseClicked(MouseEvent e) {
 			// TODO Auto-generated method stub
-			if (_counter==0){
+			if (_messageBeingDisplayed){
 				_field.setText("");
 			}
 

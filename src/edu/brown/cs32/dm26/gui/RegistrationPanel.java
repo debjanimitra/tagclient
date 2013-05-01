@@ -33,8 +33,8 @@ public class RegistrationPanel extends JPanel {
 	public RegistrationPanel(MyFrame frame, JPanel changePanel, Client client){
 		super();
 		_client = client;
-		this.setSize(new Dimension(592, 475));
-		this.setPreferredSize(new Dimension (592, 475));
+		this.setSize(new Dimension(592, 470));
+		this.setPreferredSize(new Dimension (592, 470));
 		this.setBackground(ColorConstants.LIGHT_YELLOW);
 		this.setVisible(true);
 		this.setLayout(new GridLayout(10, 1));
@@ -284,10 +284,10 @@ public class RegistrationPanel extends JPanel {
 				Message result = _client.sendAndReceive(new Message(MessageContent.NEWUSERID, (Object) userName));
 				if(result != null && result.getContent() == MessageContent.DONE){
 					_frame.setUsername(userName);
+					_frame.getURLPanel().setEnable(true);
 					_frame.getSignoutButton().setVisible(true);
 					_frame.getNotificationsButton().setEnabled(true);
 					_frame.getWebTagsButton().setEnabled(true);
-					_frame.getEnterURL().setEnabled(true);
 					_changePanel.removeAll();
 					_changePanel.add(new WelcomePanel(_usernameField.getText().trim()));
 					_changePanel.repaint();

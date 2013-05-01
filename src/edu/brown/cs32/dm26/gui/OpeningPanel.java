@@ -14,8 +14,8 @@ public class OpeningPanel extends JPanel {
 
 	public OpeningPanel(MyFrame frame, JPanel changePanel, Client client){
 		super();
-		this.setSize(new Dimension(592, 600));
-		this.setPreferredSize(new Dimension(592, 600));
+		this.setSize(new Dimension(592, 590));
+		this.setPreferredSize(new Dimension(592, 590));
 		this.setLayout(new BorderLayout());
 		this.setBackground(ColorConstants.LIGHT_YELLOW);
 		RegistrationPanel rp=new RegistrationPanel(frame, changePanel, client);

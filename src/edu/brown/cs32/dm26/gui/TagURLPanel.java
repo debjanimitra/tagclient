@@ -13,6 +13,8 @@ public class TagURLPanel extends JPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 	private EnterElementPanel _elementPanel;
+	private BelowElementPanel _below;
+	private String _url;
 
 	public TagURLPanel(MyFrame frame, JPanel changePanel, Client client, HTMLParsing parser, String url){
 		super();
@@ -21,15 +23,25 @@ public class TagURLPanel extends JPanel {
 		this.setLayout(new BorderLayout());
 		this.setBackground(ColorConstants.LIGHT_ORANGE);
 		this.validate();
-		BelowElementPanel below=new BelowElementPanel(frame);
-		below.setBackground(ColorConstants.LIGHT_ORANGE);
-		_elementPanel = new EnterElementPanel(frame, changePanel, client, parser, below, url);
+		frame.getURLPanel().getBackButton().setEnabled(false);
+		_url=url;
+		_below=new BelowElementPanel(frame);
+		_below.setBackground(ColorConstants.LIGHT_ORANGE);
+		_elementPanel = new EnterElementPanel(frame, changePanel, client, parser, _below, url, this);
 		this.add(_elementPanel, BorderLayout.NORTH);
-		this.add(below);
+		this.add(_below);
+	}
+	
+	public String getURL(){
+		return _url;
 	}
 	
 	public EnterElementPanel getElementPanel(){
 		return _elementPanel;
+	}
+	
+	public BelowElementPanel getBelow(){
+		return _below;
 	}
 
 }
