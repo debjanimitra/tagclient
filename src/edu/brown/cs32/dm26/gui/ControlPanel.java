@@ -181,7 +181,7 @@ public class ControlPanel extends JPanel {
 		
 	}
 	
-	private class MyURLListener implements KeyListener, MouseListener{
+	/*private class MyURLListener implements KeyListener, MouseListener{
 
 		private JTextField _field;
 		private int _counter;
@@ -293,7 +293,7 @@ public class ControlPanel extends JPanel {
 		}
 		
 		
-	}
+	}*/
 	
 	
 	private class NotificationsListener implements ActionListener{

@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.IOException;
 import java.net.UnknownHostException;
 import java.util.Arrays;
 import java.util.Stack;
@@ -16,6 +17,7 @@ import java.util.Stack;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 
 import org.jsoup.HttpStatusException;
 
@@ -163,27 +165,34 @@ public class URLPanel extends JPanel {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
-				_changePanel.removeAll();
-				String input=_field.getText().trim();
-				if (input.startsWith("http://")==false){
-					input="http://"+input;
-				}
-				HTMLParsing parser;
-				try {
-					parser = new HTMLParsing(input);
-					TagURLPanel tag = new TagURLPanel(_frame, _changePanel, _client, parser, input);
-					_urlPanel.setPrevious(tag);
-					_changePanel.add(tag);
-					_changePanel.repaint();
-					_changePanel.revalidate();
-					_frame.repaint();
-					_frame.revalidate();
-					System.out.println("herehere");
-				} catch (UnknownHostException e1) {
-					// this website does not exist (maybe try with adding "www." in front of it and try again?
-				} catch (HttpStatusException e1) {
-					// there might actually be a typo in the URL, the entered website doesn't exist
-				}
+			_changePanel.removeAll();
+			String input=_field.getText().trim();
+			if (input.startsWith("http://")==false){
+				input="http://"+input;
+			}
+			HTMLParsing parser;
+			try {
+				parser = new HTMLParsing(input);
+				TagURLPanel tag = new TagURLPanel(_frame, _changePanel, _client, parser, input);
+				_urlPanel.setPrevious(tag);
+				_changePanel.add(tag);
+				_changePanel.repaint();
+				_changePanel.revalidate();
+				_frame.repaint();
+				_frame.revalidate();
+				System.out.println("herehere");
+			} catch (IOException e1) {
+				// this website does not exist (maybe try with adding "www." in front of it and try again?
+				JPopupMenu pop =  new JPopupMenu();
+				JLabel title1=new JLabel("You've entered an invalid URL");
+				JLabel title2=new JLabel("Try copying the address from your web browser");
+				pop.setLayout(new BorderLayout());
+				pop.add(title1, BorderLayout.NORTH);
+				pop.add(title2, BorderLayout.SOUTH);
+				pop.setSize(new Dimension(100, 40));
+				pop.setPreferredSize(new Dimension(100, 40));
+				pop.show(_changePanel, 250, 250);
+			} 
 				
 		}
 
@@ -213,12 +222,18 @@ public class URLPanel extends JPanel {
 					_frame.repaint();
 					_frame.revalidate();
 					System.out.println("herehere");
-				} catch (UnknownHostException e1) {
+				} catch (IOException e1) {
 					// this website does not exist (maybe try with adding "www." in front of it and try again?
-				} catch (HttpStatusException e1) {
-					// there might actually be a typo in the URL, the entered website doesn't exist
-				}
-				
+					JPopupMenu pop =  new JPopupMenu();
+					JLabel title1=new JLabel("You've entered an invalid URL");
+					JLabel title2=new JLabel("Try copying the address from your web browser");
+					pop.setLayout(new BorderLayout());
+					pop.add(title1, BorderLayout.NORTH);
+					pop.add(title2, BorderLayout.SOUTH);
+					pop.setSize(new Dimension(70, 40));
+					pop.setPreferredSize(new Dimension(70, 40));
+					pop.show(_changePanel, 250, 250);
+				} 
 			}
 		}
 
