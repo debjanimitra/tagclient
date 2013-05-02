@@ -29,7 +29,7 @@ public class AllNotificationsPanel extends JPanel {
 	
 	public AllNotificationsPanel(Client client, NotificationsPanel parentPanel, MyFrame frame){
 		super();
-		this.setBackground(ColorConstants.BLUE);
+		this.setBackground(ColorConstants.GREY);
 		Message message = client.sendAndReceive(new Message(MessageContent.GET_NOTIFICATIONS, null));
 		System.out.println("Before null check");
 		if (message !=null){
@@ -53,7 +53,7 @@ public class AllNotificationsPanel extends JPanel {
 					_options.add(option);
 				}
 				
-			 int width=580;
+			 int width=570;
 			 int height=_options.size()*100;
 			 this.setSize(new Dimension(width, height));
 			 this.setPreferredSize(new Dimension(width, height));

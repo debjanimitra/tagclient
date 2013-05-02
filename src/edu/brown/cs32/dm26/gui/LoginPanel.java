@@ -7,13 +7,15 @@ import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
 import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.EtchedBorder;
 
 import edu.brown.cs32.vgavriel.connectorOnClient.Client;
 import edu.brown.cs32.vgavriel.connectorOnServer.Message;
 import edu.brown.cs32.vgavriel.connectorOnServer.MessageContent;
 
 
-public class LoginPanel extends Panel {
+public class LoginPanel extends JPanel {
 
 	/**
 	 * This panel is the darker yellow panel on the top of the screen where the user can enter
@@ -26,12 +28,15 @@ public class LoginPanel extends Panel {
 	public LoginPanel(RegistrationPanel rp, MyFrame frame, JPanel changePanel, Client client){
 		super();
 		_client = client;
-		this.setSize(new Dimension(592, 120));
-		this.setPreferredSize(new Dimension (592, 120));
-		this.setBackground(ColorConstants.BRIGHT_YELLOW);
+		this.setSize(new Dimension(800, 120));
+		this.setPreferredSize(new Dimension (800, 120));
+		this.setBackground(ColorConstants.SEA);
 		this.setVisible(true);
 		this.setLayout(new GridLayout(3, 1));
 		Font userInputFont=new Font("Verdana", Font.BOLD, 10);
+		
+		Border border=BorderFactory.createEtchedBorder(EtchedBorder.LOWERED);
+		this.setBorder(border);
 		
 		GridBagConstraints c1=new GridBagConstraints();
 		TextField usernameField = new TextField();
@@ -45,7 +50,7 @@ public class LoginPanel extends Panel {
 		JPanel uPanel=new JPanel();
 		uPanel.setSize(new Dimension(592, 100));
 		uPanel.setPreferredSize(new Dimension(592, 100));
-		uPanel.setBackground(ColorConstants.BRIGHT_YELLOW);
+		uPanel.setBackground(ColorConstants.SEA);
 		uPanel.setLayout(new GridBagLayout());
 		c1.gridx=0;
 		c1.gridy=0;
@@ -60,7 +65,7 @@ public class LoginPanel extends Panel {
 		JPanel pPanel=new JPanel();
 		pPanel.setSize(new Dimension(592, 100));
 		pPanel.setPreferredSize(new Dimension(592, 100));
-		pPanel.setBackground(ColorConstants.BRIGHT_YELLOW);
+		pPanel.setBackground(ColorConstants.SEA);
 		pPanel.setLayout(new GridBagLayout());
 		GridBagConstraints c3=new GridBagConstraints();
 		c3.gridx=0;
@@ -84,12 +89,12 @@ public class LoginPanel extends Panel {
 		this.add(pPanel);
 		
 		JButton loginButton=new JButton("Log me in!");
-		loginButton.setBackground(ColorConstants.DARK_GRAY);
+		loginButton.setBackground(ColorConstants.ORANGE);
 		loginButton.setForeground(Color.WHITE);
 		loginButton.setSize(new Dimension(100, 50));
 		loginButton.setPreferredSize(new Dimension(100, 50));
 		JPanel loginButtonPanel=new JPanel();
-		loginButtonPanel.setBackground(ColorConstants.BRIGHT_YELLOW);
+		loginButtonPanel.setBackground(ColorConstants.SEA);
 		loginButtonPanel.setSize(new Dimension(592, 50));
 		loginButtonPanel.setPreferredSize(new Dimension(592, 50));
 		loginButtonPanel.setLayout(new GridBagLayout());
@@ -210,6 +215,8 @@ private class PasswordListener implements KeyListener{
 				String userName = _usernameField.getText();
 				Message result = _client.sendAndReceive(new Message(MessageContent.USERID, (Object) userName));
 				if(result != null && result.getContent() == MessageContent.DONE){
+					_client.setUserID(userName);
+					_frame.getControlPanel().setEnable(true);
 					_frame.setUsername(userName);
 					_frame.getURLPanel().setEnable(true);
 					_frame.getSignoutButton().setVisible(true);

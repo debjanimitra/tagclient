@@ -14,19 +14,16 @@ public class OpeningPanel extends JPanel {
 
 	public OpeningPanel(MyFrame frame, JPanel changePanel, Client client){
 		super();
-		this.setSize(new Dimension(592, 590));
-		this.setPreferredSize(new Dimension(592, 590));
+		this.setSize(new Dimension(800, 590));
+		this.setPreferredSize(new Dimension(800, 590));
 		this.setLayout(new BorderLayout());
-		this.setBackground(ColorConstants.LIGHT_YELLOW);
+		this.setBackground(ColorConstants.GREY);
 		RegistrationPanel rp=new RegistrationPanel(frame, changePanel, client);
 		LoginPanel op=new LoginPanel(rp, frame, changePanel, client);
 		this.add(op, BorderLayout.NORTH);
 		this.add(rp);
 		this.setVisible(true);
 		System.out.println("this");
-		for (int i=0; i<this.getComponentCount(); i++){
-			this.getComponent(i);
-		}
 	}
 	
 }

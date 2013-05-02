@@ -11,6 +11,7 @@ import java.net.UnknownHostException;
 
 import javax.swing.*;
 import javax.swing.border.Border;
+import javax.swing.border.EtchedBorder;
 
 import org.jsoup.HttpStatusException;
 
@@ -32,55 +33,56 @@ public class ControlPanel extends JPanel {
 	private JButton _signoutButton, _notificationsButton, _webTagsButton;
 	private JTextField _enterURL;
 	private Client _client;
+	private JPanel _notificationsPanel, _webTagsPanel, _signoutPanel, _buttonPanel, _logoPanel;
 
 	public ControlPanel(Dimension dimension, MyFrame frame, JPanel changePanel, JPanel openingPanel, Client client){
 		super();
 		_client = client;
 		this.setSize(dimension);
 		this.setPreferredSize(dimension);
-		this.setBackground(ColorConstants.LIGHT_GRAY);
+		this.setBackground(ColorConstants.EVEN_LIGHTER_SEA);
 		this.setLayout(new BorderLayout());
-		Border lineBorder=BorderFactory.createLineBorder(ColorConstants.PINK);
-		this.setBorder(lineBorder);
+		EtchedBorder border=new EtchedBorder(ColorConstants.SEA, ColorConstants.GREY);
+		this.setBorder(border);
 		Font buttonFont=new Font("Verdana", Font.BOLD, 17);
 		Font websiteFont=new Font("Verdana", Font.BOLD, 14);
 
 		
-		JPanel buttonPanel=new JPanel();
-		buttonPanel.setSize(new Dimension(200, 250));
-		buttonPanel.setPreferredSize(new Dimension(200, 250));
-		buttonPanel.setLayout(new GridLayout(4, 1));
-		buttonPanel.setBackground(ColorConstants.LIGHT_GRAY);
+		_buttonPanel=new JPanel();
+		_buttonPanel.setSize(new Dimension(200, 250));
+		_buttonPanel.setPreferredSize(new Dimension(200, 250));
+		_buttonPanel.setLayout(new GridLayout(4, 1));
+		_buttonPanel.setBackground(ColorConstants.EVEN_LIGHTER_SEA);
 		
-		JPanel notificationsPanel=new JPanel();
-		notificationsPanel.setSize(new Dimension(200, 100));
-		notificationsPanel.setPreferredSize(new Dimension(200, 100));
+		_notificationsPanel=new JPanel();
+		_notificationsPanel.setSize(new Dimension(200, 100));
+		_notificationsPanel.setPreferredSize(new Dimension(200, 100));
 		_notificationsButton=new JButton("Notifications");
 		client.setNotification(_notificationsButton);
 		_notificationsButton.setEnabled(false);
-		_notificationsButton.setBackground(ColorConstants.DARK_GRAY);
-		_notificationsButton.setForeground(ColorConstants.BLUE);
+		_notificationsButton.setBackground(ColorConstants.LIGHT_GRAY);
+		_notificationsButton.setForeground(Color.WHITE);
 		_notificationsButton.setFont(buttonFont);
 		_notificationsButton.setSize(new Dimension(200, 60));
 		_notificationsButton.setPreferredSize(new Dimension(200, 60));
 		NotificationsListener nl=new NotificationsListener(frame, changePanel, openingPanel);
 		_notificationsButton.addActionListener(nl);
-		notificationsPanel.setLayout(new BorderLayout());
-		notificationsPanel.add(_notificationsButton, BorderLayout.SOUTH);
+		_notificationsPanel.setLayout(new BorderLayout());
+		_notificationsPanel.add(_notificationsButton, BorderLayout.SOUTH);
 		
-		JPanel webTagsPanel=new JPanel();
-		webTagsPanel.setSize(new Dimension(200, 100));
-		webTagsPanel.setPreferredSize(new Dimension(200, 100));
+		_webTagsPanel=new JPanel();
+		_webTagsPanel.setSize(new Dimension(200, 100));
+		_webTagsPanel.setPreferredSize(new Dimension(200, 100));
 		_webTagsButton=new JButton("Web Tags");
 		_webTagsButton.setEnabled(false);
-		_webTagsButton.setBackground(ColorConstants.DARK_GRAY);
-		_webTagsButton.setForeground(ColorConstants.GREEN);
+		_webTagsButton.setBackground(ColorConstants.LIGHT_GRAY);
+		_webTagsButton.setForeground(Color.WHITE);
 		_webTagsButton.setFont(buttonFont);
 		_webTagsButton.setSize(new Dimension(200, 60));
 		_webTagsButton.setPreferredSize(new Dimension(200, 60));
 		_webTagsButton.addActionListener(new WebTagsListener(frame, changePanel, openingPanel, nl));
-		webTagsPanel.setLayout(new BorderLayout());
-		webTagsPanel.add(_webTagsButton, BorderLayout.SOUTH);
+		_webTagsPanel.setLayout(new BorderLayout());
+		_webTagsPanel.add(_webTagsButton, BorderLayout.SOUTH);
 		
 	//	JPanel enterURLPanel=new JPanel();
 	//	enterURLPanel.setSize(new Dimension(200, 50));
@@ -104,31 +106,59 @@ public class ControlPanel extends JPanel {
 	//	random.add(_enterURL, BorderLayout.CENTER);
 	//	enterURLPanel.add(random, BorderLayout.SOUTH);
 		
-		buttonPanel.add(notificationsPanel);
-		buttonPanel.add(webTagsPanel);
+		_buttonPanel.add(_notificationsPanel);
+		_buttonPanel.add(_webTagsPanel);
 	//	buttonPanel.add(enterURLPanel);
-		this.add(buttonPanel, BorderLayout.NORTH);
+		this.add(_buttonPanel, BorderLayout.NORTH);
 		
-		JPanel logoPanel=new JPanel();
-		logoPanel.setSize(new Dimension(200, 500));
-		logoPanel.setPreferredSize(new Dimension(200, 500));
-		logoPanel.setBackground(ColorConstants.LIGHT_GRAY);
+		_logoPanel=new JPanel();
+		_logoPanel.setSize(new Dimension(200, 500));
+		_logoPanel.setPreferredSize(new Dimension(200, 500));
+		_logoPanel.setBackground(ColorConstants.EVEN_LIGHTER_SEA);
 		JLabel label=new JLabel("           Logo goes here");
-		logoPanel.setLayout(new BorderLayout());
-		logoPanel.add(label, BorderLayout.CENTER);;
-		this.add(logoPanel, BorderLayout.CENTER);
+		_logoPanel.setLayout(new BorderLayout());
+		_logoPanel.add(label, BorderLayout.CENTER);;
+		this.add(_logoPanel, BorderLayout.CENTER);
 		
-		JPanel signoutPanel = new JPanel();
-		signoutPanel.setSize(new Dimension(200, 200));
-		signoutPanel.setPreferredSize(new Dimension(200, 200));
+		_signoutPanel = new JPanel();
+		_signoutPanel.setSize(new Dimension(200, 200));
+		_signoutPanel.setPreferredSize(new Dimension(200, 200));
 		_signoutButton=new JButton ("Sign out");
-		_signoutButton.setBackground(ColorConstants.DARK_GRAY);
-		_signoutButton.setForeground(ColorConstants.BRIGHT_YELLOW);
+		_signoutButton.setBackground(ColorConstants.LIGHT_GRAY);
+		_signoutButton.setForeground(Color.WHITE);
 		_signoutButton.setFont(websiteFont);
 		this.add(_signoutButton, BorderLayout.SOUTH);
 		_signoutButton.setVisible(false);
-		_signoutButton.addActionListener(new SignoutListener(frame, openingPanel, changePanel, _signoutButton, _enterURL));
+		_signoutButton.addActionListener(new SignoutListener(frame, openingPanel, changePanel, _signoutButton, _enterURL, this));
 		this.setVisible(true);
+	}
+	
+	public void setEnable(boolean bool){
+		_notificationsButton.setEnabled(bool);
+		_webTagsButton.setEnabled(bool);
+		_signoutButton.setVisible(bool);
+		if (bool==false){
+			_notificationsButton.setBackground(ColorConstants.GRAY3);
+			_webTagsButton.setBackground(ColorConstants.GRAY3);
+			_notificationsPanel.setBackground(ColorConstants.GRAY4);
+			_webTagsPanel.setBackground(ColorConstants.GRAY4);
+			_buttonPanel.setBackground(ColorConstants.GRAY4);
+			_logoPanel.setBackground(ColorConstants.GRAY4);
+			_signoutPanel.setBackground(ColorConstants.GRAY4);
+			this.setBackground(ColorConstants.GRAY4);
+			this.setBorder(null);
+		}else{
+			_notificationsButton.setBackground(ColorConstants.LIGHT_GRAY);
+			_webTagsButton.setBackground(ColorConstants.LIGHT_GRAY);
+			_webTagsPanel.setBackground(ColorConstants.EVEN_LIGHTER_SEA);
+			_notificationsPanel.setBackground(ColorConstants.EVEN_LIGHTER_SEA);
+			_buttonPanel.setBackground(ColorConstants.EVEN_LIGHTER_SEA);
+			_logoPanel.setBackground(ColorConstants.EVEN_LIGHTER_SEA);
+			_signoutPanel.setBackground(ColorConstants.EVEN_LIGHTER_SEA);
+			this.setBackground(ColorConstants.EVEN_LIGHTER_SEA);
+			EtchedBorder border=new EtchedBorder(ColorConstants.SEA, ColorConstants.GREY);
+			this.setBorder(border);
+		}
 	}
 	
 	public JButton getSignoutButton(){
@@ -154,13 +184,15 @@ public class ControlPanel extends JPanel {
 		private MyFrame _frame;
 		private JButton _signout;
 		private JTextField _enterURL;
+		private ControlPanel _cp;
 		
-		public SignoutListener(MyFrame frame, JPanel op, JPanel panelToChange, JButton signout, JTextField enterURL){
+		public SignoutListener(MyFrame frame, JPanel op, JPanel panelToChange, JButton signout, JTextField enterURL, ControlPanel cp){
 			_frame=frame;
 			_ptc=panelToChange;
 			_op=op;
 			_signout=signout;
 			_enterURL=enterURL;
+			_cp=cp;
 		}
 		
 		@Override
@@ -172,7 +204,9 @@ public class ControlPanel extends JPanel {
 			_client.kill();
 			_ptc.removeAll();
 			_ptc.add(_op);
+			_cp.setEnable(false);
 			_signout.setVisible(false);
+			_frame.getURLPanel().getTextField().setText("");
 			_frame.getURLPanel().setEnable(false);
 			_frame.getNotificationsButton().setEnabled(false);
 			_frame.getNotificationsButton().setText("Notifications");

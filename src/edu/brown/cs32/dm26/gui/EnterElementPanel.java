@@ -18,6 +18,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
+import javax.swing.border.EtchedBorder;
 
 import org.jsoup.nodes.Element;
 
@@ -40,9 +41,12 @@ public class EnterElementPanel extends JPanel {
 		_client = client;
 		this.setSize(new Dimension(592, 129));
 		this.setPreferredSize(new Dimension (592, 129));
-		this.setBackground(ColorConstants.LIGHT_ORANGE);
+		this.setBackground(ColorConstants.SEA);
 		this.setVisible(true);
 		this.setLayout(new GridLayout(3, 1));
+		EtchedBorder border=new EtchedBorder(ColorConstants.GREY, ColorConstants.SEA);
+		this.setBorder(border);
+		
 		Font font=new Font("Verdana", Font.BOLD, 12);
 		
 		JLabel prompt=new JLabel("                          Enter the first word(s) of the element you want to tag:");
@@ -50,7 +54,7 @@ public class EnterElementPanel extends JPanel {
 		JPanel labelPanel=new JPanel();
 		labelPanel.setSize(new Dimension(592, 43));
 		labelPanel.setPreferredSize(new Dimension(592, 43));
-		labelPanel.setBackground(ColorConstants.DARK_ORANGE);
+		labelPanel.setBackground(ColorConstants.SEA);
 		labelPanel.setLayout(new BorderLayout());
 		labelPanel.add(prompt, BorderLayout.CENTER);
 		this.add(labelPanel);
@@ -62,7 +66,7 @@ public class EnterElementPanel extends JPanel {
 		JPanel ePanel=new JPanel();
 		ePanel.setSize(new Dimension(592, 100));
 		ePanel.setPreferredSize(new Dimension(592, 100));
-		ePanel.setBackground(ColorConstants.DARK_ORANGE);
+		ePanel.setBackground(ColorConstants.SEA);
 		ePanel.setLayout(new GridBagLayout());
 		GridBagConstraints c1=new GridBagConstraints();
 		c1.gridx=0;
@@ -70,13 +74,13 @@ public class EnterElementPanel extends JPanel {
 		ePanel.add(elementField, c1);
 		this.add(ePanel);
 		
-		JButton trakButton=new JButton("Trak this!");
-		trakButton.setBackground(ColorConstants.DARK_GRAY);
+		JButton trakButton=new JButton("Search");
+		trakButton.setBackground(ColorConstants.ORANGE);
 		trakButton.setForeground(Color.WHITE);
 		trakButton.setSize(new Dimension(100, 50));
 		trakButton.setPreferredSize(new Dimension(100, 50));
 		JPanel trakButtonPanel=new JPanel();
-		trakButtonPanel.setBackground(ColorConstants.DARK_ORANGE);
+		trakButtonPanel.setBackground(ColorConstants.SEA);
 		trakButtonPanel.setSize(new Dimension(592, 50));
 		trakButtonPanel.setPreferredSize(new Dimension(592, 50));
 		trakButtonPanel.setLayout(new GridBagLayout());

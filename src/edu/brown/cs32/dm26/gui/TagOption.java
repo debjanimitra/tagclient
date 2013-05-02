@@ -42,37 +42,45 @@ public class TagOption extends JPanel {
 	
 	public TagOption(Element element, Client client, String username, Document doc, String url, HTMLParsing parser, TagURLPanel allTag, int index){
 		super();
-		this.setSize(new Dimension(590, 160));
-		this.setPreferredSize(new Dimension(590, 160));
-		this.setBackground(ColorConstants.LIGHT_ORANGE);
-		Border border=BorderFactory.createEtchedBorder(EtchedBorder.LOWERED);
+		this.setSize(new Dimension(570, 160));
+		this.setPreferredSize(new Dimension(570, 160));
+		this.setBackground(ColorConstants.GREY);
+		EtchedBorder border=new EtchedBorder(ColorConstants.SEA, ColorConstants.GREY);
 		this.setBorder(border);
 		Font customFont=new Font("Verdana", Font.PLAIN, 12);
 		Font customFont2=new Font("Verdana", Font.BOLD, 12);
 		String text=element.text();
+		boolean isShort=false;
 		int start=40, end=40;
-		if (text.length()<40){
-			start=(int)0.7*text.length();
-			end=start;
+		if (text.length()<41){
+			isShort=true;
 		}
 		System.out.println("Start is:"+start);
 		System.out.println("End is:"+end);
+		JLabel startLabel, endLabel;
 
-		if (text.charAt(start)!=' '){
-			while (text.charAt(start)!=' ' && start>0){
-				start--;
+		if (isShort==false){
+			if (text.charAt(start)!=' '){
+				while (text.charAt(start)!=' ' && start>0){
+					start--;
+				}
 			}
+		
+			if (text.charAt(end)!=' '){
+				while(text.charAt(end)!=' ' && end<text.length()-1){
+					end++;
+				}
+				end--;
+			}
+		
+			startLabel=new JLabel(" This element begins with : "+text.substring(0, start));
+			endLabel= new JLabel(" This element ends with : "+text.substring(text.length()-end, text.length()));
+		}
+		else{
+			startLabel=new JLabel(" This element begins with : "+text);
+			endLabel=new JLabel(" ..." );
 		}
 		
-		if (text.charAt(end)!=' '){
-			while(text.charAt(end)!=' ' && end<text.length()-1){
-				end++;
-			}
-			end--;
-		}
-		
-		JLabel startLabel=new JLabel(" This element begins with : "+text.substring(0, start));
-		JLabel endLabel= new JLabel(" This element ends with : "+text.substring(text.length()-end, text.length()));
 		this.setLayout(new GridLayout(5, 1));
 
 		
@@ -80,12 +88,12 @@ public class TagOption extends JPanel {
 		this.add(endLabel);
 		
 
-		JLabel label=new JLabel("Name this element b4 selecting (OPTIONAL):");
+		JLabel label=new JLabel("  Name this element b4 selecting(OPTIONAL):");
 		label.setFont(customFont);
 		JPanel labelPanel=new JPanel();
 		labelPanel.setSize(new Dimension(130, 30));
 		labelPanel.setPreferredSize(new Dimension(130, 30));
-		labelPanel.setBackground(ColorConstants.LIGHT_ORANGE);
+		labelPanel.setBackground(ColorConstants.GREY);
 		labelPanel.add(label);
 		
 		
@@ -98,7 +106,7 @@ public class TagOption extends JPanel {
 		JPanel tPanel=new JPanel();
 		tPanel.setSize(new Dimension(200, 30));
 		tPanel.setPreferredSize(new Dimension(200, 30));
-		tPanel.setBackground(ColorConstants.LIGHT_ORANGE);
+		tPanel.setBackground(ColorConstants.GREY);
 		tPanel.setLayout(new GridBagLayout());
 		GridBagConstraints c1=new GridBagConstraints();
 		c1.gridx=0;
@@ -109,12 +117,12 @@ public class TagOption extends JPanel {
 		JPanel random=new JPanel();
 		random.setSize(new Dimension(140, 30));
 		random.setPreferredSize(new Dimension(140, 30));
-		random.setBackground(ColorConstants.LIGHT_ORANGE);
+		random.setBackground(ColorConstants.GREY);
 		
 		JPanel optionPanel=new JPanel();
 		optionPanel.setSize(new Dimension(590, 30));
 		optionPanel.setPreferredSize(new Dimension(590, 30));
-		optionPanel.setBackground(ColorConstants.LIGHT_ORANGE);
+		optionPanel.setBackground(ColorConstants.GREY);
 		optionPanel.setLayout(new GridLayout(1,2));
 		optionPanel.add(labelPanel);
 		optionPanel.add(tPanel);
@@ -124,7 +132,7 @@ public class TagOption extends JPanel {
 		JPanel permPanel=new JPanel();
 		permPanel.setSize(new Dimension(590, 30));
 		permPanel.setPreferredSize(new Dimension(590, 30));
-		permPanel.setBackground(ColorConstants.LIGHT_ORANGE);
+		permPanel.setBackground(ColorConstants.GREY);
 		
 		
 		boolean perm=parser.canBePermanent(element).getPerm();
@@ -140,7 +148,7 @@ public class TagOption extends JPanel {
 		JPanel labelPanel1=new JPanel();
 		labelPanel1.setSize(new Dimension(388, 30));
 		labelPanel1.setPreferredSize(new Dimension(388, 30));
-		labelPanel1.setBackground(ColorConstants.LIGHT_ORANGE);
+		labelPanel1.setBackground(ColorConstants.GREY);
 		labelPanel1.add(label1); 
 		
 	/**	 JRadioButton firstButton = new JRadioButton("Yes");
@@ -175,11 +183,11 @@ public class TagOption extends JPanel {
 		JPanel selectPanel=new JPanel();
 		selectPanel.setSize(new Dimension(590, 30));
 		selectPanel.setPreferredSize(new Dimension(590, 30));
-		selectPanel.setBackground(ColorConstants.LIGHT_ORANGE);
+		selectPanel.setBackground(ColorConstants.GREY);
 		JButton selectButton=new JButton ("select this!");
 		selectButton.addMouseListener(new MySelectListener(allTag, client, element, username, doc, url, parser, customFont2, titleField, this, perm, index));
-		selectButton.setBackground(ColorConstants.DARK_GRAY);
-		selectButton.setForeground(ColorConstants.DARK_ORANGE);
+		selectButton.setBackground(ColorConstants.HUNTER);
+		selectButton.setForeground(Color.WHITE);
 		selectPanel.setLayout(new GridBagLayout());
 		GridBagConstraints c3=new GridBagConstraints();
 		c3.anchor=GridBagConstraints.CENTER;

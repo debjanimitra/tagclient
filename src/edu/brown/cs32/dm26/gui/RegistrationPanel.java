@@ -11,10 +11,14 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
+
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
+import javax.swing.border.Border;
+import javax.swing.border.EtchedBorder;
 
 import edu.brown.cs32.vgavriel.connectorOnClient.Client;
 import edu.brown.cs32.vgavriel.connectorOnServer.Message;
@@ -35,7 +39,7 @@ public class RegistrationPanel extends JPanel {
 		_client = client;
 		this.setSize(new Dimension(592, 470));
 		this.setPreferredSize(new Dimension (592, 470));
-		this.setBackground(ColorConstants.LIGHT_YELLOW);
+		this.setBackground(ColorConstants.GREY);
 		this.setVisible(true);
 		this.setLayout(new GridLayout(10, 1));
 		Font declarationFont=new Font("Verdana", Font.BOLD, 20);
@@ -46,11 +50,14 @@ public class RegistrationPanel extends JPanel {
 		declarationLabel2.setFont(declarationFont);
 		declarationLabel3.setFont(declarationFont);
 		JPanel anotherRando=new JPanel();
-		anotherRando.setBackground(ColorConstants.LIGHT_YELLOW);
+		anotherRando.setBackground(ColorConstants.GREY);
 		this.add(anotherRando);
 		this.add(declarationLabel1);
 		this.add(declarationLabel2);
 		this.add(declarationLabel3);
+		
+		Border border=BorderFactory.createEtchedBorder(EtchedBorder.LOWERED);
+		this.setBorder(border);
 		
 		Font userInputFont = new Font("Verdana", Font.BOLD, 14);
 		TextField usernameField = new TextField();
@@ -73,7 +80,7 @@ public class RegistrationPanel extends JPanel {
 		JPanel uPanel=new JPanel();
 		uPanel.setSize(new Dimension(592, 100));
 		uPanel.setPreferredSize(new Dimension(592, 100));
-		uPanel.setBackground(ColorConstants.LIGHT_YELLOW);
+		uPanel.setBackground(ColorConstants.GREY);
 		uPanel.setLayout(new GridBagLayout());
 		GridBagConstraints c1=new GridBagConstraints();
 		c1.gridx=0;
@@ -89,7 +96,7 @@ public class RegistrationPanel extends JPanel {
 		JPanel pPanel=new JPanel();
 		pPanel.setSize(new Dimension(592, 100));
 		pPanel.setPreferredSize(new Dimension(592, 100));
-		pPanel.setBackground(ColorConstants.LIGHT_YELLOW);
+		pPanel.setBackground(ColorConstants.GREY);
 		pPanel.setLayout(new GridBagLayout());
 		GridBagConstraints c3=new GridBagConstraints();
 		c3.gridx=0;
@@ -105,7 +112,7 @@ public class RegistrationPanel extends JPanel {
 		JPanel rPanel=new JPanel();
 		rPanel.setSize(new Dimension(592, 100));
 		rPanel.setPreferredSize(new Dimension(592, 100));
-		rPanel.setBackground(ColorConstants.LIGHT_YELLOW);
+		rPanel.setBackground(ColorConstants.GREY);
 		rPanel.setLayout(new GridBagLayout());
 		GridBagConstraints c5=new GridBagConstraints();
 		c5.gridx=0;
@@ -121,7 +128,7 @@ public class RegistrationPanel extends JPanel {
 		JPanel ePanel=new JPanel();
 		ePanel.setSize(new Dimension(592, 100));
 		ePanel.setPreferredSize(new Dimension(592, 100));
-		ePanel.setBackground(ColorConstants.LIGHT_YELLOW);
+		ePanel.setBackground(ColorConstants.GREY);
 		ePanel.setLayout(new GridBagLayout());
 		GridBagConstraints c7=new GridBagConstraints();
 		c7.gridx=0;
@@ -135,12 +142,12 @@ public class RegistrationPanel extends JPanel {
 		ePanel.add(emailField, c8);
 		
 		JButton registerButton = new JButton ("Register me!");
-		registerButton.setBackground(ColorConstants.DARK_GRAY);
+		registerButton.setBackground(ColorConstants.ORANGE);
 		registerButton.setForeground(Color.WHITE);
 		registerButton.setSize(new Dimension(100, 50));
 		registerButton.setPreferredSize(new Dimension(100, 50));
 		JPanel registerButtonPanel=new JPanel();
-		registerButtonPanel.setBackground(ColorConstants.LIGHT_YELLOW);
+		registerButtonPanel.setBackground(ColorConstants.GREY);
 		registerButtonPanel.setSize(new Dimension(592, 50));
 		registerButtonPanel.setPreferredSize(new Dimension(592, 50));
 		registerButtonPanel.setLayout(new GridBagLayout());
@@ -283,6 +290,8 @@ public class RegistrationPanel extends JPanel {
 				String userName = _usernameField.getText();
 				Message result = _client.sendAndReceive(new Message(MessageContent.NEWUSERID, (Object) userName));
 				if(result != null && result.getContent() == MessageContent.DONE){
+					_client.setUserID(userName);
+					_frame.getControlPanel().setEnable(true);
 					_frame.setUsername(userName);
 					_frame.getURLPanel().setEnable(true);
 					_frame.getSignoutButton().setVisible(true);

@@ -18,7 +18,7 @@ public class WelcomePanel extends JPanel {
 		super();
 		this.setSize(new Dimension(600, 595));
 		this.setPreferredSize(new Dimension(600, 595));
-		this.setBackground(ColorConstants.BRIGHT_YELLOW);
+		this.setBackground(ColorConstants.GREY);
 		Font font=new Font("Verdana", Font.BOLD, 30);
 		JLabel label1=new JLabel("   Trakr welcomes you, "+user+"!");
 		label1.setSize(new Dimension(600, 600));

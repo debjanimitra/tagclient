@@ -1,6 +1,8 @@
 package edu.brown.cs32.dm26.gui;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -16,6 +18,7 @@ import java.util.Stack;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.border.EtchedBorder;
 
 import org.jsoup.HttpStatusException;
 
@@ -32,61 +35,75 @@ public class URLPanel extends JPanel {
 	private JButton _goButton, _backButton, _forwardButton;
 	private JLabel _label;
 	private TagURLPanel _previous;
+	private JPanel _labelPanel, _fieldPanel, _buttonPanel, _goPanel, _backPanel;
+	private MyFrame _frame;
 
 	public URLPanel(MyFrame frame, JPanel changePanel, Client client){
 		super();
-		this.setSize(new Dimension(800, 40));
-		this.setPreferredSize(new Dimension(800, 40));
+		this.setSize(new Dimension(800, 44));
+		this.setPreferredSize(new Dimension(800, 44));
+		this.setBackground(ColorConstants.SUPER_HUNTER);
+		EtchedBorder border=new EtchedBorder(ColorConstants.SUPER_HUNTER, ColorConstants.HUNTER);
+		this.setBorder(border);
+		_frame=frame;
 		_previous=null;
 		Font customFont=new Font("Verdana", Font.BOLD, 12);
-		_label = new JLabel("   Enter URL:");
+		_label = new JLabel(" Enter URL :");
 		_label.setFont(customFont);
-		JPanel labelPanel=new JPanel();
-		labelPanel.setLayout(new BorderLayout());
-		labelPanel.setSize(new Dimension(100, 40));
-		labelPanel.setPreferredSize(new Dimension(100, 40));
-		labelPanel.add(_label, BorderLayout.CENTER);
+		_label.setForeground(ColorConstants.LIGHT_SEA);
+		_labelPanel=new JPanel();
+		_labelPanel.setBackground(ColorConstants.SUPER_HUNTER);
+		_labelPanel.setLayout(new BorderLayout());
+		_labelPanel.setSize(new Dimension(100, 40));
+		_labelPanel.setPreferredSize(new Dimension(100, 40));
+		_labelPanel.add(_label, BorderLayout.CENTER);
 		
 		_field=new TextField();
-		_field.setColumns(59);
+		_field.setColumns(55);
 		_field.setSize(new Dimension(550, 40));
 		_field.setPreferredSize(new Dimension(550, 40));
 		_field.setFont(customFont);
-		JPanel fieldPanel=new JPanel();
-		fieldPanel.setSize(new Dimension(550, 40));
-		fieldPanel.setPreferredSize(new Dimension(550, 40));
-		fieldPanel.add(_field);
+		_fieldPanel=new JPanel();
+		_fieldPanel.setBackground(ColorConstants.SUPER_HUNTER);
+		_fieldPanel.setSize(new Dimension(550, 40));
+		_fieldPanel.setPreferredSize(new Dimension(550, 40));
+		_fieldPanel.add(_field);
 		
 		_goButton=new JButton("Fetch!");
 		_goButton.setFont(customFont);
 		_goButton.setSize(new Dimension(75, 30));
 		_goButton.setPreferredSize(new Dimension(75, 30));
-		JPanel goPanel=new JPanel();
-		goPanel.setSize(new Dimension(75, 40));
-		goPanel.setPreferredSize(new Dimension(75, 40));
-		goPanel.add(_goButton);
+		_goButton.setBackground(ColorConstants.ORANGE);
+		_goButton.setForeground(Color.WHITE);
+		_goPanel=new JPanel();
+		_goPanel.setBackground(ColorConstants.SUPER_HUNTER);
+		_goPanel.setSize(new Dimension(75, 40));
+		_goPanel.setPreferredSize(new Dimension(75, 40));
+		_goPanel.add(_goButton);
 		
 		
 		_backButton = new JButton("<--");
 		_backButton.setFont(customFont);
-		_backButton.setFont(customFont);
+		_backButton.setBackground(ColorConstants.ORANGE);
+		_backButton.setForeground(Color.WHITE);
 		_backButton.setSize(new Dimension(65, 30));
 		_backButton.setPreferredSize(new Dimension(65, 30));
 		_backButton.addActionListener(new BackListener(changePanel, frame, _field, this));
+
 		
+		_backPanel=new JPanel();
+		_backPanel.setSize(new Dimension(65, 40));
+		_backPanel.setPreferredSize(new Dimension(65, 40));
+		_backPanel.add(_backButton);
+		_backPanel.setBackground(ColorConstants.SUPER_HUNTER);
 		
-		JPanel backPanel=new JPanel();
-		backPanel.setSize(new Dimension(65, 40));
-		backPanel.setPreferredSize(new Dimension(65, 40));
-		backPanel.add(_backButton);
-		
-		
-		JPanel buttonPanel=new JPanel();
-		buttonPanel.setSize(new Dimension(145, 40));
-		buttonPanel.setPreferredSize(new Dimension(145, 40));
-		buttonPanel.setLayout(new BorderLayout());
-		buttonPanel.add(goPanel, BorderLayout.WEST);
-		buttonPanel.add(backPanel, BorderLayout.CENTER);
+		_buttonPanel=new JPanel();
+		_buttonPanel.setBackground(ColorConstants.SUPER_HUNTER);
+		_buttonPanel.setSize(new Dimension(145, 40));
+		_buttonPanel.setPreferredSize(new Dimension(145, 40));
+		_buttonPanel.setLayout(new BorderLayout());
+		_buttonPanel.add(_goPanel, BorderLayout.WEST);
+		_buttonPanel.add(_backPanel, BorderLayout.CENTER);
 		
 		GoListener goListener=new GoListener(changePanel, client, frame, _field, this);
 		_field.addKeyListener(goListener);
@@ -94,10 +111,11 @@ public class URLPanel extends JPanel {
 		
 		
 		this.setLayout(new BorderLayout());
-		this.add(labelPanel, BorderLayout.WEST);
-		this.add(fieldPanel, BorderLayout.CENTER);
-		this.add(buttonPanel, BorderLayout.EAST);
+		this.add(_labelPanel, BorderLayout.WEST);
+		this.add(_fieldPanel, BorderLayout.CENTER);
+		this.add(_buttonPanel, BorderLayout.EAST);
 	}
+	
 	
 	public void setPrevious(TagURLPanel panel){
 		_previous=panel;
@@ -108,11 +126,35 @@ public class URLPanel extends JPanel {
 	}
 	
 	public void setEnable(boolean bool){
+		_field.setText("");
 		_label.setEnabled(bool);
 		_field.setEnabled(bool);
 		_goButton.setEnabled(bool);
 		_backButton.setEnabled(bool);
-//		_forwardButton.setEnabled(bool);
+		if (bool==false){
+			_goButton.setBackground(ColorConstants.GRAY3);
+			_backButton.setBackground(ColorConstants.GRAY3);
+			_goPanel.setBackground(ColorConstants.GRAY4);
+			_backPanel.setBackground(ColorConstants.GRAY4);
+			_buttonPanel.setBackground(ColorConstants.GRAY4);
+			_fieldPanel.setBackground(ColorConstants.GRAY4);
+			_labelPanel.setBackground(ColorConstants.GRAY4);
+			this.setBackground(ColorConstants.GRAY4);
+			this.setBorder(null);
+		}
+		else{
+			_goButton.setBackground(ColorConstants.ORANGE);
+			_backButton.setBackground(ColorConstants.ORANGE);
+			_buttonPanel.setBackground(ColorConstants.SUPER_HUNTER);
+			_fieldPanel.setBackground(ColorConstants.SUPER_HUNTER);
+			_labelPanel.setBackground(ColorConstants.SUPER_HUNTER);
+			_goPanel.setBackground(ColorConstants.SUPER_HUNTER);
+			_backPanel.setBackground(ColorConstants.SUPER_HUNTER);
+			this.setBackground(ColorConstants.SUPER_HUNTER);
+			EtchedBorder border=new EtchedBorder(ColorConstants.SUPER_HUNTER, ColorConstants.HUNTER);
+			this.setBorder(border);
+		}
+		_frame.revalidate();
 	}
 	
 	public JLabel getLabel(){

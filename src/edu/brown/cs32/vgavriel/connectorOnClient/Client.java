@@ -14,6 +14,7 @@ import javax.swing.JPopupMenu;
 
 import com.google.common.collect.ArrayListMultimap;
 
+import edu.brown.cs32.dm26.gui.MyFrame;
 import edu.brown.cs32.dm26.gui.WelcomePanel;
 import edu.brown.cs32.takhan.tag.Data;
 import edu.brown.cs32.takhan.tag.Notification;
@@ -32,6 +33,8 @@ public class Client
 	private String hostname;
 	private boolean serverRunning;
 	private JButton notificationButton;
+	private MyFrame _frame;
+	private String _userID;
 
 	private ReceiveThread thread;
 
@@ -40,21 +43,38 @@ public class Client
 		this.hostname = hostname;
 		this.port = port;
 		this.notificationButton=null;
+		_frame = null;
+		_userID = "";
 		connectToServer();
 		thread = new ReceiveThread();
 		thread.start();
+
 	}
-	
+
+	public void setFrame(MyFrame frame){
+		if(frame == null){
+			System.err.println("THIS IS BAD");
+		}
+		_frame = frame;
+	}
+
 	public void setNotification(JButton notification){
 		this.notificationButton=notification;
 	}
 	
+	public void setUserID(String id){
+		_userID = id;
+	}
+
 
 	public void connectToServer()
 	{
 		int numTimesConnecting = 0;
 		serverRunning = false;
 		while(!serverRunning){
+			/*if(_frame != null){
+				_frame.setEnabled(false);
+			}*/
 			numTimesConnecting++;
 			try{
 				standardSocket = new Socket(this.hostname, this.port);
@@ -62,14 +82,19 @@ public class Client
 				standardOutput = new ObjectOutputStream(standardSocket.getOutputStream());
 				standardOutput.flush();
 				standardInput = new ObjectInputStream(standardSocket.getInputStream());
-				
+
 				receiveThreadOutput = new ObjectOutputStream(receiveThreadSocket.getOutputStream());
 				receiveThreadOutput.flush();
 				receiveThreadInput = new ObjectInputStream(receiveThreadSocket.getInputStream());
-				
-				
-				
+
+				if(!_userID.equals("")){
+					sendAndReceive(new Message(MessageContent.USERID, (Object) _userID));
+				}
+
 				serverRunning = true;
+				/*if(_frame != null){
+					_frame.setEnabled(true);
+				}*/
 			}
 			catch(IOException e){
 				serverRunning = false;
@@ -83,13 +108,24 @@ public class Client
 		}
 		System.out.println("Connected to the server.");
 	}
-	
-/*	public void handShake(){
+
+	private void waitForReconnect(){
+		if(serverRunning)
+			connectToServer();
+		while(!serverRunning){
+			// waiting for the reconnection to the server
+			try {
+				Thread.sleep(100);
+			} catch (InterruptedException e1) {}					
+		}		
+	}
+
+	/*	public void handShake(){
 		// HANDSHAKE:
 		String userName = _userName;
 		Message result = sendAndReceive(new Message(MessageContent.USERID, (Object) userName));
 		if(result != null && result.getContent() == MessageContent.DONE){
-			
+
 		} else {
 			if(result != null){
 				if(result.getContent() == MessageContent.ERRORHANDSHAKE_MULTIPLELOGINS){
@@ -98,7 +134,7 @@ public class Client
 					errors.add("    Username not found");
 				}
 			}
-			
+
 			JPopupMenu pop = new JPopupMenu ();
 			pop.setSize(new Dimension(300, 100));
 			pop.setPreferredSize(new Dimension(300, 100));
@@ -124,14 +160,8 @@ public class Client
 				success = true;
 			}
 			catch(IOException e){
-				e.printStackTrace();
-				try {
-					Thread.sleep(100000);
-				} catch (InterruptedException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				connectToServer();
+				System.err.println("ERROR: Connection down, trying to reconnect.");
+				waitForReconnect();
 				success = false;
 			}
 		}
@@ -146,10 +176,6 @@ public class Client
 		while(result == null){
 			try{
 				result = (Message) standardInput.readObject();
-				if(result != null && result.getContent() == MessageContent.DONE_GETWEBTAGS){
-					ArrayListMultimap<String, Data> d = (ArrayListMultimap<String, Data>) result.getObject();
-					System.out.println("freshly received size: " + d.size());
-				}
 				System.out.println("after receive");
 			}
 			catch(ClassNotFoundException e1){
@@ -157,7 +183,7 @@ public class Client
 			}
 			catch(IOException e2){
 				System.err.println("ERROR: Connection down, trying to reconnect.");
-				connectToServer();
+				waitForReconnect();
 			}
 		}
 		return result;
@@ -166,6 +192,7 @@ public class Client
 	public void kill()
 	{
 		try{
+			_userID = "";
 			standardSocket.close();
 			receiveThreadSocket.close();
 			standardInput.close();
@@ -200,7 +227,7 @@ public class Client
 					}
 				} catch (IOException e) {
 					System.err.println("ERROR: Connection down, trying to reconnect.");
-					connectToServer();
+					waitForReconnect();
 				} catch (ClassNotFoundException e) {
 					System.err.println("ERROR: Can't find class Message while receiving from Server.");
 				}        				

@@ -33,6 +33,7 @@ public class MyFrame extends JFrame {
 	
 	public MyFrame(Client client){
 		super("Woof woof!");
+		client.setFrame(this);
 		//this.client = client;		
 		this.setVisible(true);
 		this.setPreferredSize(new Dimension(800, 669));
@@ -57,6 +58,7 @@ public class MyFrame extends JFrame {
 		OpeningPanel openingPanel=new OpeningPanel(this, changePanel, client);
 		changePanel.add(openingPanel, BorderLayout.CENTER);
 		_cp=new ControlPanel(new Dimension(200, 600), this, changePanel, openingPanel, client);
+		_cp.setEnable(false);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setResizable(false);
 		this.setLayout(new BorderLayout());
@@ -67,6 +69,10 @@ public class MyFrame extends JFrame {
 		_urlPanel.setEnable(false);
 		this.add(_urlPanel, BorderLayout.NORTH);
 		this.pack();
+	}
+	
+	public ControlPanel getControlPanel(){
+		return _cp;
 	}
 	
 	public boolean getShouldStartEnabling(){

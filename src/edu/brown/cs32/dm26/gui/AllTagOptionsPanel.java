@@ -24,7 +24,7 @@ public class AllTagOptionsPanel extends JPanel {
 	
 	public AllTagOptionsPanel(ArrayList<Element> elementOptions, Client client, String username, Document doc, String url, HTMLParsing parser, TagURLPanel parent){
 		super();
-		this.setBackground(ColorConstants.LIGHT_ORANGE);
+		this.setBackground(ColorConstants.GREY);
 		_options=new ArrayList<TagOption>();
 		for (int i=0; i<elementOptions.size(); i++){
 			Element ele=elementOptions.get(i);
@@ -35,7 +35,7 @@ public class AllTagOptionsPanel extends JPanel {
 			}
 		}
 		System.out.println("Size of arraylist is "+elementOptions.size());
-		int width=590;
+		int width=570;
 		int height=_options.size()*190;
 		this.setSize(new Dimension(width, height));
 		this.setPreferredSize(new Dimension(width, height));
