@@ -10,6 +10,8 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
 
+import org.apache.commons.net.util.Base64;
+
 import edu.brown.cs32.vgavriel.connectorOnClient.Client;
 import edu.brown.cs32.vgavriel.connectorOnServer.Message;
 import edu.brown.cs32.vgavriel.connectorOnServer.MessageContent;
@@ -40,12 +42,12 @@ public class LoginPanel extends JPanel {
 		
 		GridBagConstraints c1=new GridBagConstraints();
 		TextField usernameField = new TextField();
-		TextField passwordField = new TextField();
+		JPasswordField passwordField = new JPasswordField();
 		usernameField.setColumns(25);
 		passwordField.setColumns(25);
 		usernameField.setFont(userInputFont);
 		passwordField.setFont(userInputFont);
-		passwordField.addKeyListener(new PasswordListener(passwordField));
+		/*passwordField.addKeyListener(new PasswordListener(passwordField));*/
 		
 		JPanel uPanel=new JPanel();
 		uPanel.setSize(new Dimension(592, 100));
@@ -111,7 +113,7 @@ public class LoginPanel extends JPanel {
 	}
 
 
-private class PasswordListener implements KeyListener{
+/*private class PasswordListener implements KeyListener{
 		
 		private TextField _field;
 		private String _userInput;
@@ -168,16 +170,17 @@ private class PasswordListener implements KeyListener{
 		}
 		
 	}
-
+*/
 	
 	private class LoginInListener implements ActionListener{
 
-		private TextField _usernameField, _passwordField;
+		private TextField _usernameField;
+		private JPasswordField _passwordField;
 		private JPanel _registration;
 		private MyFrame _frame;
 		private JPanel _changePanel;
 		
-		public LoginInListener(MyFrame frame, JPanel registration, TextField usernameField, TextField passwordField, JPanel changePanel){
+		public LoginInListener(MyFrame frame, JPanel registration, TextField usernameField, JPasswordField passwordField, JPanel changePanel){
 			_frame=frame;
 			_usernameField=usernameField;
 			_passwordField=passwordField;
@@ -189,11 +192,12 @@ private class PasswordListener implements KeyListener{
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
 			ArrayList<String> errors=new ArrayList<String>();
+			String pwd = new String(_passwordField.getPassword());
 			if (_usernameField.getText().trim().length()<=0){
 				errors.add("    No username entered");
 			}
 			
-			if (_passwordField.getText().trim().length()<=0){
+			if (pwd.trim().length()<=0){
 				errors.add("    No password entered");
 			}
 			
@@ -213,9 +217,10 @@ private class PasswordListener implements KeyListener{
 			else{
 				// HANDSHAKE:
 				String userName = _usernameField.getText();
-				Message result = _client.sendAndReceive(new Message(MessageContent.USERID, (Object) userName));
+				String encodedPassword = Base64.encodeBase64String(pwd.getBytes());
+				Message result = _client.sendAndReceive(new Message(MessageContent.USERID, (Object) userName+"\t"+encodedPassword));
 				if(result != null && result.getContent() == MessageContent.DONE){
-					_client.setUserID(userName);
+					_client.setUserID(userName+"\t"+encodedPassword);
 					_frame.getControlPanel().setEnable(true);
 					_frame.setUsername(userName);
 					_frame.getURLPanel().setEnable(true);
@@ -232,6 +237,9 @@ private class PasswordListener implements KeyListener{
 							errors.add("    You're logged in elsewhere");
 						} else if (result.getContent() == MessageContent.ERRORHANDSHAKE_UNKNOWNUSER) {
 							errors.add("    Username not found");
+						}
+						else if(result.getContent()==MessageContent.ERRORHANDSHAKE_WRONGPASSWORD){
+							errors.add("    Incorrect Password");
 						}
 					}
 					

@@ -16,9 +16,12 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JPopupMenu;
 import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
+
+import org.apache.commons.net.util.Base64;
 
 import edu.brown.cs32.vgavriel.connectorOnClient.Client;
 import edu.brown.cs32.vgavriel.connectorOnServer.Message;
@@ -26,11 +29,11 @@ import edu.brown.cs32.vgavriel.connectorOnServer.MessageContent;
 
 
 public class RegistrationPanel extends JPanel {
-	
+
 	/**
 	 * This is the lighter yellow panel on the bottom of the screen where a new user can register 
 	 */
-	
+
 	private static final long serialVersionUID = 1L;
 	private Client _client;
 
@@ -55,14 +58,14 @@ public class RegistrationPanel extends JPanel {
 		this.add(declarationLabel1);
 		this.add(declarationLabel2);
 		this.add(declarationLabel3);
-		
+
 		Border border=BorderFactory.createEtchedBorder(EtchedBorder.LOWERED);
 		this.setBorder(border);
-		
+
 		Font userInputFont = new Font("Verdana", Font.BOLD, 14);
 		TextField usernameField = new TextField();
-		TextField passwordField = new TextField();
-		TextField reenterPasswordField = new TextField();
+		JPasswordField passwordField = new JPasswordField();
+		JPasswordField reenterPasswordField = new JPasswordField();
 		TextField emailField = new TextField();
 		usernameField.setColumns(25);
 		passwordField.setColumns(25);
@@ -72,11 +75,11 @@ public class RegistrationPanel extends JPanel {
 		passwordField.setFont(userInputFont);
 		reenterPasswordField.setFont(userInputFont);
 		emailField.setFont(userInputFont);
-		
-		passwordField.addKeyListener(new PasswordListener(passwordField));
+
+		/*passwordField.addKeyListener(new PasswordListener(passwordField));
 		reenterPasswordField.addKeyListener(new PasswordListener(reenterPasswordField));
-		
-		
+*/
+
 		JPanel uPanel=new JPanel();
 		uPanel.setSize(new Dimension(592, 100));
 		uPanel.setPreferredSize(new Dimension(592, 100));
@@ -92,7 +95,7 @@ public class RegistrationPanel extends JPanel {
 		c2.gridx=1;				
 		c2.gridy=0;
 		uPanel.add(usernameField, c2);
-		
+
 		JPanel pPanel=new JPanel();
 		pPanel.setSize(new Dimension(592, 100));
 		pPanel.setPreferredSize(new Dimension(592, 100));
@@ -108,7 +111,7 @@ public class RegistrationPanel extends JPanel {
 		c4.gridx=1;				
 		c4.gridy=0;
 		pPanel.add(passwordField, c4);
-		
+
 		JPanel rPanel=new JPanel();
 		rPanel.setSize(new Dimension(592, 100));
 		rPanel.setPreferredSize(new Dimension(592, 100));
@@ -124,7 +127,7 @@ public class RegistrationPanel extends JPanel {
 		c6.gridx=1;				
 		c6.gridy=0;
 		rPanel.add(reenterPasswordField, c6);
-		
+
 		JPanel ePanel=new JPanel();
 		ePanel.setSize(new Dimension(592, 100));
 		ePanel.setPreferredSize(new Dimension(592, 100));
@@ -140,7 +143,7 @@ public class RegistrationPanel extends JPanel {
 		c8.gridx=1;				
 		c8.gridy=0;
 		ePanel.add(emailField, c8);
-		
+
 		JButton registerButton = new JButton ("Register me!");
 		registerButton.setBackground(ColorConstants.ORANGE);
 		registerButton.setForeground(Color.WHITE);
@@ -155,21 +158,21 @@ public class RegistrationPanel extends JPanel {
 		GridBagConstraints c9=new GridBagConstraints();
 		c9.anchor=GridBagConstraints.CENTER;
 		registerButtonPanel.add(registerButton, c9);
-			
+
 		this.add(uPanel);
 		this.add(pPanel);
 		this.add(rPanel);
 		this.add(ePanel);
 		this.add(registerButtonPanel);
-		
+
 	}
-	
-	private class PasswordListener implements KeyListener{
-		
+
+	/*private class PasswordListener implements KeyListener{
+
 		private TextField _field;
 		private String _userInput;
 
-		
+
 		public PasswordListener(TextField field){
 			_field=field;
 			_userInput="";
@@ -184,20 +187,20 @@ public class RegistrationPanel extends JPanel {
 		@Override
 		public void keyPressed(KeyEvent e) {
 			// TODO Auto-generated method stub
-		
+
 		}
 
 		@Override
 		public void keyReleased(KeyEvent e) {
 			// TODO Auto-generated method stub
 			//String _userInput= _field.getText();
-	System.out.println("Text field says "+_field.getText());
-			
+			System.out.println("Text field says "+_field.getText());
+
 			if (_field.getText().trim().length()<=1){
 				_userInput="";
 			}
-			
-			
+
+
 			Character c=e.getKeyChar();
 			if (c==8 && _userInput.length()==0){
 				//do absolutely nothing!!
@@ -206,10 +209,10 @@ public class RegistrationPanel extends JPanel {
 				_userInput=_userInput.substring(0, _userInput.length()-1);
 			}
 			else{
-			_userInput=_userInput+e.getKeyChar();
+				_userInput=_userInput+e.getKeyChar();
 			}
-	
-			
+
+
 			if (_userInput!=null){
 				System.out.println("input: "+_userInput);
 				String temp="";
@@ -219,20 +222,21 @@ public class RegistrationPanel extends JPanel {
 				_field.setText(temp);
 				_field.setCaretPosition(temp.length());
 			}
-			
-		
+
+
 		}
-		
-	}
-	
-	
+
+	}*/
+
+
 	private class RegisterMeListener implements ActionListener{
 
-		private TextField _usernameField, _emailField, _passwordField, _reenterField; 
+		private TextField _usernameField, _emailField;
+		private JPasswordField _passwordField, _reenterField;
 		private JPanel _registration, _changePanel;
 		private MyFrame _frame;
-		
-		public RegisterMeListener(JPanel registrationPanel, TextField usernameField, TextField passwordField, TextField reenterField, TextField emailField, MyFrame frame, JPanel changePanel){
+
+		public RegisterMeListener(JPanel registrationPanel, TextField usernameField, JPasswordField passwordField, JPasswordField reenterField, TextField emailField, MyFrame frame, JPanel changePanel){
 			_usernameField=usernameField;
 			_passwordField=passwordField;
 			_reenterField=reenterField;
@@ -241,36 +245,42 @@ public class RegistrationPanel extends JPanel {
 			_frame=frame;
 			_changePanel=changePanel;
 		}
-		
+
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
-			
+
 			boolean passwordFlag=false;
-			
+			String pwd = new String(_passwordField.getPassword());
+			String repwd = new String(_reenterField.getPassword());
+
 			ArrayList<String> errors=new ArrayList<String>();
+						
 			
 			if (_usernameField.getText().trim().length()<=0){
 				errors.add("    No username entered");
 			}
-			
-			if (_passwordField.getText().trim().length()<=0 || _reenterField.getText().trim().length()<=0){
+
+			if (pwd.trim().length()<=0 || repwd.trim().length()<=0){
 				errors.add("    No password entered");
 				passwordFlag=true;
 			}
-			
+
 			if (_emailField.getText().trim().length() <= 0){
 				errors.add("    No email entered");
 			}
-			
-			if (_passwordField.getText().trim().compareTo(_reenterField.getText().trim()) !=0){
+
+			if (pwd.trim().compareTo(repwd.trim()) !=0){
 				if (passwordFlag==false){
 					errors.add("    Passwords do not match");
 				}
 			}
-			
-			
-			
+
+			if(!pwd.trim().equals(pwd)){
+				errors.add("    You can't have leading or trailing");
+				errors.add("    spaces or tabs in your password.");
+			}
+
 			if (errors.size()>0){
 				JPopupMenu pop = new JPopupMenu ();
 				pop.setSize(new Dimension(300, 100));
@@ -284,13 +294,15 @@ public class RegistrationPanel extends JPanel {
 				}
 				pop.show(_registration, 150, 50);
 			}
-			
+
 			else {
 				// HANDSHAKE:
 				String userName = _usernameField.getText();
-				Message result = _client.sendAndReceive(new Message(MessageContent.NEWUSERID, (Object) userName));
+				System.out.println("PASSWORD: " + _passwordField.getText());
+				String encodedPassword = Base64.encodeBase64String(_passwordField.getText().getBytes());
+				Message result = _client.sendAndReceive(new Message(MessageContent.NEWUSERID, (Object) userName+"\t"+encodedPassword));
 				if(result != null && result.getContent() == MessageContent.DONE){
-					_client.setUserID(userName);
+					_client.setUserID(userName+"\t"+encodedPassword);
 					_frame.getControlPanel().setEnable(true);
 					_frame.setUsername(userName);
 					_frame.getURLPanel().setEnable(true);
@@ -315,18 +327,18 @@ public class RegistrationPanel extends JPanel {
 					}
 					pop.show(_registration, 150, 50);
 				}
-				
+
 			}
-			
+
 			_usernameField.setText("");
 			_passwordField.setText("");
 			_reenterField.setText("");
 			_emailField.setText("");
-			
-			
-			
+
+
+
 		}
-		
+
 	}
 
 
