@@ -29,7 +29,7 @@ public class MyFrame extends JFrame {
 	private ControlPanel _cp;
 	private String _username;
 	private URLPanel _urlPanel;
-;
+	private boolean _shouldStartEnabling;
 	
 	public MyFrame(Client client){
 		super("Woof woof!");
@@ -39,6 +39,7 @@ public class MyFrame extends JFrame {
 		this.setPreferredSize(new Dimension(800, 669));
 		Container con=this.getContentPane();
 		con.setBackground(ColorConstants.LIGHT_GRAY);
+		_shouldStartEnabling=false;
 		
 		/**
 		 * I havent created a separte class for the changePanel. The changePanel is just a JPanel
@@ -57,6 +58,7 @@ public class MyFrame extends JFrame {
 		OpeningPanel openingPanel=new OpeningPanel(this, changePanel, client);
 		changePanel.add(openingPanel, BorderLayout.CENTER);
 		_cp=new ControlPanel(new Dimension(200, 600), this, changePanel, openingPanel, client);
+		_cp.setEnable(false);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setResizable(false);
 		this.setLayout(new BorderLayout());
@@ -67,6 +69,18 @@ public class MyFrame extends JFrame {
 		_urlPanel.setEnable(false);
 		this.add(_urlPanel, BorderLayout.NORTH);
 		this.pack();
+	}
+	
+	public ControlPanel getControlPanel(){
+		return _cp;
+	}
+	
+	public boolean getShouldStartEnabling(){
+		return _shouldStartEnabling;
+	}
+	
+	public void setShouldStartEnabling(boolean start){
+		_shouldStartEnabling=start;
 	}
 	
 	public URLPanel getURLPanel(){

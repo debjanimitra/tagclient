@@ -40,26 +40,26 @@ public class NotificationOption extends JPanel{
 	public NotificationOption(AllNotificationsPanel panel, MyFrame frame, Client client, ArrayList<Notification> result, NotificationsPanel parentPanel, Notification thisNotification){
 		super();
 		System.out.println("In notification option");
-		this.setSize(new Dimension(580, 100));
-		this.setPreferredSize(new Dimension(580, 100));
-		this.setBackground(ColorConstants.BLUE);
+		this.setSize(new Dimension(570, 100));
+		this.setPreferredSize(new Dimension(570, 100));
+		this.setBackground(ColorConstants.LIGHT_SEA);
 		this.setLayout(new GridLayout(2, 1));
 		
-		Border border=BorderFactory.createEtchedBorder(EtchedBorder.RAISED);
+		EtchedBorder border=new EtchedBorder(ColorConstants.ORANGE, ColorConstants.GREY);
 		this.setBorder(border);
 		
 		Font customFont1=new Font("Verdana", Font.BOLD, 12);
 		Font customFont2=new Font("Verdana", Font.BOLD, 13);
 		
-		JLabel promptLabel=new JLabel("Trakr has found an update!");
+		JLabel promptLabel=new JLabel("Trakr has found a change!");
 		promptLabel.setFont(customFont2);
 		
 		JPanel promptPanel=new JPanel();
 		promptPanel.add(promptLabel);
-		promptPanel.setBackground(ColorConstants.BLUE);
+		promptPanel.setBackground(ColorConstants.LIGHT_SEA);
 		
 		if (thisNotification.getTitle().length()>0){
-			promptLabel.setText("Trakr found an update in "+thisNotification.getTitle()+" !");
+			promptLabel.setText("Trakr has found a change in "+thisNotification.getTitle()+" !");
 		}
 		
 		JLabel urlLabel=new JLabel("The URL is: "+thisNotification.getURL());
@@ -67,7 +67,7 @@ public class NotificationOption extends JPanel{
 		
 		JPanel urlPanel=new JPanel();
 		urlPanel.add(urlLabel);
-		urlPanel.setBackground(ColorConstants.BLUE);
+		urlPanel.setBackground(ColorConstants.LIGHT_SEA);
 		
 		this.add(promptPanel);
 		this.add(urlPanel);

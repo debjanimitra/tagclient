@@ -18,16 +18,16 @@ public class BelowElementPanel extends JPanel {
 	public BelowElementPanel(MyFrame frame){
 		this.setSize(new Dimension(592, 475));
 		this.setPreferredSize(new Dimension (592, 475));
-		this.setBackground(ColorConstants.LIGHT_ORANGE);
+		this.setBackground(ColorConstants.GREY);
 		this.setVisible(true);
 		_toAdd=new JPanel();
 		_toAdd.setSize(new Dimension(592, 400));
 		_toAdd.setPreferredSize(new Dimension(592, 400));
-		_toAdd.setBackground(ColorConstants.LIGHT_ORANGE);
+		_toAdd.setBackground(ColorConstants.GREY);
 		_scroller=new JScrollPane(_toAdd);
 		_scroller.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		_scroller.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		_scroller.setBackground(ColorConstants.LIGHT_ORANGE);
+		_scroller.setBackground(ColorConstants.GREY);
 		_scroller.setSize(new Dimension(592, 400));
 		_scroller.setPreferredSize(new Dimension(592, 400));
 		this.setLayout(new BorderLayout());

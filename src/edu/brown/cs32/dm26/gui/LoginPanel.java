@@ -7,6 +7,8 @@ import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
 import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.EtchedBorder;
 
 import org.apache.commons.net.util.Base64;
 
@@ -15,7 +17,7 @@ import edu.brown.cs32.vgavriel.connectorOnServer.Message;
 import edu.brown.cs32.vgavriel.connectorOnServer.MessageContent;
 
 
-public class LoginPanel extends Panel {
+public class LoginPanel extends JPanel {
 
 	/**
 	 * This panel is the darker yellow panel on the top of the screen where the user can enter
@@ -28,26 +30,29 @@ public class LoginPanel extends Panel {
 	public LoginPanel(RegistrationPanel rp, MyFrame frame, JPanel changePanel, Client client){
 		super();
 		_client = client;
-		this.setSize(new Dimension(592, 120));
-		this.setPreferredSize(new Dimension (592, 120));
-		this.setBackground(ColorConstants.BRIGHT_YELLOW);
+		this.setSize(new Dimension(800, 120));
+		this.setPreferredSize(new Dimension (800, 120));
+		this.setBackground(ColorConstants.SEA);
 		this.setVisible(true);
 		this.setLayout(new GridLayout(3, 1));
 		Font userInputFont=new Font("Verdana", Font.BOLD, 10);
 		
+		Border border=BorderFactory.createEtchedBorder(EtchedBorder.LOWERED);
+		this.setBorder(border);
+		
 		GridBagConstraints c1=new GridBagConstraints();
 		TextField usernameField = new TextField();
-		TextField passwordField = new TextField();
+		JPasswordField passwordField = new JPasswordField();
 		usernameField.setColumns(25);
 		passwordField.setColumns(25);
 		usernameField.setFont(userInputFont);
 		passwordField.setFont(userInputFont);
-		passwordField.addKeyListener(new PasswordListener(passwordField));
+		/*passwordField.addKeyListener(new PasswordListener(passwordField));*/
 		
 		JPanel uPanel=new JPanel();
 		uPanel.setSize(new Dimension(592, 100));
 		uPanel.setPreferredSize(new Dimension(592, 100));
-		uPanel.setBackground(ColorConstants.BRIGHT_YELLOW);
+		uPanel.setBackground(ColorConstants.SEA);
 		uPanel.setLayout(new GridBagLayout());
 		c1.gridx=0;
 		c1.gridy=0;
@@ -62,7 +67,7 @@ public class LoginPanel extends Panel {
 		JPanel pPanel=new JPanel();
 		pPanel.setSize(new Dimension(592, 100));
 		pPanel.setPreferredSize(new Dimension(592, 100));
-		pPanel.setBackground(ColorConstants.BRIGHT_YELLOW);
+		pPanel.setBackground(ColorConstants.SEA);
 		pPanel.setLayout(new GridBagLayout());
 		GridBagConstraints c3=new GridBagConstraints();
 		c3.gridx=0;
@@ -86,12 +91,12 @@ public class LoginPanel extends Panel {
 		this.add(pPanel);
 		
 		JButton loginButton=new JButton("Log me in!");
-		loginButton.setBackground(ColorConstants.DARK_GRAY);
+		loginButton.setBackground(ColorConstants.ORANGE);
 		loginButton.setForeground(Color.WHITE);
 		loginButton.setSize(new Dimension(100, 50));
 		loginButton.setPreferredSize(new Dimension(100, 50));
 		JPanel loginButtonPanel=new JPanel();
-		loginButtonPanel.setBackground(ColorConstants.BRIGHT_YELLOW);
+		loginButtonPanel.setBackground(ColorConstants.SEA);
 		loginButtonPanel.setSize(new Dimension(592, 50));
 		loginButtonPanel.setPreferredSize(new Dimension(592, 50));
 		loginButtonPanel.setLayout(new GridBagLayout());
@@ -108,7 +113,7 @@ public class LoginPanel extends Panel {
 	}
 
 
-private class PasswordListener implements KeyListener{
+/*private class PasswordListener implements KeyListener{
 		
 		private TextField _field;
 		private String _userInput;
@@ -165,16 +170,17 @@ private class PasswordListener implements KeyListener{
 		}
 		
 	}
-
+*/
 	
 	private class LoginInListener implements ActionListener{
 
-		private TextField _usernameField, _passwordField;
+		private TextField _usernameField;
+		private JPasswordField _passwordField;
 		private JPanel _registration;
 		private MyFrame _frame;
 		private JPanel _changePanel;
 		
-		public LoginInListener(MyFrame frame, JPanel registration, TextField usernameField, TextField passwordField, JPanel changePanel){
+		public LoginInListener(MyFrame frame, JPanel registration, TextField usernameField, JPasswordField passwordField, JPanel changePanel){
 			_frame=frame;
 			_usernameField=usernameField;
 			_passwordField=passwordField;
@@ -186,11 +192,12 @@ private class PasswordListener implements KeyListener{
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
 			ArrayList<String> errors=new ArrayList<String>();
+			String pwd = new String(_passwordField.getPassword());
 			if (_usernameField.getText().trim().length()<=0){
 				errors.add("    No username entered");
 			}
 			
-			if (_passwordField.getText().trim().length()<=0){
+			if (pwd.trim().length()<=0){
 				errors.add("    No password entered");
 			}
 			
@@ -210,17 +217,18 @@ private class PasswordListener implements KeyListener{
 			else{
 				// HANDSHAKE:
 				String userName = _usernameField.getText();
-				String encodedPassword = Base64.encodeBase64String(_passwordField.getText().getBytes());
+				String encodedPassword = Base64.encodeBase64String(pwd.getBytes());
 				Message result = _client.sendAndReceive(new Message(MessageContent.USERID, (Object) userName+"\t"+encodedPassword));
 				if(result != null && result.getContent() == MessageContent.DONE){
-					_client.setUserID(userName);
+					_client.setUserID(userName+"\t"+encodedPassword);
+					_frame.getControlPanel().setEnable(true);
 					_frame.setUsername(userName);
 					_frame.getURLPanel().setEnable(true);
 					_frame.getSignoutButton().setVisible(true);
 					_frame.getNotificationsButton().setEnabled(true);
 					_frame.getWebTagsButton().setEnabled(true);
 					_changePanel.removeAll();
-					_changePanel.add(new WelcomePanel(_usernameField.getText().trim()));
+					_changePanel.add(new WelcomePanel(_usernameField.getText().trim(), _frame));
 					_changePanel.repaint();
 					_frame.repaint();
 				} else {

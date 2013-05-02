@@ -72,9 +72,9 @@ public class Client
 		int numTimesConnecting = 0;
 		serverRunning = false;
 		while(!serverRunning){
-			/*if(_frame != null){
-				_frame.setEnabled(false);
-			}*/
+			/*
+				DEBJANI: DISABLE all components here!
+			*/
 			numTimesConnecting++;
 			try{
 				standardSocket = new Socket(this.hostname, this.port);
@@ -92,9 +92,9 @@ public class Client
 				}
 
 				serverRunning = true;
-				/*if(_frame != null){
-					_frame.setEnabled(true);
-				}*/
+				/*
+					DEBJANI: ENABLE all components here!
+				*/
 			}
 			catch(IOException e){
 				serverRunning = false;
@@ -207,14 +207,11 @@ public class Client
 	 */
 	class  ReceiveThread extends Thread {
 		public void run() {
-			//TODO: Receive all the messages sent by the socket and display it
-			//to the client.
 			while(serverRunning){        		
 				try {
 					Message message = (Message) receiveThreadInput.readObject();
 					if(message != null){
 						if(message.getContent() == MessageContent.NOTIFICATIONLIST){
-							//TODO: display the notifications to the User
 							ArrayList<Notification> notifications = (ArrayList<Notification>) message.getObject();
 							if (notifications.size()<=0){
 								notificationButton.setText("Notifications");

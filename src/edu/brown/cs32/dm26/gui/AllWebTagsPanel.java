@@ -23,6 +23,7 @@ public class AllWebTagsPanel extends JPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 	private ArrayList<WebTagOption> _options;
+	private boolean _newPanel;
 	/**
 	 * @param args
 	 */
@@ -46,7 +47,7 @@ public class AllWebTagsPanel extends JPanel {
 					_options.add(option);
 				}
 				
-			 int width=585;
+			 int width=570;
 			 int height=_options.size()*250;
 			 this.setSize(new Dimension(width, height));
 			 this.setPreferredSize(new Dimension(width, height));
