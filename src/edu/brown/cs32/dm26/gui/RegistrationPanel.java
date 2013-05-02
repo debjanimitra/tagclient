@@ -18,6 +18,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JPopupMenu;
+import javax.swing.JTextField;
 import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
 
@@ -63,14 +64,22 @@ public class RegistrationPanel extends JPanel {
 		this.setBorder(border);
 
 		Font userInputFont = new Font("Verdana", Font.BOLD, 14);
-		TextField usernameField = new TextField();
+		JTextField usernameField = new JTextField();
 		JPasswordField passwordField = new JPasswordField();
 		JPasswordField reenterPasswordField = new JPasswordField();
-		TextField emailField = new TextField();
-		usernameField.setColumns(25);
-		passwordField.setColumns(25);
-		reenterPasswordField.setColumns(25);
-		emailField.setColumns(25);
+		JTextField emailField = new JTextField();
+		usernameField.setSize(new Dimension(30, 30));
+		usernameField.setPreferredSize(new Dimension(30, 30));
+		passwordField.setSize(new Dimension(30, 30));
+		passwordField.setPreferredSize(new Dimension(30, 30));
+		reenterPasswordField.setSize(new Dimension(30, 30));
+		reenterPasswordField.setPreferredSize(new Dimension(30, 30));
+		emailField.setSize(new Dimension(30, 30));
+		emailField.setPreferredSize(new Dimension(30, 30));
+		usernameField.setColumns(17);
+		passwordField.setColumns(17);
+		reenterPasswordField.setColumns(17);
+		emailField.setColumns(17);
 		usernameField.setFont(userInputFont);
 		passwordField.setFont(userInputFont);
 		reenterPasswordField.setFont(userInputFont);
@@ -231,12 +240,12 @@ public class RegistrationPanel extends JPanel {
 
 	private class RegisterMeListener implements ActionListener{
 
-		private TextField _usernameField, _emailField;
+		private JTextField _usernameField, _emailField;
 		private JPasswordField _passwordField, _reenterField;
 		private JPanel _registration, _changePanel;
 		private MyFrame _frame;
 
-		public RegisterMeListener(JPanel registrationPanel, TextField usernameField, JPasswordField passwordField, JPasswordField reenterField, TextField emailField, MyFrame frame, JPanel changePanel){
+		public RegisterMeListener(JPanel registrationPanel, JTextField usernameField, JPasswordField passwordField, JPasswordField reenterField, JTextField emailField, MyFrame frame, JPanel changePanel){
 			_usernameField=usernameField;
 			_passwordField=passwordField;
 			_reenterField=reenterField;

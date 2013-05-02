@@ -41,10 +41,14 @@ public class LoginPanel extends JPanel {
 		this.setBorder(border);
 		
 		GridBagConstraints c1=new GridBagConstraints();
-		TextField usernameField = new TextField();
+		JTextField usernameField = new JTextField();
+		usernameField.setSize(new Dimension(50, 30));
+		usernameField.setPreferredSize(new Dimension(50, 30));
 		JPasswordField passwordField = new JPasswordField();
-		usernameField.setColumns(25);
-		passwordField.setColumns(25);
+		passwordField.setSize(new Dimension(30, 30));
+		passwordField.setPreferredSize(new Dimension(30, 30));
+		usernameField.setColumns(20);
+		passwordField.setColumns(20);
 		usernameField.setFont(userInputFont);
 		passwordField.setFont(userInputFont);
 		/*passwordField.addKeyListener(new PasswordListener(passwordField));*/
@@ -174,13 +178,13 @@ public class LoginPanel extends JPanel {
 	
 	private class LoginInListener implements ActionListener{
 
-		private TextField _usernameField;
+		private JTextField _usernameField;
 		private JPasswordField _passwordField;
 		private JPanel _registration;
 		private MyFrame _frame;
 		private JPanel _changePanel;
 		
-		public LoginInListener(MyFrame frame, JPanel registration, TextField usernameField, JPasswordField passwordField, JPanel changePanel){
+		public LoginInListener(MyFrame frame, JPanel registration, JTextField usernameField, JPasswordField passwordField, JPanel changePanel){
 			_frame=frame;
 			_usernameField=usernameField;
 			_passwordField=passwordField;
