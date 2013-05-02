@@ -76,10 +76,10 @@ public class RegistrationPanel extends JPanel {
 		reenterPasswordField.setPreferredSize(new Dimension(30, 30));
 		emailField.setSize(new Dimension(30, 30));
 		emailField.setPreferredSize(new Dimension(30, 30));
-		usernameField.setColumns(17);
-		passwordField.setColumns(17);
-		reenterPasswordField.setColumns(17);
-		emailField.setColumns(17);
+		usernameField.setColumns(13);
+		passwordField.setColumns(13);
+		reenterPasswordField.setColumns(13);
+		emailField.setColumns(13);
 		usernameField.setFont(userInputFont);
 		passwordField.setFont(userInputFont);
 		reenterPasswordField.setFont(userInputFont);

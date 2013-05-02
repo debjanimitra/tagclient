@@ -35,7 +35,7 @@ public class LoginPanel extends JPanel {
 		this.setBackground(ColorConstants.SEA);
 		this.setVisible(true);
 		this.setLayout(new GridLayout(3, 1));
-		Font userInputFont=new Font("Verdana", Font.BOLD, 10);
+		Font userInputFont=new Font("Verdana", Font.BOLD, 12);
 		
 		Border border=BorderFactory.createEtchedBorder(EtchedBorder.LOWERED);
 		this.setBorder(border);
@@ -47,8 +47,8 @@ public class LoginPanel extends JPanel {
 		JPasswordField passwordField = new JPasswordField();
 		passwordField.setSize(new Dimension(30, 30));
 		passwordField.setPreferredSize(new Dimension(30, 30));
-		usernameField.setColumns(20);
-		passwordField.setColumns(20);
+		usernameField.setColumns(15);
+		passwordField.setColumns(15);
 		usernameField.setFont(userInputFont);
 		passwordField.setFont(userInputFont);
 		/*passwordField.addKeyListener(new PasswordListener(passwordField));*/

@@ -198,15 +198,16 @@ public class URLPanel extends JPanel {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
-			_changePanel.removeAll();
 			String input=_field.getText().trim();
 			if (input.startsWith("http://")==false){
 				input="http://"+input;
 			}
 			HTMLParsing parser;
 			try {
+
 				parser = new HTMLParsing(input);
 				TagURLPanel tag = new TagURLPanel(_frame, _changePanel, _client, parser, input);
+				_changePanel.removeAll();
 				_urlPanel.setPrevious(tag);
 				_changePanel.add(tag);
 				_changePanel.repaint();
@@ -222,9 +223,13 @@ public class URLPanel extends JPanel {
 				pop.setLayout(new BorderLayout());
 				pop.add(title1, BorderLayout.NORTH);
 				pop.add(title2, BorderLayout.SOUTH);
-				pop.setSize(new Dimension(100, 40));
-				pop.setPreferredSize(new Dimension(100, 40));
-				pop.show(_changePanel, 250, 250);
+				pop.setSize(new Dimension(375, 60));
+				pop.setPreferredSize(new Dimension(375, 60));
+				pop.show(_changePanel, 100, 50);
+				_changePanel.repaint();
+				_changePanel.revalidate();
+				_frame.repaint();
+				_frame.revalidate();
 			} 
 
 				
@@ -240,7 +245,6 @@ public class URLPanel extends JPanel {
 		public void keyPressed(KeyEvent e) {
 			// TODO Auto-generated method stub
 			if (e.getKeyChar()=='\n'){
-				_changePanel.removeAll();
 				String input=_field.getText().trim();
 				if (input.startsWith("http://")==false){
 					input="http://"+input;
@@ -248,8 +252,10 @@ public class URLPanel extends JPanel {
 				_field.setText(input);
 				HTMLParsing parser;
 				try {
+
 					parser = new HTMLParsing(input);
 					TagURLPanel tag = new TagURLPanel(_frame, _changePanel, _client, parser, input);
+					_changePanel.removeAll();
 					_urlPanel.setPrevious(tag);
 					_changePanel.add(tag);
 					_changePanel.repaint();
@@ -266,9 +272,13 @@ public class URLPanel extends JPanel {
 					pop.setLayout(new BorderLayout());
 					pop.add(title1, BorderLayout.NORTH);
 					pop.add(title2, BorderLayout.SOUTH);
-					pop.setSize(new Dimension(70, 40));
-					pop.setPreferredSize(new Dimension(70, 40));
-					pop.show(_changePanel, 250, 250);
+					pop.setSize(new Dimension(375, 60));
+					pop.setPreferredSize(new Dimension(375, 60));
+					pop.show(_changePanel, 100, 50);
+					_changePanel.repaint();
+					_changePanel.revalidate();
+					_frame.repaint();
+					_frame.revalidate();
 				} 
 
 			}
