@@ -84,6 +84,7 @@ public class RegistrationPanel extends JPanel {
 		passwordField.setFont(userInputFont);
 		reenterPasswordField.setFont(userInputFont);
 		emailField.setFont(userInputFont);
+		emailField.addActionListener(new RegisterMeListener(this, usernameField, passwordField, reenterPasswordField, emailField, frame, changePanel));
 
 		/*passwordField.addKeyListener(new PasswordListener(passwordField));
 		reenterPasswordField.addKeyListener(new PasswordListener(reenterPasswordField));
@@ -307,8 +308,8 @@ public class RegistrationPanel extends JPanel {
 			else {
 				// HANDSHAKE:
 				String userName = _usernameField.getText();
-				System.out.println("PASSWORD: " + _passwordField.getText());
-				String encodedPassword = Base64.encodeBase64String(_passwordField.getText().getBytes());
+				System.out.println("PASSWORD: " + pwd);
+				String encodedPassword = Base64.encodeBase64String(pwd.getBytes());
 				Message result = _client.sendAndReceive(new Message(MessageContent.NEWUSERID, (Object) userName+"\t"+encodedPassword));
 				if(result != null && result.getContent() == MessageContent.DONE){
 					_client.setUserID(userName+"\t"+encodedPassword);

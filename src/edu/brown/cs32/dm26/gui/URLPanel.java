@@ -111,8 +111,9 @@ public class URLPanel extends JPanel {
 		_buttonPanel.add(_backPanel, BorderLayout.CENTER);
 		
 		GoListener goListener=new GoListener(changePanel, client, frame, _field, this);
+		GoListener goListener1=new GoListener(changePanel, client, frame, _field, this);
 		_field.addKeyListener(goListener);
-		_goButton.addActionListener(goListener); 
+		_goButton.addActionListener(goListener1); 
 		
 		
 		this.setLayout(new BorderLayout());
@@ -195,12 +196,13 @@ public class URLPanel extends JPanel {
 			_urlPanel=urlPanel;
 		}
 		
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
+		private void fetch(){
 			String input=_field.getText().trim();
-			if (input.startsWith("http://")==false){
+			if (!input.startsWith("http://") && !input.startsWith("https://")){
 				input="http://"+input;
+				_field.setText(input);
+				_field.repaint();
+				_field.revalidate();
 			}
 			HTMLParsing parser;
 			try {
@@ -231,22 +233,27 @@ public class URLPanel extends JPanel {
 				_frame.repaint();
 				_frame.revalidate();
 			} 
-
-				
+		}
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			fetch();				
 		}
 
 		@Override
 		public void keyTyped(KeyEvent e) {
-			// TODO Auto-generated method stub
 			
 		}
 
 		@Override
 		public void keyPressed(KeyEvent e) {
-			// TODO Auto-generated method stub
 			if (e.getKeyChar()=='\n'){
+				fetch();
+			}
+			/*if (e.getKeyChar()=='\n'){
+			 
 				String input=_field.getText().trim();
-				if (input.startsWith("http://")==false){
+				if (!input.startsWith("http://") && !input.startsWith("https://")){
 					input="http://"+input;
 				}
 				_field.setText(input);
@@ -281,12 +288,11 @@ public class URLPanel extends JPanel {
 					_frame.revalidate();
 				} 
 
-			}
+			}*/
 		}
 
 		@Override
 		public void keyReleased(KeyEvent e) {
-			// TODO Auto-generated method stub
 			
 		}
 		
@@ -308,13 +314,11 @@ public class URLPanel extends JPanel {
 		
 		@Override
 		public void keyTyped(KeyEvent e) {
-			// TODO Auto-generated method stub
 			
 		}
 
 		@Override
 		public void keyPressed(KeyEvent e) {
-			// TODO Auto-generated method stub
 			System.out.println(e.getKeyChar());
 			if (e.getKeyChar()==37){
 				System.out.println("FRIGGIN HERE");
@@ -334,13 +338,11 @@ public class URLPanel extends JPanel {
 
 		@Override
 		public void keyReleased(KeyEvent e) {
-			// TODO Auto-generated method stub
 			
 		}
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
 				System.out.println("Array stuuf is"+Arrays.toString(_changePanel.getComponents()));
 				if (_urlPanel.getPrevious()!=null){
 					_changePanel.removeAll();
