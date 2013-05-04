@@ -5,11 +5,8 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
-import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
@@ -23,6 +20,7 @@ import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
 
 import org.apache.commons.net.util.Base64;
+import org.apache.commons.validator.routines.EmailValidator;
 
 import edu.brown.cs32.vgavriel.connectorOnClient.Client;
 import edu.brown.cs32.vgavriel.connectorOnServer.Message;
@@ -254,6 +252,7 @@ public class RegistrationPanel extends JPanel {
 			_registration=registrationPanel;
 			_frame=frame;
 			_changePanel=changePanel;
+			
 		}
 
 		@Override
@@ -278,6 +277,10 @@ public class RegistrationPanel extends JPanel {
 
 			if (_emailField.getText().trim().length() <= 0){
 				errors.add("    No email entered");
+			}
+			EmailValidator val = EmailValidator.getInstance();
+			if(!val.isValid(_emailField.getText())){
+				errors.add("    Invalid Email Address");
 			}
 
 			if (pwd.trim().compareTo(repwd.trim()) !=0){
