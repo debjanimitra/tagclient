@@ -15,7 +15,7 @@ public class ColorConstants {
 	public static final Color BLUE = new Color(107, 203, 202);
 	public static final Color BRIGHT_BLUE=new Color(30, 144, 255); 
 	public static final Color DARK_ORANGE = new Color(255, 180, 102);
-	public static final Color LIGHT_ORANGE = new Color(255, 194, 153);
+//	public static final Color LIGHT_ORANGE = new Color(255, 194, 153);
 	public static final Color PINK = new Color(212, 63, 63);
 	public static final Color DARK_PINK = new Color(255, 182,193);
 	public static final Color LIGHT_PINK = new Color(255, 228, 225);
@@ -28,6 +28,8 @@ public class ColorConstants {
 	public static final Color EVEN_LIGHTER_SEA = new Color (199, 221, 220);
 	public static final Color ORANGE = new Color (217, 133, 59);
 	public static final Color GREY = new Color (236, 236, 234);
+	public static final Color LIGHT_ORANGE = new Color(247,	230,	215);
+	public static final Color SUPER_LIGHT_SEA = new Color(222, 236, 235);
 	
 	//5 shades of grey
 	public static final Color GRAY1 = new Color(184,184,184);

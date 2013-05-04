@@ -115,9 +115,6 @@ public class ControlPanel extends JPanel {
 		_logoPanel.setSize(new Dimension(200, 500));
 		_logoPanel.setPreferredSize(new Dimension(200, 500));
 		_logoPanel.setBackground(ColorConstants.EVEN_LIGHTER_SEA);
-		JLabel label=new JLabel("           Logo goes here");
-		_logoPanel.setLayout(new BorderLayout());
-		_logoPanel.add(label, BorderLayout.CENTER);;
 		this.add(_logoPanel, BorderLayout.CENTER);
 		
 		_signoutPanel = new JPanel();

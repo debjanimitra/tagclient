@@ -40,11 +40,11 @@ public class TagOption extends JPanel {
 	private static final long serialVersionUID = 1L;
 
 	
-	public TagOption(Element element, Client client, String username, Document doc, String url, HTMLParsing parser, TagURLPanel allTag, int index){
+	public TagOption(Element element, Client client, String username, Document doc, String url, HTMLParsing parser, TagURLPanel allTag, int index, MyFrame frame){
 		super();
 		this.setSize(new Dimension(570, 160));
 		this.setPreferredSize(new Dimension(570, 160));
-		this.setBackground(ColorConstants.GREY);
+		this.setBackground(ColorConstants.LIGHT_ORANGE);
 		EtchedBorder border=new EtchedBorder(ColorConstants.SEA, ColorConstants.GREY);
 		this.setBorder(border);
 		Font customFont=new Font("Verdana", Font.PLAIN, 12);
@@ -77,8 +77,8 @@ public class TagOption extends JPanel {
 			endLabel= new JLabel(" This element ends with : "+text.substring(text.length()-end, text.length()));
 		}
 		else{
-			startLabel=new JLabel(" This element begins with : "+text);
-			endLabel=new JLabel(" ..." );
+			startLabel=new JLabel(" This element is : "+text);
+			endLabel=new JLabel("");
 		}
 		
 		this.setLayout(new GridLayout(5, 1));
@@ -93,7 +93,7 @@ public class TagOption extends JPanel {
 		JPanel labelPanel=new JPanel();
 		labelPanel.setSize(new Dimension(130, 30));
 		labelPanel.setPreferredSize(new Dimension(130, 30));
-		labelPanel.setBackground(ColorConstants.GREY);
+		labelPanel.setBackground(ColorConstants.LIGHT_ORANGE);
 		labelPanel.add(label);
 		
 		
@@ -106,7 +106,7 @@ public class TagOption extends JPanel {
 		JPanel tPanel=new JPanel();
 		tPanel.setSize(new Dimension(200, 30));
 		tPanel.setPreferredSize(new Dimension(200, 30));
-		tPanel.setBackground(ColorConstants.GREY);
+		tPanel.setBackground(ColorConstants.LIGHT_ORANGE);
 		tPanel.setLayout(new GridBagLayout());
 		GridBagConstraints c1=new GridBagConstraints();
 		c1.gridx=0;
@@ -117,12 +117,12 @@ public class TagOption extends JPanel {
 		JPanel random=new JPanel();
 		random.setSize(new Dimension(140, 30));
 		random.setPreferredSize(new Dimension(140, 30));
-		random.setBackground(ColorConstants.GREY);
+		random.setBackground(ColorConstants.LIGHT_ORANGE);
 		
 		JPanel optionPanel=new JPanel();
 		optionPanel.setSize(new Dimension(590, 30));
 		optionPanel.setPreferredSize(new Dimension(590, 30));
-		optionPanel.setBackground(ColorConstants.GREY);
+		optionPanel.setBackground(ColorConstants.LIGHT_ORANGE);
 		optionPanel.setLayout(new GridLayout(1,2));
 		optionPanel.add(labelPanel);
 		optionPanel.add(tPanel);
@@ -132,7 +132,7 @@ public class TagOption extends JPanel {
 		JPanel permPanel=new JPanel();
 		permPanel.setSize(new Dimension(590, 30));
 		permPanel.setPreferredSize(new Dimension(590, 30));
-		permPanel.setBackground(ColorConstants.GREY);
+		permPanel.setBackground(ColorConstants.LIGHT_ORANGE);
 		
 		
 		boolean perm=parser.canBePermanent(element).getPerm();
@@ -148,7 +148,7 @@ public class TagOption extends JPanel {
 		JPanel labelPanel1=new JPanel();
 		labelPanel1.setSize(new Dimension(388, 30));
 		labelPanel1.setPreferredSize(new Dimension(388, 30));
-		labelPanel1.setBackground(ColorConstants.GREY);
+		labelPanel1.setBackground(ColorConstants.LIGHT_ORANGE);
 		labelPanel1.add(label1); 
 		
 	/**	 JRadioButton firstButton = new JRadioButton("Yes");
@@ -183,9 +183,9 @@ public class TagOption extends JPanel {
 		JPanel selectPanel=new JPanel();
 		selectPanel.setSize(new Dimension(590, 30));
 		selectPanel.setPreferredSize(new Dimension(590, 30));
-		selectPanel.setBackground(ColorConstants.GREY);
+		selectPanel.setBackground(ColorConstants.LIGHT_ORANGE);
 		JButton selectButton=new JButton ("select this!");
-		selectButton.addMouseListener(new MySelectListener(allTag, client, element, username, doc, url, parser, customFont2, titleField, this, perm, index));
+		selectButton.addMouseListener(new MySelectListener(allTag, client, element, username, doc, url, parser, customFont2, titleField, this, perm, index, frame));
 		selectButton.setBackground(ColorConstants.HUNTER);
 		selectButton.setForeground(Color.WHITE);
 		selectPanel.setLayout(new GridBagLayout());
@@ -212,8 +212,9 @@ public class TagOption extends JPanel {
 		private TagOption _option;
 		private boolean _canBePermanent;
 		private int _index;
+		private MyFrame _frame;
 		
-		public MySelectListener(TagURLPanel panel, Client client, Element element, String username, Document doc, String url, HTMLParsing parser, Font font, TextField titleField,  TagOption option, boolean canBePermanent, int index){
+		public MySelectListener(TagURLPanel panel, Client client, Element element, String username, Document doc, String url, HTMLParsing parser, Font font, TextField titleField,  TagOption option, boolean canBePermanent, int index, MyFrame frame){
 			_client=client;
 			_element=element;
 			_username=username;
@@ -226,6 +227,7 @@ public class TagOption extends JPanel {
 			_option=option;
 			_canBePermanent=canBePermanent;
 			_index=index;
+			_frame=frame;
 		}
 		
 	//	@Override
@@ -246,25 +248,42 @@ public class TagOption extends JPanel {
 			Message result = _client.sendAndReceive(new Message(MessageContent.DATA, (Object) toSend));
 			
 			System.out.println("message received back");			
+			int flag=0;
 			
 			if(result == null){
 				title="The message received back from the server is null!";
+				flag=1;
 			} else if(result.getContent() == MessageContent.DONE){
-				title="Success! Trakr will follow this element for you";
+				title="Successful tag!";
+				flag=2;
 			} else if(result.getContent() == MessageContent.ERROR_RECEIVE_TAGALREADYEXISTS){
-				title="Trakr is already following this element!";
+				title="Already following this!";
+				flag=3;
 			} else if(result.getContent() == MessageContent.ERROR_RECEIVE_INVALIDDATA) {
 				title= "your request contains no data :(";
+				flag=4;
 			}
 			
 			int length=title.length();
-			pop.setSize(new Dimension((int)(6.9*length), 50));
-			pop.setPreferredSize(new Dimension((int)(6.9*length), 50));
-			pop.setBackground(ColorConstants.EVEN_LIGHTER_GRAY);
+			pop.setBackground(ColorConstants.EVEN_LIGHTER_SEA);
+			pop.setBorder(BorderFactory.createLineBorder(ColorConstants.EVEN_LIGHTER_SEA));
 			JLabel label=new JLabel(title);
-			label.setFont(_font);
 			pop.add(label);
-			pop.show(_option, e.getX()+70, e.getY());
+			label.setForeground(Color.RED);
+			Font font=new Font("Verdana", Font.BOLD, 15);
+			label.setFont(font);
+			
+			if (flag==2){
+			pop.setSize(new Dimension((int)(10*length), 50));
+			pop.setPreferredSize(new Dimension((int)(10*length), 50));
+			pop.show(_frame, 40, 250);
+			}
+			
+			if (flag==3){
+				pop.setSize(new Dimension((int)(8*length), 50));
+				pop.setPreferredSize(new Dimension((int)(8*length), 50));
+				pop.show(_frame, 10, 250);
+			}
 		
 		}
 

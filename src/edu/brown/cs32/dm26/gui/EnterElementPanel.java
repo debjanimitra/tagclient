@@ -14,6 +14,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -131,19 +132,24 @@ public class EnterElementPanel extends JPanel {
 			String userInput=_field.getText().trim();
 		
 			ArrayList<Element> suggestionElements=_parser.findElement(userInput);
-			AllTagOptionsPanel all=new AllTagOptionsPanel(suggestionElements, _client, _frame.getUsername(), _parser.getDocument(), _url, _parser, _tagURL);
+			AllTagOptionsPanel all=new AllTagOptionsPanel(suggestionElements, _client, _frame.getUsername(), _parser.getDocument(), _url, _parser, _tagURL, _frame);
 			_below.changePanel(all, _frame);
 			_changePanel.repaint();
 			_changePanel.revalidate();
 			_frame.repaint();
 			_frame.revalidate();
 			if (suggestionElements.size()<=0) {
+				Font font=new Font ("Verdana", Font.BOLD, 15);
 				JPopupMenu pop =new JPopupMenu();
-				pop.setSize(new Dimension(340, 25));
-				pop.setPreferredSize(new Dimension(340, 25));
-				JLabel title=new JLabel ("Trakr found no elements matching your search");
+				pop.setBackground(ColorConstants.EVEN_LIGHTER_SEA);
+				pop.setBorder(BorderFactory.createLineBorder(ColorConstants.EVEN_LIGHTER_SEA));
+				pop.setSize(new Dimension(180, 25));
+				pop.setPreferredSize(new Dimension(180, 25));
+				JLabel title=new JLabel ("No matches found :(");
+				title.setFont(font);
+				title.setForeground(Color.RED);
 				pop.add(title);
-				pop.show(_below, 120, 200);
+				pop.show(_frame, 20, 250);
 
 			}
 		}
@@ -160,20 +166,24 @@ public class EnterElementPanel extends JPanel {
 			if (e.getKeyChar()=='\n'){
 				String userInput=_field.getText().trim();
 				ArrayList<Element> suggestionElements=_parser.findElement(userInput);
-				AllTagOptionsPanel all=new AllTagOptionsPanel(suggestionElements, _client, _frame.getUsername(), _parser.getDocument(), _url, _parser, _tagURL);
+				AllTagOptionsPanel all=new AllTagOptionsPanel(suggestionElements, _client, _frame.getUsername(), _parser.getDocument(), _url, _parser, _tagURL, _frame);
 				_below.changePanel(all, _frame);
 				_changePanel.repaint();
 				_changePanel.revalidate();
 				_frame.repaint();
 				_frame.revalidate();	
 				if (suggestionElements.size()<=0) {
+					Font font=new Font ("Verdana", Font.BOLD, 14);
 					JPopupMenu pop =new JPopupMenu();
-					pop.setSize(new Dimension(340, 25));
-					pop.setPreferredSize(new Dimension(340, 25));
-					JLabel title=new JLabel ("Trakr found no elements matching your search");
+					pop.setBackground(ColorConstants.EVEN_LIGHTER_SEA);
+					pop.setBorder(BorderFactory.createLineBorder(ColorConstants.EVEN_LIGHTER_SEA));
+					pop.setSize(new Dimension(180, 25));
+					pop.setPreferredSize(new Dimension(180, 25));
+					JLabel title=new JLabel ("No matches found :(");
+					title.setFont(font);
+					title.setForeground(Color.RED);
 					pop.add(title);
-					pop.show(_below, 120, 200);
-
+					pop.show(_frame, 20, 250);
 				}
 			}
 		}

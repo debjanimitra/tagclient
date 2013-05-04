@@ -16,6 +16,7 @@ import java.net.UnknownHostException;
 import java.util.Arrays;
 import java.util.Stack;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -217,17 +218,18 @@ public class URLPanel extends JPanel {
 				System.out.println("herehere");
 			} catch (IOException e1) {
 				// this website does not exist (maybe try with adding "www." in front of it and try again?
+				Font font=new Font("Verdana", Font.BOLD, 15);
 				JPopupMenu pop =  new JPopupMenu();
-				JLabel title1=new JLabel("You've entered an invalid URL");
-				JLabel title2=new JLabel("Try copying the address from your web browser");
+				JLabel title1=new JLabel("Invalid URL");
+				title1.setForeground(Color.RED);
+				title1.setFont(font);
 				pop.setLayout(new BorderLayout());
-				pop.add(title1, BorderLayout.NORTH);
-				pop.add(title2, BorderLayout.SOUTH);
-				pop.setSize(new Dimension(375, 60));
-				pop.setPreferredSize(new Dimension(375, 60));
-				pop.show(_changePanel, 100, 50);
-				_changePanel.repaint();
-				_changePanel.revalidate();
+				pop.setBackground(ColorConstants.EVEN_LIGHTER_SEA);
+				pop.setBorder(BorderFactory.createLineBorder(ColorConstants.EVEN_LIGHTER_SEA));
+				pop.add(title1, BorderLayout.CENTER);
+				pop.setSize(new Dimension(100, 60));
+				pop.setPreferredSize(new Dimension(100, 60));
+				pop.show(_frame, 55, 250);
 				_frame.repaint();
 				_frame.revalidate();
 			} 
@@ -265,18 +267,18 @@ public class URLPanel extends JPanel {
 					System.out.println("herehere");
 				} catch (IOException e1) {
 					// this website does not exist (maybe try with adding "www." in front of it and try again?
-
+					Font font=new Font("Verdana", Font.BOLD, 15);
 					JPopupMenu pop =  new JPopupMenu();
-					JLabel title1=new JLabel("You've entered an invalid URL");
-					JLabel title2=new JLabel("Try copying the address from your web browser");
+					JLabel title1=new JLabel("Invalid URL");
+					title1.setFont(font);
+					title1.setForeground(Color.RED);
 					pop.setLayout(new BorderLayout());
-					pop.add(title1, BorderLayout.NORTH);
-					pop.add(title2, BorderLayout.SOUTH);
-					pop.setSize(new Dimension(375, 60));
-					pop.setPreferredSize(new Dimension(375, 60));
-					pop.show(_changePanel, 100, 50);
-					_changePanel.repaint();
-					_changePanel.revalidate();
+					pop.setBackground(ColorConstants.EVEN_LIGHTER_SEA);
+					pop.setBorder(BorderFactory.createLineBorder(ColorConstants.EVEN_LIGHTER_SEA));
+					pop.add(title1, BorderLayout.CENTER);
+					pop.setSize(new Dimension(100, 60));
+					pop.setPreferredSize(new Dimension(100, 60));
+					pop.show(_frame, 55, 250);
 					_frame.repaint();
 					_frame.revalidate();
 				} 

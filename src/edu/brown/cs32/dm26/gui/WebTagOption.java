@@ -32,7 +32,7 @@ public class WebTagOption extends JPanel {
 	
 	public WebTagOption(Data data, AllWebTagsPanel panel, MyFrame frame, Client client, ArrayListMultimap<String, Data> result, WebTagsPanel parentPanel){
 		super();
-		this.setBackground(ColorConstants.GREY);
+		this.setBackground(ColorConstants.LIGHT_ORANGE);
 		this.setSize(new Dimension(570, 250));
 		this.setPreferredSize(new Dimension(570, 250));
 		EtchedBorder border=new EtchedBorder(ColorConstants.SEA, ColorConstants.GREY);
@@ -59,7 +59,7 @@ public class WebTagOption extends JPanel {
 	
 		
 		JPanel filler=new JPanel();
-		filler.setBackground(ColorConstants.GREY);
+		filler.setBackground(ColorConstants.LIGHT_ORANGE);
 		filler.setSize(new Dimension(590, 30));
 		filler.setPreferredSize(new Dimension(590, 30));
 		this.add(filler);
@@ -79,7 +79,7 @@ public class WebTagOption extends JPanel {
 		JPanel labelPanel=new JPanel();
 		labelPanel.setSize(new Dimension(130, 35));
 		labelPanel.setPreferredSize(new Dimension(130, 35));
-		labelPanel.setBackground(ColorConstants.GREY);
+		labelPanel.setBackground(ColorConstants.LIGHT_ORANGE);
 		labelPanel.add(changeTitle);
 		
 		
@@ -92,7 +92,7 @@ public class WebTagOption extends JPanel {
 		JPanel tPanel=new JPanel();
 		tPanel.setSize(new Dimension(200, 35));
 		tPanel.setPreferredSize(new Dimension(200, 35));
-		tPanel.setBackground(ColorConstants.GREY);
+		tPanel.setBackground(ColorConstants.LIGHT_ORANGE);
 		tPanel.setLayout(new GridBagLayout());
 		GridBagConstraints c1=new GridBagConstraints();
 		c1.gridx=0;
@@ -102,7 +102,7 @@ public class WebTagOption extends JPanel {
 		JPanel titlePanel=new JPanel();
 		titlePanel.setSize(new Dimension(590, 35));
 		titlePanel.setPreferredSize(new Dimension(590, 35));
-		titlePanel.setBackground(ColorConstants.GREY);
+		titlePanel.setBackground(ColorConstants.LIGHT_ORANGE);
 		titlePanel.setLayout(new GridLayout(1,2));
 		titlePanel.add(labelPanel);
 		titlePanel.add(tPanel);
@@ -117,7 +117,7 @@ public class WebTagOption extends JPanel {
 		JPanel permPanel=new JPanel();
 		permPanel.setSize(new Dimension(590, 30));
 		permPanel.setPreferredSize(new Dimension(590, 30));
-		permPanel.setBackground(ColorConstants.GREEN);
+		permPanel.setBackground(ColorConstants.LIGHT_ORANGE);
 		
 
 		JLabel label1=new JLabel("Should Trakr follow this indefinitely?: ");
@@ -125,17 +125,17 @@ public class WebTagOption extends JPanel {
 		JPanel labelPanel1=new JPanel();
 		labelPanel1.setSize(new Dimension(310, 30));
 		labelPanel1.setPreferredSize(new Dimension(310, 30));
-		labelPanel1.setBackground(ColorConstants.GREY);
+		labelPanel1.setBackground(ColorConstants.LIGHT_ORANGE);
 		labelPanel1.add(label1); 
 
 		
 		 JRadioButton firstButton = new JRadioButton("Yes");
-		 firstButton.setBackground(ColorConstants.GREY);
+		 firstButton.setBackground(ColorConstants.LIGHT_ORANGE);
 		 if (data.getCanBePermanent()==false){
 			 firstButton.setEnabled(false);
 		 }
 		 JRadioButton secondButton = new JRadioButton("No");
-		 secondButton.setBackground(ColorConstants.GREY);
+		 secondButton.setBackground(ColorConstants.LIGHT_ORANGE);
 		 
 		    // Group the radio buttons.
 		 ButtonGroup group = new ButtonGroup();
@@ -154,7 +154,7 @@ public class WebTagOption extends JPanel {
 		JPanel buttonPanel=new JPanel();
 		buttonPanel.setSize(new Dimension(280, 30));
 		buttonPanel.setPreferredSize(new Dimension(280, 30));
-		buttonPanel.setBackground(ColorConstants.GREY);
+		buttonPanel.setBackground(ColorConstants.LIGHT_ORANGE);
 		buttonPanel.setLayout(new GridLayout(1, 2));
 		buttonPanel.add(firstButton);
 		buttonPanel.add(secondButton);
@@ -173,7 +173,7 @@ public class WebTagOption extends JPanel {
 		JPanel discardPanel=new JPanel();
 		discardPanel.setSize(new Dimension(590, 30));
 		discardPanel.setPreferredSize(new Dimension(590, 30));
-		discardPanel.setBackground(ColorConstants.GREY);
+		discardPanel.setBackground(ColorConstants.LIGHT_ORANGE);
 		
 
 		JLabel label2=new JLabel("Would you like to discard this tag: ");
@@ -181,16 +181,16 @@ public class WebTagOption extends JPanel {
 		JPanel labelPanel2=new JPanel();
 		labelPanel2.setSize(new Dimension(310, 30));
 		labelPanel2.setPreferredSize(new Dimension(310, 30));
-		labelPanel2.setBackground(ColorConstants.GREY);
+		labelPanel2.setBackground(ColorConstants.LIGHT_ORANGE);
 		labelPanel2.add(label2); 
 
 		
 		 JRadioButton firstButton2 = new JRadioButton("Yes");
 		 firstButton2.setSelected(false);
-		 firstButton2.setBackground(ColorConstants.GREY);
+		 firstButton2.setBackground(ColorConstants.LIGHT_ORANGE);
 		 JRadioButton secondButton2 = new JRadioButton("No");
 		 secondButton2.setSelected(true);
-		 secondButton2.setBackground(ColorConstants.GREY);
+		 secondButton2.setBackground(ColorConstants.LIGHT_ORANGE);
 		 
 		    // Group the radio buttons.
 		 ButtonGroup group2 = new ButtonGroup();
@@ -200,7 +200,7 @@ public class WebTagOption extends JPanel {
 		JPanel buttonPanel2=new JPanel();
 		buttonPanel2.setSize(new Dimension(280, 30));
 		buttonPanel2.setPreferredSize(new Dimension(280, 30));
-		buttonPanel2.setBackground(ColorConstants.GREY);
+		buttonPanel2.setBackground(ColorConstants.LIGHT_ORANGE);
 		buttonPanel2.setLayout(new GridLayout(1, 2));
 		buttonPanel2.add(firstButton2);
 		buttonPanel2.add(secondButton2);
@@ -211,7 +211,7 @@ public class WebTagOption extends JPanel {
 		this.add(discardPanel);		
 		
 		JPanel filler2=new JPanel();
-		filler2.setBackground(ColorConstants.GREY);
+		filler2.setBackground(ColorConstants.LIGHT_ORANGE);
 		filler2.setSize(new Dimension(590, 30));
 		filler2.setPreferredSize(new Dimension(590, 30));
 		this.add(filler2);
@@ -219,7 +219,7 @@ public class WebTagOption extends JPanel {
 		JPanel savePanel=new JPanel();
 		savePanel.setSize(new Dimension(590, 30));
 		savePanel.setPreferredSize(new Dimension(590, 30));
-		savePanel.setBackground(ColorConstants.GREY);
+		savePanel.setBackground(ColorConstants.LIGHT_ORANGE);
 		JButton saveButton=new JButton ("Update");
 		//selectButton.addActionListener(new MySelectListener(allTag, client, element, username, doc, url, parser, customFont, titleField, secondButton, this, perm));
 		saveButton.setBackground(ColorConstants.HUNTER);

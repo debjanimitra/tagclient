@@ -22,7 +22,7 @@ public class AllTagOptionsPanel extends JPanel {
 //	private HTMLParsing _parser;
 //	private String _userInput;
 	
-	public AllTagOptionsPanel(ArrayList<Element> elementOptions, Client client, String username, Document doc, String url, HTMLParsing parser, TagURLPanel parent){
+	public AllTagOptionsPanel(ArrayList<Element> elementOptions, Client client, String username, Document doc, String url, HTMLParsing parser, TagURLPanel parent, MyFrame frame){
 		super();
 		this.setBackground(ColorConstants.GREY);
 		_options=new ArrayList<TagOption>();
@@ -30,7 +30,7 @@ public class AllTagOptionsPanel extends JPanel {
 			Element ele=elementOptions.get(i);
 			System.out.println(i+" th element= "+ele.text());
 			if (ele.text().trim().length()>0){
-				TagOption tag=new TagOption(ele, client, username, doc, url, parser, parent, i);
+				TagOption tag=new TagOption(ele, client, username, doc, url, parser, parent, i, frame);
 				_options.add(tag);
 			}
 		}
