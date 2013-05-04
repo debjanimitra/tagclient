@@ -51,6 +51,7 @@ public class LoginPanel extends JPanel {
 		passwordField.setColumns(15);
 		usernameField.setFont(userInputFont);
 		passwordField.setFont(userInputFont);
+		passwordField.addActionListener(new LoginInListener(frame, rp, usernameField, passwordField, changePanel));
 		/*passwordField.addKeyListener(new PasswordListener(passwordField));*/
 		
 		JPanel uPanel=new JPanel();
