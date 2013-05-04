@@ -313,7 +313,7 @@ public class RegistrationPanel extends JPanel {
 				String userName = _usernameField.getText();
 				System.out.println("PASSWORD: " + pwd);
 				String encodedPassword = Base64.encodeBase64String(pwd.getBytes());
-				Message result = _client.sendAndReceive(new Message(MessageContent.NEWUSERID, (Object) userName+"\t"+encodedPassword));
+				Message result = _client.sendAndReceive(new Message(MessageContent.NEWUSERID, (Object) userName+"\t"+encodedPassword+"\t"+_emailField.getText()));
 				if(result != null && result.getContent() == MessageContent.DONE){
 					_client.setUserID(userName+"\t"+encodedPassword);
 					_frame.getControlPanel().setEnable(true);
