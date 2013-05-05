@@ -8,7 +8,7 @@ public class Main {
 	public static void main(String [] args){
 				
 		final String DEFAULTHOSTNAME = "localhost";
-		final int DEFAULTPORT = 6000;
+		final int DEFAULTPORT = 5000;
 		
 		String hostname = "";
 		int port = 0;
