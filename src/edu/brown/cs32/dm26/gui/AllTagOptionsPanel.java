@@ -28,7 +28,6 @@ public class AllTagOptionsPanel extends JPanel {
 		_options=new ArrayList<TagOption>();
 		for (int i=0; i<elementOptions.size(); i++){
 			Element ele=elementOptions.get(i);
-			System.out.println(i+" th element= "+ele.text());
 			if (ele.text().trim().length()>0){
 				TagOption tag=new TagOption(ele, client, username, doc, url, parser, parent, i, frame);
 				_options.add(tag);

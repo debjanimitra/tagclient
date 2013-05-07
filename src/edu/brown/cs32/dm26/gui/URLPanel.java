@@ -217,7 +217,6 @@ public class URLPanel extends JPanel {
 				_changePanel.revalidate();
 				_frame.repaint();
 				_frame.revalidate();
-				System.out.println("herehere");
 			} catch (IOException e1) {
 				// this website does not exist (maybe try with adding "www." in front of it and try again?
 				Font font=new Font("Verdana", Font.BOLD, 15);
@@ -282,9 +281,7 @@ public class URLPanel extends JPanel {
 
 		@Override
 		public void keyPressed(KeyEvent e) {
-			System.out.println(e.getKeyChar());
 			if (e.getKeyChar()==37){
-				System.out.println("FRIGGIN HERE");
 				if (_urlPanel.getPrevious()!=null){
 					_changePanel.removeAll();
 					_field.setText(_urlPanel.getPrevious().getURL());
@@ -305,7 +302,6 @@ public class URLPanel extends JPanel {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-				System.out.println("Array stuuf is"+Arrays.toString(_changePanel.getComponents()));
 				if (_urlPanel.getPrevious()!=null){
 					_changePanel.removeAll();
 					_field.setText(_urlPanel.getPrevious().getURL());

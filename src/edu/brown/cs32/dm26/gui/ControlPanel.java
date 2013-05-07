@@ -171,7 +171,6 @@ public class ControlPanel extends JPanel {
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			System.out.println("within signout listener-- before");
 			_frame.setShouldStartEnabling(false);
 			_frame.getURLPanel().getTextField().setText("");
 			_frame.setUsername(null);
@@ -190,7 +189,6 @@ public class ControlPanel extends JPanel {
 			_ptc.revalidate();
 			_frame.revalidate();
 			_client.kill();
-			System.out.println("within signout listener-- after");
 		}
 		
 	}
@@ -221,7 +219,6 @@ public class ControlPanel extends JPanel {
 			_wtl.setCurrentPanel(panel);
 			_ptc.repaint();
 			_frame.repaint();
-			System.out.println(_panel);
 		}
 		
 		public void setCurrentPanel(JPanel panel){
@@ -262,7 +259,6 @@ public class ControlPanel extends JPanel {
 			_nl.setCurrentPanel(panel);
 			_ptc.repaint();
 			_frame.repaint();
-			System.out.println(_panel);
 		}
 		
 		public void setCurrentPanel(JPanel panel){

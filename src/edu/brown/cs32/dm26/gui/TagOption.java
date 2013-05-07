@@ -56,8 +56,6 @@ public class TagOption extends JPanel {
 		if (text.length()<41){
 			isShort=true;
 		}
-		System.out.println("Start is:"+start);
-		System.out.println("End is:"+end);
 		JLabel startLabel, endLabel;
 
 		if (isShort==false){
