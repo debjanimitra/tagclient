@@ -240,7 +240,7 @@ public class TagOption extends JPanel {
 		public void mouseClicked(MouseEvent e) {
 			// TODO Auto-generated method stub
 
-			Data toSend = new Data(_element.text(),_url,"#"+_element.id(),"."+_element.className(),_username,_doc.select("body").text(), _titleField.getText(), _canBePermanent, _canBePermanent);		
+			Data toSend = new Data(_element.text(),_url,"#"+_element.id(),"."+_element.className(),_username,_doc.select("body").text(), _titleField.getText(), _canBePermanent, _canBePermanent, false);		
 			
 			JPopupMenu pop = new JPopupMenu ();
 			pop.setLayout(new BorderLayout());			

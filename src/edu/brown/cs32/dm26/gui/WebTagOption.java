@@ -137,7 +137,7 @@ public class WebTagOption extends JPanel {
 		 JRadioButton secondButton = new JRadioButton("No");
 		 secondButton.setBackground(ColorConstants.LIGHT_ORANGE);
 		 
-		    // Group the radio buttons.
+		 // Group the radio buttons.
 		 ButtonGroup group = new ButtonGroup();
 		 
 		 if (data.getPerm()==true){
@@ -164,6 +164,63 @@ public class WebTagOption extends JPanel {
 		permPanel.add(buttonPanel, BorderLayout.CENTER);
 		this.add(permPanel);
 		
+		
+		
+		/**
+		 * 
+		 * Email settings
+		 * 
+		 */
+		
+		JPanel emailPanel=new JPanel();
+		emailPanel.setSize(new Dimension(590, 30));
+		emailPanel.setPreferredSize(new Dimension(590, 30));
+		emailPanel.setBackground(ColorConstants.LIGHT_ORANGE);
+		
+
+		JLabel label2=new JLabel("Receive email notifications? ");
+		label2.setFont(customFont2);
+		JPanel labelPanel2=new JPanel();
+		labelPanel2.setSize(new Dimension(310, 30));
+		labelPanel2.setPreferredSize(new Dimension(310, 30));
+		labelPanel2.setBackground(ColorConstants.LIGHT_ORANGE);
+		labelPanel2.add(label2); 
+
+		
+		 JRadioButton firstButton2 = new JRadioButton("Yes");
+		 firstButton2.setBackground(ColorConstants.LIGHT_ORANGE);
+		 JRadioButton secondButton2 = new JRadioButton("No");
+		 secondButton2.setBackground(ColorConstants.LIGHT_ORANGE);
+	
+		// Group the radio buttons.
+		ButtonGroup group2 = new ButtonGroup();
+		group2.add(firstButton2);
+		group2.add(secondButton2);
+		 
+		 
+		 if (data.getEmail()){
+			 firstButton2.setSelected(true);
+			 secondButton2.setSelected(false);
+		 }
+		 else{
+			 firstButton2.setSelected(false);
+			 secondButton2.setSelected(true);
+		 }
+		
+		JPanel buttonPanel2=new JPanel();
+		buttonPanel2.setSize(new Dimension(280, 30));
+		buttonPanel2.setPreferredSize(new Dimension(280, 30));
+		buttonPanel2.setBackground(ColorConstants.LIGHT_ORANGE);
+		buttonPanel2.setLayout(new GridLayout(1, 2));
+		buttonPanel2.add(firstButton2);
+		buttonPanel2.add(secondButton2);
+		
+		emailPanel.setLayout(new BorderLayout());
+		emailPanel.add(labelPanel2, BorderLayout.WEST);
+		emailPanel.add(buttonPanel2, BorderLayout.CENTER);
+		this.add(emailPanel);				
+		
+		
 		/**
 		 * 
 		 * Discard a certain tag
@@ -176,45 +233,40 @@ public class WebTagOption extends JPanel {
 		discardPanel.setBackground(ColorConstants.LIGHT_ORANGE);
 		
 
-		JLabel label2=new JLabel("Would you like to discard this tag: ");
-		label2.setFont(customFont2);
-		JPanel labelPanel2=new JPanel();
-		labelPanel2.setSize(new Dimension(310, 30));
-		labelPanel2.setPreferredSize(new Dimension(310, 30));
-		labelPanel2.setBackground(ColorConstants.LIGHT_ORANGE);
-		labelPanel2.add(label2); 
+		JLabel label3=new JLabel("Discard this tag? ");
+		label3.setFont(customFont2);
+		JPanel labelPanel3=new JPanel();
+		labelPanel3.setSize(new Dimension(310, 30));
+		labelPanel3.setPreferredSize(new Dimension(310, 30));
+		labelPanel3.setBackground(ColorConstants.LIGHT_ORANGE);
+		labelPanel3.add(label3); 
 
 		
-		 JRadioButton firstButton2 = new JRadioButton("Yes");
-		 firstButton2.setSelected(false);
-		 firstButton2.setBackground(ColorConstants.LIGHT_ORANGE);
-		 JRadioButton secondButton2 = new JRadioButton("No");
-		 secondButton2.setSelected(true);
-		 secondButton2.setBackground(ColorConstants.LIGHT_ORANGE);
+		 JRadioButton firstButton3 = new JRadioButton("Yes");
+		 firstButton3.setSelected(false);
+		 firstButton3.setBackground(ColorConstants.LIGHT_ORANGE);
+		 JRadioButton secondButton3 = new JRadioButton("No");
+		 secondButton3.setSelected(true);
+		 secondButton3.setBackground(ColorConstants.LIGHT_ORANGE);
 		 
-		    // Group the radio buttons.
-		 ButtonGroup group2 = new ButtonGroup();
-		 group2.add(firstButton2);
-		 group2.add(secondButton2);
+		 // Group the radio buttons.
+		 ButtonGroup group3 = new ButtonGroup();
+		 group3.add(firstButton3);
+		 group3.add(secondButton3);
 		
-		JPanel buttonPanel2=new JPanel();
-		buttonPanel2.setSize(new Dimension(280, 30));
-		buttonPanel2.setPreferredSize(new Dimension(280, 30));
-		buttonPanel2.setBackground(ColorConstants.LIGHT_ORANGE);
-		buttonPanel2.setLayout(new GridLayout(1, 2));
-		buttonPanel2.add(firstButton2);
-		buttonPanel2.add(secondButton2);
+		JPanel buttonPanel3=new JPanel();
+		buttonPanel3.setSize(new Dimension(280, 30));
+		buttonPanel3.setPreferredSize(new Dimension(280, 30));
+		buttonPanel3.setBackground(ColorConstants.LIGHT_ORANGE);
+		buttonPanel3.setLayout(new GridLayout(1, 2));
+		buttonPanel3.add(firstButton3);
+		buttonPanel3.add(secondButton3);
 		
 		discardPanel.setLayout(new BorderLayout());
-		discardPanel.add(labelPanel2, BorderLayout.WEST);
-		discardPanel.add(buttonPanel2, BorderLayout.CENTER);
+		discardPanel.add(labelPanel3, BorderLayout.WEST);
+		discardPanel.add(buttonPanel3, BorderLayout.CENTER);
 		this.add(discardPanel);		
-		
-		JPanel filler2=new JPanel();
-		filler2.setBackground(ColorConstants.LIGHT_ORANGE);
-		filler2.setSize(new Dimension(590, 30));
-		filler2.setPreferredSize(new Dimension(590, 30));
-		this.add(filler2);
+
 		
 		JPanel savePanel=new JPanel();
 		savePanel.setSize(new Dimension(590, 30));
@@ -224,7 +276,7 @@ public class WebTagOption extends JPanel {
 		//selectButton.addActionListener(new MySelectListener(allTag, client, element, username, doc, url, parser, customFont, titleField, secondButton, this, perm));
 		saveButton.setBackground(ColorConstants.HUNTER);
 		saveButton.setForeground(Color.WHITE);
-		saveButton.addActionListener(new SaveListener(titleField, firstButton, firstButton2, frame, client, result, data, parentPanel));
+		saveButton.addActionListener(new SaveListener(titleField, firstButton, firstButton3, firstButton2,frame, client, result, data, parentPanel));
 		savePanel.setLayout(new GridBagLayout());
 		GridBagConstraints c3=new GridBagConstraints();
 		c3.anchor=GridBagConstraints.CENTER;
@@ -238,17 +290,18 @@ public class WebTagOption extends JPanel {
 	private class SaveListener implements ActionListener{
 
 		private TextField _field;
-		private JRadioButton _yesIndefinite, _yesDiscard;
+		private JRadioButton _yesIndefinite, _yesDiscard, _yesEmail;
 		private MyFrame _frame;
 		private Client _client;
 		private ArrayListMultimap<String, Data> _arrList;
 		private Data _thisData;
 		private WebTagsPanel _parentPanel;
 		
-		public SaveListener(TextField titleField, JRadioButton yesIndefiniteButton, JRadioButton yesDiscardButton, MyFrame frame, Client client, ArrayListMultimap<String, Data> arrList, Data thisData, WebTagsPanel parentPanel){
+		public SaveListener(TextField titleField, JRadioButton yesIndefiniteButton, JRadioButton yesDiscardButton, JRadioButton yesEmailButton, MyFrame frame, Client client, ArrayListMultimap<String, Data> arrList, Data thisData, WebTagsPanel parentPanel){
 			_field=titleField;
 			_yesIndefinite=yesIndefiniteButton;
 			_yesDiscard=yesDiscardButton;
+			_yesEmail=yesEmailButton;
 			_frame=frame;
 			_client=client;
 			_arrList=arrList;
@@ -263,6 +316,7 @@ public class WebTagOption extends JPanel {
 				_thisData.setTitle(_field.getText().trim());
 			}
 			_thisData.setPerm(_yesIndefinite.isSelected());
+			_thisData.setEmail(_yesEmail.isSelected());
 			if (_yesDiscard.isSelected()){
 				 _arrList.remove(_thisData.getURL(), _thisData);
 			}

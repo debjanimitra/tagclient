@@ -41,6 +41,7 @@ public class WebTagsPanel extends JPanel {
 		this.setLayout(new BorderLayout());
 		this.add(_scroller, BorderLayout.CENTER);
 		_scroller.revalidate();
+		_scroller.getVerticalScrollBar().setUnitIncrement(16);
 		AllWebTagsPanel panel=new AllWebTagsPanel(client, this, frame);
 		this.revalidate();
 		this.repaint();

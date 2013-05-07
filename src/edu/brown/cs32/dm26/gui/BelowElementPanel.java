@@ -30,6 +30,7 @@ public class BelowElementPanel extends JPanel {
 		_scroller.setBackground(ColorConstants.GREY);
 		_scroller.setSize(new Dimension(592, 400));
 		_scroller.setPreferredSize(new Dimension(592, 400));
+		_scroller.getVerticalScrollBar().setUnitIncrement(16);
 		this.setLayout(new BorderLayout());
 		this.add(_scroller, BorderLayout.CENTER);
 	}

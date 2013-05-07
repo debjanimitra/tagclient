@@ -41,6 +41,7 @@ public class NotificationsPanel extends JPanel {
 		System.out.println("Here");
 		AllNotificationsPanel allNotification=new AllNotificationsPanel(client, this, frame);
 		_scroller.revalidate();
+		_scroller.getVerticalScrollBar().setUnitIncrement(_scroller.getVerticalScrollBar().getUnitIncrement()*2);
 		this.repaint();
 		this.revalidate();
 	}
