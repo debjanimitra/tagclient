@@ -30,6 +30,7 @@ public class MyFrame extends JFrame {
 	private String _username;
 	private URLPanel _urlPanel;
 	private boolean _shouldStartEnabling;
+	private JPanel _changePanel, _backupChangePanel;
 	
 	public MyFrame(Client client){
 		super("Woof woof!");
@@ -51,24 +52,40 @@ public class MyFrame extends JFrame {
 		bottomPanel.setPreferredSize(new Dimension(800, 600));
 		bottomPanel.setLayout(new BorderLayout());
 		_username=null;
-		JPanel changePanel=new JPanel();
-		changePanel.setSize(new Dimension(592, 600));
-		changePanel.setPreferredSize(new Dimension(592, 600));
-		changePanel.setLayout(new BorderLayout());
-		OpeningPanel openingPanel=new OpeningPanel(this, changePanel, client);
-		changePanel.add(openingPanel, BorderLayout.CENTER);
-		_cp=new ControlPanel(new Dimension(200, 600), this, changePanel, openingPanel, client);
+		_changePanel=new JPanel();
+		_changePanel.setSize(new Dimension(592, 600));
+		_changePanel.setPreferredSize(new Dimension(592, 600));
+		_changePanel.setLayout(new BorderLayout());
+		OpeningPanel openingPanel=new OpeningPanel(this, _changePanel, client);
+		_changePanel.add(openingPanel, BorderLayout.CENTER);
+		_cp=new ControlPanel(new Dimension(200, 600), this, _changePanel, openingPanel, client);
 		_cp.setEnable(false);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setResizable(false);
 		this.setLayout(new BorderLayout());
-		bottomPanel.add(changePanel, BorderLayout.EAST);
+		bottomPanel.add(_changePanel, BorderLayout.EAST);
 		bottomPanel.add(_cp, BorderLayout.WEST);
 		this.add(bottomPanel, BorderLayout.SOUTH);
-		_urlPanel=new URLPanel(this, changePanel, client);
+		_urlPanel=new URLPanel(this, _changePanel, client);
 		_urlPanel.setEnable(false);
 		this.add(_urlPanel, BorderLayout.NORTH);
 		this.pack();
+	}
+	
+	public void setBackupChangePanel(JPanel changePanel){
+		_backupChangePanel=changePanel;
+	}
+	
+	public JPanel getBackUpChangePanel(){
+		return _backupChangePanel;
+	}
+	
+	public void setChangePanel(JPanel changePanel){
+		_changePanel=changePanel;
+	}
+	
+	public JPanel getChangePanel(){
+		return _changePanel;
 	}
 	
 	public ControlPanel getControlPanel(){

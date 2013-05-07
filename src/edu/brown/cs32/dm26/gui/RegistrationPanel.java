@@ -51,6 +51,10 @@ public class RegistrationPanel extends JPanel {
 		declarationLabel1.setFont(declarationFont);
 		declarationLabel2.setFont(declarationFont);
 		declarationLabel3.setFont(declarationFont);
+	//	JPanel anotherRando=new JPanel();
+	//	anotherRando.setBackground(ColorConstants.GREY);
+	//	this.add(anotherRando);
+		
 		JPanel anotherRando=new JPanel();
 		anotherRando.setBackground(ColorConstants.GREY);
 		this.add(anotherRando);
@@ -87,6 +91,8 @@ public class RegistrationPanel extends JPanel {
 		/*passwordField.addKeyListener(new PasswordListener(passwordField));
 		reenterPasswordField.addKeyListener(new PasswordListener(reenterPasswordField));
 */
+		
+	
 
 		JPanel uPanel=new JPanel();
 		uPanel.setSize(new Dimension(592, 100));
@@ -172,8 +178,14 @@ public class RegistrationPanel extends JPanel {
 		this.add(rPanel);
 		this.add(ePanel);
 		this.add(registerButtonPanel);
+		
+		JPanel anotherRando3=new JPanel();
+		anotherRando3.setBackground(ColorConstants.GREY);
+		this.add(anotherRando3);
+		
 
 	}
+	
 
 	/*private class PasswordListener implements KeyListener{
 

@@ -20,6 +20,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JRadioButton;
+import javax.swing.JTextField;
 import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.LineBorder;
@@ -88,36 +89,30 @@ public class TagOption extends JPanel {
 		this.add(endLabel);
 		
 
-		JLabel label=new JLabel("  Name this element b4 selecting(OPTIONAL):");
+		JLabel label=new JLabel("            Name this element (RECOMMENDED):");
 		label.setFont(customFont);
 		JPanel labelPanel=new JPanel();
-		labelPanel.setSize(new Dimension(130, 30));
-		labelPanel.setPreferredSize(new Dimension(130, 30));
+		labelPanel.setSize(new Dimension(200, 30));
+		labelPanel.setPreferredSize(new Dimension(200, 30));
 		labelPanel.setBackground(ColorConstants.LIGHT_ORANGE);
 		labelPanel.add(label);
 		
-		
-		TextField titleField = new TextField();
-		titleField.setColumns(30);
+		JTextField titleField = new JTextField();
+		titleField.setColumns(23);
 		titleField.setFont(customFont);
-		titleField.setSize(new Dimension(200, 30));
-		titleField.setPreferredSize(new Dimension(200, 30));
+		titleField.setSize(new Dimension(30, 30));
+		titleField.setPreferredSize(new Dimension(30, 30));
 		
 		JPanel tPanel=new JPanel();
-		tPanel.setSize(new Dimension(200, 30));
-		tPanel.setPreferredSize(new Dimension(200, 30));
+		tPanel.setSize(new Dimension(30, 30));
+		tPanel.setPreferredSize(new Dimension(30, 30));
 		tPanel.setBackground(ColorConstants.LIGHT_ORANGE);
-		tPanel.setLayout(new GridBagLayout());
-		GridBagConstraints c1=new GridBagConstraints();
-		c1.gridx=0;
-		c1.gridy=0;
-		tPanel.add(titleField, c1);
-		this.add(tPanel);
-		
-		JPanel random=new JPanel();
-		random.setSize(new Dimension(140, 30));
-		random.setPreferredSize(new Dimension(140, 30));
-		random.setBackground(ColorConstants.LIGHT_ORANGE);
+		tPanel.add(titleField);
+				
+	//	JPanel random=new JPanel();
+	//	random.setSize(new Dimension(140, 30));
+	//	random.setPreferredSize(new Dimension(140, 30));
+	//	random.setBackground(ColorConstants.LIGHT_ORANGE);
 		
 		JPanel optionPanel=new JPanel();
 		optionPanel.setSize(new Dimension(590, 30));
@@ -126,7 +121,6 @@ public class TagOption extends JPanel {
 		optionPanel.setLayout(new GridLayout(1,2));
 		optionPanel.add(labelPanel);
 		optionPanel.add(tPanel);
-	//	optionPanel.add(random);
 		this.add(optionPanel);
 		
 		JPanel permPanel=new JPanel();
@@ -151,30 +145,6 @@ public class TagOption extends JPanel {
 		labelPanel1.setBackground(ColorConstants.LIGHT_ORANGE);
 		labelPanel1.add(label1); 
 		
-	/**	 JRadioButton firstButton = new JRadioButton("Yes");
-		 firstButton.setSelected(false);
-		 firstButton.setBackground(ColorConstants.LIGHT_ORANGE);
-		 boolean perm=parser.canBePermanent(element).getPerm();
-		 if (perm==false){
-			 firstButton.setEnabled(false);
-		 }
-		 JRadioButton secondButton = new JRadioButton("No");
-		 secondButton.setSelected(true);
-		 secondButton.setBackground(ColorConstants.LIGHT_ORANGE);
-		 
-		    // Group the radio buttons.
-		 ButtonGroup group = new ButtonGroup();
-		 group.add(firstButton);
-		 group.add(secondButton);
-		
-		JPanel buttonPanel=new JPanel();
-		buttonPanel.setSize(new Dimension(280, 30));
-		buttonPanel.setPreferredSize(new Dimension(280, 30));
-		buttonPanel.setBackground(ColorConstants.LIGHT_ORANGE);
-		buttonPanel.setLayout(new GridLayout(1, 2));
-		buttonPanel.add(firstButton);
-		buttonPanel.add(secondButton);**/
-		
 		permPanel.setLayout(new BorderLayout());
 		permPanel.add(labelPanel1, BorderLayout.WEST);
 	//	permPanel.add(buttonPanel, BorderLayout.CENTER);
@@ -185,7 +155,9 @@ public class TagOption extends JPanel {
 		selectPanel.setPreferredSize(new Dimension(590, 30));
 		selectPanel.setBackground(ColorConstants.LIGHT_ORANGE);
 		JButton selectButton=new JButton ("select this!");
-		selectButton.addMouseListener(new MySelectListener(allTag, client, element, username, doc, url, parser, customFont2, titleField, this, perm, index, frame));
+		MySelectListener msl=new MySelectListener(allTag, client, element, username, doc, url, parser, customFont2, titleField, this, perm, index, frame);
+		selectButton.addActionListener(msl);
+		titleField.addActionListener(msl);
 		selectButton.setBackground(ColorConstants.HUNTER);
 		selectButton.setForeground(Color.WHITE);
 		selectPanel.setLayout(new GridBagLayout());
@@ -198,7 +170,7 @@ public class TagOption extends JPanel {
 		this.setVisible(true);
 	}
 	
-	private class MySelectListener implements MouseListener{
+	private class MySelectListener implements ActionListener{
 
 		private Client _client;
 		private Element _element;
@@ -208,13 +180,13 @@ public class TagOption extends JPanel {
 		private TagURLPanel _panel;
 		private HTMLParsing _parser;
 		private Font _font;
-		private TextField _titleField;
+		private JTextField _titleField;
 		private TagOption _option;
 		private boolean _canBePermanent;
 		private int _index;
 		private MyFrame _frame;
 		
-		public MySelectListener(TagURLPanel panel, Client client, Element element, String username, Document doc, String url, HTMLParsing parser, Font font, TextField titleField,  TagOption option, boolean canBePermanent, int index, MyFrame frame){
+		public MySelectListener(TagURLPanel panel, Client client, Element element, String username, Document doc, String url, HTMLParsing parser, Font font, JTextField titleField,  TagOption option, boolean canBePermanent, int index, MyFrame frame){
 			_client=client;
 			_element=element;
 			_username=username;
@@ -230,16 +202,10 @@ public class TagOption extends JPanel {
 			_frame=frame;
 		}
 		
-	//	@Override
-	//	public void actionPerformed(ActionEvent e) {
-	//		// TODO Auto-generated method stub
-//
-//		}
 
 		@Override
-		public void mouseClicked(MouseEvent e) {
+		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
-
 			Data toSend = new Data(_element.text(),_url,"#"+_element.id(),"."+_element.className(),_username,_doc.select("body").text(), _titleField.getText(), _canBePermanent, _canBePermanent, false);		
 			
 			JPopupMenu pop = new JPopupMenu ();
@@ -284,31 +250,6 @@ public class TagOption extends JPanel {
 				pop.setPreferredSize(new Dimension((int)(8*length), 50));
 				pop.show(_frame, 10, 250);
 			}
-		
-		}
-
-		@Override
-		public void mousePressed(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void mouseReleased(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void mouseEntered(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void mouseExited(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
 		}		
 		
 	}

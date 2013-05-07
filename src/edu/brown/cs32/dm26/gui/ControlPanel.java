@@ -194,11 +194,10 @@ public class ControlPanel extends JPanel {
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
+			System.out.println("within signout listener-- before");
 			_frame.setShouldStartEnabling(false);
 			_frame.getURLPanel().getTextField().setText("");
 			_frame.setUsername(null);
-			_client.kill();
 			_ptc.removeAll();
 			_ptc.add(_op);
 			_cp.setEnable(false);
@@ -210,6 +209,11 @@ public class ControlPanel extends JPanel {
 			_frame.getWebTagsButton().setEnabled(false);
 			_ptc.repaint();
 			_frame.repaint();
+			_cp.revalidate();
+			_ptc.revalidate();
+			_frame.revalidate();
+			_client.kill();
+			System.out.println("within signout listener-- after");
 		}
 		
 	}

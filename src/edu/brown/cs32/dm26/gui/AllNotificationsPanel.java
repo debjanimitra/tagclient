@@ -46,6 +46,8 @@ public class AllNotificationsPanel extends JPanel {
 					frame.getNotificationsButton().setText("Notifications");
 				}
 				
+				frame.getNotificationsButton().repaint();
+				frame.getNotificationsButton().revalidate();
 				System.out.println("result size "+ result.size());
 				for (Notification n: result){
 					System.out.println("YAYEEEE");

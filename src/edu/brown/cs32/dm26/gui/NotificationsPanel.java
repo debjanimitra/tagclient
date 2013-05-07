@@ -2,6 +2,8 @@ package edu.brown.cs32.dm26.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -41,7 +43,7 @@ public class NotificationsPanel extends JPanel {
 		System.out.println("Here");
 		AllNotificationsPanel allNotification=new AllNotificationsPanel(client, this, frame);
 		_scroller.revalidate();
-		_scroller.getVerticalScrollBar().setUnitIncrement(_scroller.getVerticalScrollBar().getUnitIncrement()*2);
+		_scroller.getVerticalScrollBar().setUnitIncrement(16);
 		this.repaint();
 		this.revalidate();
 	}
@@ -61,4 +63,5 @@ public class NotificationsPanel extends JPanel {
 		frame.revalidate();
 		_scroller.revalidate();
 	}
+	
 }

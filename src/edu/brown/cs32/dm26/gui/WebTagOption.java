@@ -17,6 +17,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.JTextField;
 import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
 
@@ -77,31 +78,27 @@ public class WebTagOption extends JPanel {
 		JLabel changeTitle=new JLabel("Give this tag another name: ");
 		changeTitle.setFont(customFont2);
 		JPanel labelPanel=new JPanel();
-		labelPanel.setSize(new Dimension(130, 35));
-		labelPanel.setPreferredSize(new Dimension(130, 35));
+		labelPanel.setSize(new Dimension(130, 30));
+		labelPanel.setPreferredSize(new Dimension(130, 30));
 		labelPanel.setBackground(ColorConstants.LIGHT_ORANGE);
 		labelPanel.add(changeTitle);
 		
 		
-		TextField titleField = new TextField();
-		titleField.setColumns(30);
+		JTextField titleField = new JTextField();
+		titleField.setColumns(23);
 		titleField.setFont(customFont2);
-		titleField.setSize(new Dimension(200, 30));
-		titleField.setPreferredSize(new Dimension(200, 30));
+		titleField.setSize(new Dimension(30, 23));
+		titleField.setPreferredSize(new Dimension(30, 23));
 		
 		JPanel tPanel=new JPanel();
-		tPanel.setSize(new Dimension(200, 35));
-		tPanel.setPreferredSize(new Dimension(200, 35));
+		tPanel.setSize(new Dimension(30, 30));
+		tPanel.setPreferredSize(new Dimension(30, 30));
 		tPanel.setBackground(ColorConstants.LIGHT_ORANGE);
-		tPanel.setLayout(new GridBagLayout());
-		GridBagConstraints c1=new GridBagConstraints();
-		c1.gridx=0;
-		c1.gridy=0;
-		tPanel.add(titleField, c1);
+		tPanel.add(titleField);
 			
 		JPanel titlePanel=new JPanel();
-		titlePanel.setSize(new Dimension(590, 35));
-		titlePanel.setPreferredSize(new Dimension(590, 35));
+		titlePanel.setSize(new Dimension(300, 30));
+		titlePanel.setPreferredSize(new Dimension(300, 30));
 		titlePanel.setBackground(ColorConstants.LIGHT_ORANGE);
 		titlePanel.setLayout(new GridLayout(1,2));
 		titlePanel.add(labelPanel);
@@ -289,7 +286,7 @@ public class WebTagOption extends JPanel {
 	
 	private class SaveListener implements ActionListener{
 
-		private TextField _field;
+		private JTextField _field;
 		private JRadioButton _yesIndefinite, _yesDiscard, _yesEmail;
 		private MyFrame _frame;
 		private Client _client;
@@ -297,7 +294,7 @@ public class WebTagOption extends JPanel {
 		private Data _thisData;
 		private WebTagsPanel _parentPanel;
 		
-		public SaveListener(TextField titleField, JRadioButton yesIndefiniteButton, JRadioButton yesDiscardButton, JRadioButton yesEmailButton, MyFrame frame, Client client, ArrayListMultimap<String, Data> arrList, Data thisData, WebTagsPanel parentPanel){
+		public SaveListener(JTextField titleField, JRadioButton yesIndefiniteButton, JRadioButton yesDiscardButton, JRadioButton yesEmailButton, MyFrame frame, Client client, ArrayListMultimap<String, Data> arrList, Data thisData, WebTagsPanel parentPanel){
 			_field=titleField;
 			_yesIndefinite=yesIndefiniteButton;
 			_yesDiscard=yesDiscardButton;

@@ -1,6 +1,9 @@
 package edu.brown.cs32.dm26.gui;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
+
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -60,7 +63,6 @@ public class WebTagsPanel extends JPanel {
 		frame.repaint();
 		frame.revalidate();
 		_scroller.revalidate();
-	} 
-	
+	} 	
 	
 }

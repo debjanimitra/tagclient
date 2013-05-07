@@ -181,11 +181,11 @@ public class LoginPanel extends JPanel {
 
 		private JTextField _usernameField;
 		private JPasswordField _passwordField;
-		private JPanel _registration;
+		private RegistrationPanel _registration;
 		private MyFrame _frame;
 		private JPanel _changePanel;
 		
-		public LoginInListener(MyFrame frame, JPanel registration, JTextField usernameField, JPasswordField passwordField, JPanel changePanel){
+		public LoginInListener(MyFrame frame, RegistrationPanel registration, JTextField usernameField, JPasswordField passwordField, JPanel changePanel){
 			_frame=frame;
 			_usernameField=usernameField;
 			_passwordField=passwordField;
@@ -224,6 +224,7 @@ public class LoginPanel extends JPanel {
 				String userName = _usernameField.getText();
 				String encodedPassword = Base64.encodeBase64String(pwd.getBytes());
 				Message result = _client.sendAndReceive(new Message(MessageContent.USERID, (Object) userName+"\t"+encodedPassword));
+				
 				if(result != null && result.getContent() == MessageContent.DONE){
 					_client.setUserID(userName+"\t"+encodedPassword);
 					_frame.getControlPanel().setEnable(true);

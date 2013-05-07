@@ -15,6 +15,8 @@ import javax.swing.JPopupMenu;
 import com.google.common.collect.ArrayListMultimap;
 
 import edu.brown.cs32.dm26.gui.MyFrame;
+import edu.brown.cs32.dm26.gui.ServerDownPanel;
+import edu.brown.cs32.dm26.gui.WelcomeBackPanel;
 import edu.brown.cs32.dm26.gui.WelcomePanel;
 import edu.brown.cs32.takhan.tag.Data;
 import edu.brown.cs32.takhan.tag.Notification;
@@ -37,6 +39,7 @@ public class Client
 	private String _userID;
 
 	private ReceiveThread thread;
+	//private boolean _running;
 
 	public Client(String hostname, int port)
 	{
@@ -45,6 +48,7 @@ public class Client
 		this.notificationButton=null;
 		_frame = null;
 		_userID = "";
+		//_running = true;
 		connectToServer();
 		thread = new ReceiveThread();
 		thread.start();
@@ -69,13 +73,17 @@ public class Client
 
 	public void connectToServer()
 	{
+		/*if(!_running){
+			_frame.getURLPanel().getTextField().setText("");
+			return;
+		}*/
 		int numTimesConnecting = 0;
 		serverRunning = false;
 		while(!serverRunning){
 			/*
 				DEBJANI: DISABLE all components here!
 			*/
-			numTimesConnecting++;
+			numTimesConnecting++;			
 			try{
 				standardSocket = new Socket(this.hostname, this.port);
 				receiveThreadSocket = new Socket(this.hostname, this.port + 1);
@@ -92,21 +100,50 @@ public class Client
 				}
 
 				serverRunning = true;
-				/*
-					DEBJANI: ENABLE all components here!
-				*/
+				System.out.println("Here");
+				if (_frame!=null && !_userID.isEmpty()){
+					System.out.println("Should be here");
+					_frame.getControlPanel().setEnable(true);
+					_frame.getURLPanel().setEnable(true);
+					_frame.getChangePanel().removeAll();
+					_frame.getChangePanel().add(new WelcomeBackPanel(_frame));
+					_frame.getChangePanel().repaint();
+					_frame.repaint();
+					_frame.revalidate();
+				}
+				
 			}
 			catch(IOException e){
+				
 				serverRunning = false;
 				int waitTime = (int) Math.min(Math.pow(2, numTimesConnecting), 30);
-				System.out.println("ERROR: Cannot connect to the server. Trying again in "+waitTime+" seconds.");
+				if (_frame!=null && !_userID.isEmpty()){
+					_frame.getChangePanel().removeAll();
+					ServerDownPanel sdp=new ServerDownPanel(_frame);
+					_frame.getChangePanel().add(sdp);
+					sdp.changePanel("    ERROR: Cannot connect to the server. Trying again in "+waitTime+" seconds.");
+					System.out.println("ERROR: Cannot connect to the server. Trying again in "+waitTime+" seconds.");
+				
+					_frame.getControlPanel().setEnable(false);
+					_frame.getURLPanel().setEnable(false);
+					_frame.getURLPanel().getTextField().setText("");
+					_frame.getURLPanel().getTextField().repaint();
+					_frame.getURLPanel().getTextField().revalidate();
+					_frame.getChangePanel().repaint();
+					_frame.getURLPanel().repaint();
+					_frame.getURLPanel().revalidate();
+					_frame.repaint();
+					_frame.revalidate();
+				}
 				try
 				{
 					Thread.sleep(waitTime * 1000);
 				} catch(InterruptedException e1){/*this won't happen ever*/}
 			}			
 		}
-		System.out.println("Connected to the server.");
+		if (serverRunning){
+			System.out.println("Connected to the server.");
+		}
 	}
 
 	private void waitForReconnect(){
@@ -151,6 +188,7 @@ public class Client
 
 	public void send(Message message)
 	{
+		//_running = true;
 		boolean success = false;
 		while(!success){
 			try{
@@ -169,6 +207,7 @@ public class Client
 
 	public Message sendAndReceive(Message message)
 	{
+		
 		System.out.println("before send");
 		send(message);
 		System.out.println("after send, before receive");
@@ -192,6 +231,7 @@ public class Client
 	public void kill()
 	{
 		try{
+			//_running = false;
 			_userID = "";
 			standardSocket.close();
 			receiveThreadSocket.close();
@@ -207,7 +247,7 @@ public class Client
 	 */
 	class  ReceiveThread extends Thread {
 		public void run() {
-			while(serverRunning){        		
+			while(serverRunning/* && _running*/){        		
 				try {
 					Message message = (Message) receiveThreadInput.readObject();
 					if(message != null){
@@ -219,6 +259,8 @@ public class Client
 							else{
 								notificationButton.setText("Notifications ("+notifications.size()+")");
 							}
+							notificationButton.revalidate();
+							notificationButton.repaint();
 							System.out.println("GOT NOTIFICATIONS!");
 						}
 					}
