@@ -84,31 +84,8 @@ public class ControlPanel extends JPanel {
 		_webTagsPanel.setLayout(new BorderLayout());
 		_webTagsPanel.add(_webTagsButton, BorderLayout.SOUTH);
 		
-	//	JPanel enterURLPanel=new JPanel();
-	//	enterURLPanel.setSize(new Dimension(200, 50));
-	//	enterURLPanel.setPreferredSize(new Dimension(200, 50));
-	//	_enterURL=new JTextField();
-	//	_enterURL.setForeground(ColorConstants.DARK_GRAY);
-	//	_enterURL.setEnabled(false);
-	//	_enterURL.setFont(websiteFont);
-	//	_enterURL.setColumns(20);
-	//	_enterURL.setText("enter website & hit enter");
-	//	MyURLListener listener=new MyURLListener(frame, changePanel, client, _enterURL);
-	//	_enterURL.addKeyListener(listener);
-	//	_enterURL.addMouseListener(listener);
-	//	JPanel random=new JPanel();
-	//	random.setSize(new Dimension(200, 30));
-	//	random.setPreferredSize(new Dimension(200, 30));
-	//	random.setLayout(new BorderLayout());
-	//	_enterURL.setPreferredSize(new Dimension(200, 30));
-	//	enterURLPanel.setLayout(new BorderLayout());
-	//	enterURLPanel.setBackground(ColorConstants.LIGHT_GRAY);
-	//	random.add(_enterURL, BorderLayout.CENTER);
-	//	enterURLPanel.add(random, BorderLayout.SOUTH);
-		
 		_buttonPanel.add(_notificationsPanel);
 		_buttonPanel.add(_webTagsPanel);
-	//	buttonPanel.add(enterURLPanel);
 		this.add(_buttonPanel, BorderLayout.NORTH);
 		
 		_logoPanel=new JPanel();
@@ -218,120 +195,6 @@ public class ControlPanel extends JPanel {
 		
 	}
 	
-	/*private class MyURLListener implements KeyListener, MouseListener{
-
-		private JTextField _field;
-		private int _counter;
-		private JPanel _changePanel;
-		private MyFrame _frame;
-		private Client _client;
-		private boolean _messageBeingDisplayed;
-		
-		
-		public MyURLListener(MyFrame frame, JPanel changePanel, Client client, JTextField field){
-			_frame=frame;
-			_field=field;
-			_changePanel=changePanel;
-			_client=client;
-			_counter=0;
-			_messageBeingDisplayed=true;
-		}
-		
-		@Override
-		public void keyTyped(KeyEvent e) {
-			// TODO Auto-generated method stub
-		 	
-		}
-
-		@Override
-		public void keyPressed(KeyEvent e) {
-			// TODO Auto-generated method stub
-			String userInput=_field.getText();
-			if (userInput.length()==0){	
-				_counter++;
-				if (_counter>=2){
-				_field.setText("  enter full website here ");
-				_messageBeingDisplayed=true;
-				_counter=0;
-				}
-				else{
-					_messageBeingDisplayed=false;
-					_field.setText("");
-				}
-			}
-			
-			else{
-				_messageBeingDisplayed=false;
-				_counter=0;
-			}
-			System.out.println(e.getKeyChar());
-			if (e.getKeyChar()=='\n'){
-				_changePanel.removeAll();
-				String input=_field.getText().trim();
-				if (input.startsWith("http://")==false){
-					input="http://"+input;
-				}
-				HTMLParsing parser;
-				try {
-					parser = new HTMLParsing(input);
-					TagURLPanel tag = new TagURLPanel(_frame, _changePanel, _client, parser, input);
-					_changePanel.add(tag);
-					_changePanel.repaint();
-					_changePanel.revalidate();
-					_frame.repaint();
-					_frame.revalidate();
-					System.out.println("herehere");
-				} catch (UnknownHostException e1) {
-					// this website does not exist (maybe try with adding "www." in front of it and try again?
-				} catch (HttpStatusException e1) {
-					// there might actually be a typo in the URL, the entered website doesn't exist
-				}
-				
-			}
-		}
-
-		@Override
-		public void keyReleased(KeyEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void mouseClicked(MouseEvent e) {
-			// TODO Auto-generated method stub
-			if (_messageBeingDisplayed){
-				_field.setText("");
-			}
-
-		}
-
-		@Override
-		public void mousePressed(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void mouseReleased(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void mouseEntered(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void mouseExited(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
-		
-		
-	}*/
-	
 	
 	private class NotificationsListener implements ActionListener{
 
@@ -354,8 +217,6 @@ public class ControlPanel extends JPanel {
 			NotificationsPanel panel=new NotificationsPanel(_client, _frame);
 			_ptc.removeAll();
 			_ptc.add(panel);
-	//		_ptc.invalidate();
-	//		_ptc.validate();
 			_panel=panel;
 			_wtl.setCurrentPanel(panel);
 			_ptc.repaint();
@@ -397,8 +258,6 @@ public class ControlPanel extends JPanel {
 			WebTagsPanel panel=new WebTagsPanel(_client, _frame);
 			_ptc.removeAll();
 			_ptc.add(panel);
-		//	_ptc.invalidate();
-		//	_ptc.validate();
 			_panel=panel;
 			_nl.setCurrentPanel(panel);
 			_ptc.repaint();

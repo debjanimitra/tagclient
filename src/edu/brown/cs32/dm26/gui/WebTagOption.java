@@ -280,7 +280,6 @@ public class WebTagOption extends JPanel {
 		savePanel.add(saveButton, c3);
 		this.add(savePanel);
 	
-		System.out.println("Done adding this");
 		
 	}
 	
@@ -318,17 +317,13 @@ public class WebTagOption extends JPanel {
 				 _arrList.remove(_thisData.getURL(), _thisData);
 			}
 			
-			System.out.println("here");
 			
 			Message result = _client.sendAndReceive(new Message(MessageContent.UPDATE_WEBTAGS, (Object) _arrList));
 			
 			if(result != null && result.getContent() == MessageContent.DONE_UPDATEWEBTAGS){
-				System.out.println("Message after");
 				AllWebTagsPanel awtp = new AllWebTagsPanel (_client, _parentPanel, _frame); 
-				System.out.println("between");
 				_parentPanel.changePanel(awtp, _frame);
-				
-				System.out.println("After");
+
 			} else{
 				//do something??
 			}

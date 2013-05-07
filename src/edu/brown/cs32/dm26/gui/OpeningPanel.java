@@ -23,7 +23,6 @@ public class OpeningPanel extends JPanel {
 		this.add(op, BorderLayout.NORTH);
 		this.add(rp);
 		this.setVisible(true);
-		System.out.println("this");
 	}
 	
 }

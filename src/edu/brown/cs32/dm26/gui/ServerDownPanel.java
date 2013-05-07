@@ -24,7 +24,6 @@ public class ServerDownPanel extends JPanel {
 		_label1=new JLabel("");
 		_label1.setSize(new Dimension(600, 150));
 		_label1.setPreferredSize(new Dimension(600, 150));
-		System.out.println(_label1.getSize());
 		_label1.setFont(font);
 		frame.getURLPanel().getBackButton().setEnabled(false);
 		this.setLayout(new BorderLayout());

@@ -100,9 +100,7 @@ public class Client
 				}
 
 				serverRunning = true;
-				System.out.println("Here");
 				if (_frame!=null && !_userID.isEmpty()){
-					System.out.println("Should be here");
 					_frame.getControlPanel().setEnable(true);
 					_frame.getURLPanel().setEnable(true);
 					_frame.getChangePanel().removeAll();
@@ -208,14 +206,11 @@ public class Client
 	public Message sendAndReceive(Message message)
 	{
 		
-		System.out.println("before send");
 		send(message);
-		System.out.println("after send, before receive");
 		Message result = null;
 		while(result == null){
 			try{
 				result = (Message) standardInput.readObject();
-				System.out.println("after receive");
 			}
 			catch(ClassNotFoundException e1){
 				System.err.println("ERROR: Can't find class Message.");
@@ -261,7 +256,6 @@ public class Client
 							}
 							notificationButton.revalidate();
 							notificationButton.repaint();
-							System.out.println("GOT NOTIFICATIONS!");
 						}
 					}
 				} catch (IOException e) {

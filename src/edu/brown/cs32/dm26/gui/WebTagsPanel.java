@@ -31,7 +31,6 @@ public class WebTagsPanel extends JPanel {
 		if (frame.getShouldStartEnabling()){
 			frame.getURLPanel().getBackButton().setEnabled(true);
 		}
-		System.out.println("before instantiating all webtags panel");
 		_scroller=new JScrollPane(_toAdd);
 		_scroller.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		_scroller.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);

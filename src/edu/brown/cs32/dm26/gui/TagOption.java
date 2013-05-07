@@ -109,10 +109,6 @@ public class TagOption extends JPanel {
 		tPanel.setBackground(ColorConstants.LIGHT_ORANGE);
 		tPanel.add(titleField);
 				
-	//	JPanel random=new JPanel();
-	//	random.setSize(new Dimension(140, 30));
-	//	random.setPreferredSize(new Dimension(140, 30));
-	//	random.setBackground(ColorConstants.LIGHT_ORANGE);
 		
 		JPanel optionPanel=new JPanel();
 		optionPanel.setSize(new Dimension(590, 30));
@@ -147,7 +143,6 @@ public class TagOption extends JPanel {
 		
 		permPanel.setLayout(new BorderLayout());
 		permPanel.add(labelPanel1, BorderLayout.WEST);
-	//	permPanel.add(buttonPanel, BorderLayout.CENTER);
 		this.add(permPanel);
 		
 		JPanel selectPanel=new JPanel();
@@ -212,8 +207,7 @@ public class TagOption extends JPanel {
 			pop.setLayout(new BorderLayout());			
 			String title="";			
 			Message result = _client.sendAndReceive(new Message(MessageContent.DATA, (Object) toSend));
-			
-			System.out.println("message received back");			
+						
 			int flag=0;
 			
 			if(result == null){

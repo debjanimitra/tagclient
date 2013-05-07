@@ -51,9 +51,6 @@ public class RegistrationPanel extends JPanel {
 		declarationLabel1.setFont(declarationFont);
 		declarationLabel2.setFont(declarationFont);
 		declarationLabel3.setFont(declarationFont);
-	//	JPanel anotherRando=new JPanel();
-	//	anotherRando.setBackground(ColorConstants.GREY);
-	//	this.add(anotherRando);
 		
 		JPanel anotherRando=new JPanel();
 		anotherRando.setBackground(ColorConstants.GREY);
@@ -88,11 +85,6 @@ public class RegistrationPanel extends JPanel {
 		emailField.setFont(userInputFont);
 		emailField.addActionListener(new RegisterMeListener(this, usernameField, passwordField, reenterPasswordField, emailField, frame, changePanel));
 
-		/*passwordField.addKeyListener(new PasswordListener(passwordField));
-		reenterPasswordField.addKeyListener(new PasswordListener(reenterPasswordField));
-*/
-		
-	
 
 		JPanel uPanel=new JPanel();
 		uPanel.setSize(new Dimension(592, 100));
@@ -187,67 +179,6 @@ public class RegistrationPanel extends JPanel {
 	}
 	
 
-	/*private class PasswordListener implements KeyListener{
-
-		private TextField _field;
-		private String _userInput;
-
-
-		public PasswordListener(TextField field){
-			_field=field;
-			_userInput="";
-		}
-
-		@Override
-		public void keyTyped(KeyEvent e) {
-			// TODO Auto-generated method stub
-
-		}
-
-		@Override
-		public void keyPressed(KeyEvent e) {
-			// TODO Auto-generated method stub
-
-		}
-
-		@Override
-		public void keyReleased(KeyEvent e) {
-			// TODO Auto-generated method stub
-			//String _userInput= _field.getText();
-			System.out.println("Text field says "+_field.getText());
-
-			if (_field.getText().trim().length()<=1){
-				_userInput="";
-			}
-
-
-			Character c=e.getKeyChar();
-			if (c==8 && _userInput.length()==0){
-				//do absolutely nothing!!
-			}	
-			else if (c==8 && _userInput.length()>=1){
-				_userInput=_userInput.substring(0, _userInput.length()-1);
-			}
-			else{
-				_userInput=_userInput+e.getKeyChar();
-			}
-
-
-			if (_userInput!=null){
-				System.out.println("input: "+_userInput);
-				String temp="";
-				for (int i=0; i<_userInput.length(); i++){
-					temp=temp+"*";	
-				}
-				_field.setText(temp);
-				_field.setCaretPosition(temp.length());
-			}
-
-
-		}
-
-	}*/
-
 
 	private class RegisterMeListener implements ActionListener{
 
@@ -323,7 +254,6 @@ public class RegistrationPanel extends JPanel {
 			else {
 				// HANDSHAKE:
 				String userName = _usernameField.getText();
-				System.out.println("PASSWORD: " + pwd);
 				String encodedPassword = Base64.encodeBase64String(pwd.getBytes());
 				Message result = _client.sendAndReceive(new Message(MessageContent.NEWUSERID, (Object) userName+"\t"+encodedPassword+"\t"+_emailField.getText()));
 				if(result != null && result.getContent() == MessageContent.DONE){

@@ -252,45 +252,6 @@ public class URLPanel extends JPanel {
 			if (e.getKeyChar()=='\n'){
 				fetch();
 			}
-			/*if (e.getKeyChar()=='\n'){
-			 
-				String input=_field.getText().trim();
-				if (!input.startsWith("http://") && !input.startsWith("https://")){
-					input="http://"+input;
-				}
-				_field.setText(input);
-				HTMLParsing parser;
-				try {
-
-					parser = new HTMLParsing(input);
-					TagURLPanel tag = new TagURLPanel(_frame, _changePanel, _client, parser, input);
-					_changePanel.removeAll();
-					_urlPanel.setPrevious(tag);
-					_changePanel.add(tag);
-					_changePanel.repaint();
-					_changePanel.revalidate();
-					_frame.repaint();
-					_frame.revalidate();
-					System.out.println("herehere");
-				} catch (IOException e1) {
-					// this website does not exist (maybe try with adding "www." in front of it and try again?
-					Font font=new Font("Verdana", Font.BOLD, 15);
-					JPopupMenu pop =  new JPopupMenu();
-					JLabel title1=new JLabel("Invalid URL");
-					title1.setFont(font);
-					title1.setForeground(Color.RED);
-					pop.setLayout(new BorderLayout());
-					pop.setBackground(ColorConstants.EVEN_LIGHTER_SEA);
-					pop.setBorder(BorderFactory.createLineBorder(ColorConstants.EVEN_LIGHTER_SEA));
-					pop.add(title1, BorderLayout.CENTER);
-					pop.setSize(new Dimension(100, 60));
-					pop.setPreferredSize(new Dimension(100, 60));
-					pop.show(_frame, 55, 250);
-					_frame.repaint();
-					_frame.revalidate();
-				} 
-
-			}*/
 		}
 
 		@Override
@@ -333,7 +294,6 @@ public class URLPanel extends JPanel {
 					_frame.getURLPanel().getBackButton().setEnabled(false);
 					_frame.repaint();
 					_frame.revalidate();
-					System.out.println("herehere");
 				}
 			}
 		}
@@ -355,7 +315,6 @@ public class URLPanel extends JPanel {
 					_frame.getURLPanel().getBackButton().setEnabled(false);
 					_frame.repaint();
 					_frame.revalidate();
-					System.out.println("herehere");
 				}
 			}
 		}

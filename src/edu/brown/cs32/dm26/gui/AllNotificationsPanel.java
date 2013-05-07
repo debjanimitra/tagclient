@@ -31,11 +31,8 @@ public class AllNotificationsPanel extends JPanel {
 		super();
 		this.setBackground(ColorConstants.GREY);
 		Message message = client.sendAndReceive(new Message(MessageContent.GET_NOTIFICATIONS, null));
-		System.out.println("Before null check");
 		if (message !=null){
-			System.out.println("msg not null");
 			if (message.getContent()== MessageContent.DONE_GETNOTIFICATIONS){
-				System.out.println("Got here");
 				_options = new ArrayList<NotificationOption>();
 				@SuppressWarnings("unchecked")
 				ArrayList<Notification> result = (ArrayList<Notification>) message.getObject();
@@ -48,9 +45,7 @@ public class AllNotificationsPanel extends JPanel {
 				
 				frame.getNotificationsButton().repaint();
 				frame.getNotificationsButton().revalidate();
-				System.out.println("result size "+ result.size());
 				for (Notification n: result){
-					System.out.println("YAYEEEE");
 					NotificationOption option=new NotificationOption(this, frame, client, result, parentPanel, n);
 					_options.add(option);
 				}
@@ -74,7 +69,6 @@ public class AllNotificationsPanel extends JPanel {
 		parentPanel.revalidate();	
 		frame.repaint();
 		frame.revalidate();
-		System.out.println("After null check");
 		
 	}
 	

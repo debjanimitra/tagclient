@@ -39,7 +39,6 @@ public class NotificationOption extends JPanel{
 
 	public NotificationOption(AllNotificationsPanel panel, MyFrame frame, Client client, ArrayList<Notification> result, NotificationsPanel parentPanel, Notification thisNotification){
 		super();
-		System.out.println("In notification option");
 		this.setSize(new Dimension(570, 100));
 		this.setPreferredSize(new Dimension(570, 100));
 		this.setBackground(ColorConstants.LIGHT_SEA);
@@ -95,17 +94,12 @@ public class NotificationOption extends JPanel{
 		@Override
 		public void mouseClicked(MouseEvent e) {
 			// TODO Auto-generated method stub
-	System.out.println("in action listener");
 			
 			Message result = _client.sendAndReceive(new Message(MessageContent.DELETE_NOTIFICATION, _thisNotification.getID()));
 			if(result != null && result.getContent() == MessageContent.DONE_DELETENOTIFICATION){
-				System.out.println("before barebones");
 				BareBonesBrowserLaunch.openURL(_thisNotification.getURL());
-				System.out.println("Message after");
-				AllNotificationsPanel anp = new AllNotificationsPanel (_client, _parentPanel, _frame); 
-				System.out.println("between");
+				AllNotificationsPanel anp = new AllNotificationsPanel (_client, _parentPanel, _frame); ;
 				_parentPanel.changePanel(anp, _frame);
-				System.out.println("After");
 			} else if(result != null && result.getContent() == MessageContent.ERROR_GETNOTIFICATIONS_UNKNOWNUSER){
 				// there was an error, but that should not occur
 			} else if(result == null){

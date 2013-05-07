@@ -23,7 +23,6 @@ public class WelcomePanel extends JPanel {
 		JLabel label1=new JLabel("   Trakr welcomes you, "+user+"!");
 		label1.setSize(new Dimension(600, 600));
 		label1.setPreferredSize(new Dimension(600, 600));
-		System.out.println(label1.getSize());
 		label1.setFont(font);
 		frame.getURLPanel().getBackButton().setEnabled(false);
 		this.setLayout(new BorderLayout());

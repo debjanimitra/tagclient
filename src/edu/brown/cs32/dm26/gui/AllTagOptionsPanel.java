@@ -34,14 +34,12 @@ public class AllTagOptionsPanel extends JPanel {
 				_options.add(tag);
 			}
 		}
-		System.out.println("Size of arraylist is "+elementOptions.size());
 		int width=570;
 		int height=_options.size()*190;
 		this.setSize(new Dimension(width, height));
 		this.setPreferredSize(new Dimension(width, height));
 		this.setLayout(new GridLayout(_options.size(), 1));
 		for (int i=0; i<_options.size(); i++){
-			System.out.println("Adding"+_options.get(i));
 			this.add(_options.get(i));
 		}
 	}
