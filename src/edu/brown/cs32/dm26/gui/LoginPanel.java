@@ -117,66 +117,6 @@ public class LoginPanel extends JPanel {
 		
 	}
 
-
-/*private class PasswordListener implements KeyListener{
-		
-		private TextField _field;
-		private String _userInput;
-		
-		public PasswordListener(TextField field){
-			_field=field;
-			_userInput="";
-		}
-
-		@Override
-		public void keyTyped(KeyEvent e) {
-			// TODO Auto-generated method stub
-
-		}
-
-		@Override
-		public void keyPressed(KeyEvent e) {
-			// TODO Auto-generated method stub
-
-		}
-
-		@Override
-		public void keyReleased(KeyEvent e) {
-			// TODO Auto-generated method stub
-			//String _userInput= _field.getText();
-			if (_field.getText().trim().length()<=1){
-				_userInput="";
-			}
-			
-			
-			Character c=e.getKeyChar();
-			if (c==8 && _userInput.length()==0){
-				//do absolutely nothing!!
-			}
-			else if (c==8 && _userInput.length()>=1){
-				_userInput=_userInput.substring(0, _userInput.length()-1);
-			}
-			else{
-			_userInput=_userInput+e.getKeyChar();
-			}
-			if (_userInput!=null){
-				System.out.println("input: "+_userInput);
-				String temp="";
-				for (int i=0; i<_userInput.length(); i++){
-					temp=temp+"*";	
-				}
-				_field.setText(temp);
-				_field.setCaretPosition(temp.length());
-			}
-			
-			if (_userInput.length()<=0){
-				_field.setText("");
-			}
-		}
-		
-	}
-*/
-	
 	private class LoginInListener implements ActionListener{
 
 		private JTextField _usernameField;
